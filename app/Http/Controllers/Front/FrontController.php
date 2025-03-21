@@ -19,8 +19,9 @@ use App\Models\DestinationPhoto;
 use App\Models\DestinationVideo;
 use App\Models\Package;
 use App\Mail\Websitemail;
-use Hash;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 
 class FrontController extends Controller
 {
@@ -141,7 +142,7 @@ class FrontController extends Controller
         $message = 'Please click the following link to verify your email address: <br><a href="'.
         $verification_link.'">Verify Email</a>';
 
-        \Mail::to($request->email)->send(new Websitemail($subject,$message));
+        Mail::to($request->email)->send(new Websitemail($subject,$message));
 
 
          return redirect()->back()->with('success','Registration is Successsful,but you have to verify your email address to login. So please check your email to confirm the verification link.');
@@ -218,7 +219,7 @@ class FrontController extends Controller
         $message = "To reset password, please click on the link below:<br>";
         $message .= "<a href='" .$reset_link. "'>Click Here</a>";
 
-        \Mail::to($request->email)->send(new Websitemail($subject,$message));
+        Mail::to($request->email)->send(new Websitemail($subject,$message));
 
         return redirect()->back()->with('success','We have sent a password reset link to your email.');
     }

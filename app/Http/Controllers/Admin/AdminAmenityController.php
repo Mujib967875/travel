@@ -22,46 +22,43 @@ class AdminAmenityController extends Controller
     public function create_submit(Request $request)
     {
         $request->validate([
-            'question' =>'required',
-            'answer' =>'required',
+            'name' =>'required|unique:amenities,name',
         ]);
 
-        $obj = new Faq();
-        $obj->question = $request->question;
-        $obj->answer = $request->answer;
+        $obj = new Amenity();
+        $obj->name = $request->name;
         $obj->save();
 
-        return redirect()->route('admin_faq_index')->with('success', 'FAQ created successfully');
+        return redirect()->route('admin_amenity_index')->with('success', 'Amenity created successfully');
 
     }
 
     public function edit($id)
     {
-    $faq = Faq::where('id', $id)->first();
-        return view('admin.faq.edit', compact('faq'));
+    $amenity = Amenity::where('id', $id)->first();
+        return view('admin.amenity.edit', compact('amenity'));
     }
 
     public function edit_submit(Request $request, $id) 
     {
-         $obj = Faq::where('id',$id)->first();
+         $obj = Amenity::where('id',$id)->first();
 
         $request->validate([
-            'question' =>'required',
-            'answer' =>'required',
+            'name' =>'required|unique:amenities,name,'.$id,
         ]);
 
-        $obj->question = $request->question;
-        $obj->answer = $request->answer;
+        $obj->name = $request->name;
         $obj->save();
 
-        return redirect()->route('admin_faq_index')->with('success', 'FAQ is updated successfully');
+        return redirect()->route('admin_amenity_index')->with('success', 'Amenity is updated successfully');
 
     }
 
     public function delete($id)
     {
-        $faq = FAQ::where('id', $id)->first();
-        $faq->delete();
-        return redirect()->route('admin_faq_index')->with('success', 'FAQ is deleted successfully');
+        $obj = Amenity::where('id', $id)->first();
+        $obj->delete();
+        return redirect()->route('admin_amenity_index')->with('success', 'Amenity is deleted successfully');
     }
+
 }

@@ -21,7 +21,7 @@ use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\User\UserController;
 
 // Pages
-Route::get('/',[FrontController::class,'home'])->name('home');
+Route ::get('/',[FrontController::class,'home'])->name('home');
 Route::get('/about',[FrontController::class,'about'])->name('about');
 Route::get('/team-members',[FrontController::class,'team_members'])->name('team_members');
 Route::get('/team-member/{slug}',[FrontController::class,'team_member'])->name('team_member');
@@ -157,7 +157,13 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::post('/package/edit/{id}',[AdminPackageController::class,'edit_submit'])->name('admin_package_edit_submit');
     Route::get('/package/delete/{id}',[AdminPackageController::class,'delete'])->name('admin_package_delete');
 
-     // Feature Section
+     // Package Amenity Section
+     Route::get('/package-amenities/{id}',[AdminPackageController::class,'package_amenities'])->name('admin_package_amenities');
+     Route::post('/package-amenity-submit/{id}',[AdminPackageController::class,'package_amenity_submit'])->name('admin_package_amenity_submit');
+     Route::get('/package-amenity-delete/{id}',[AdminPackageController::class,'package_amenity_delete'])->name('admin_package_amenity_delete');
+        
+
+     // Amenity Section
     Route::get('/amenity/index',[AdminAmenityController::class,'index'])->name('admin_amenity_index');
     Route::get('/amenity/create',[AdminAmenityController::class,'create'])->name('admin_amenity_create');
     Route::post('/amenity/create',[AdminAmenityController::class,'create_submit'])->name('admin_amenity_create_submit');

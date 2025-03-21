@@ -108,12 +108,12 @@ class AdminDestinationController extends Controller
     {
         $total = DestinationPhoto::where('destination_id',$id)->count();
         if($total > 0) {
-            return redirect()->back()->with('error','First Delete All Photos o This Destination');
+            return redirect()->back()->with('error','First Delete All Photos on This Destination');
         }
 
         $total = DestinationVideo::where('destination_id',$id)->count();
         if($total > 0) {
-            return redirect()->back()->with('error','First Delete All Videos o This Destination');
+            return redirect()->back()->with('error','First Delete All Videos on This Destination');
         }
 
         $destination = Destination::where('id', $id)->first();

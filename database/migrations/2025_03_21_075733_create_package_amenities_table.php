@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('amenities', function (Blueprint $table) {
+        Schema::create('package_amenities', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->integer('package_id');
+            $table->integer('amenity_id');
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('amenities');
+        Schema::dropIfExists('package_amenities');
     }
 };
