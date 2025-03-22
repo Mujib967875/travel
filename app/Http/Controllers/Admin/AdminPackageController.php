@@ -7,13 +7,16 @@ use App\Models\Amenity;
 use App\Models\PackageAmenity;
 use Illuminate\Http\Request;
 use App\Models\Package; 
-use App\Models\Destination; 
+use App\Models\Destination;
+use App\Models\PackageItinerary;
+use App\Models\PackagePhoto;
+
 class AdminPackageController extends Controller
 {
      public function index()
     {
         $packages = Package::get();
-        return view('admin.package.index', compact('packages'));
+        return view('admin.package.index', compact('packages'));                                                                     
     }
 
     public function create()
@@ -123,6 +126,11 @@ class AdminPackageController extends Controller
         // if($total > 0) {
         //     return redirect()->back()->with('error','First Delete All Videos o This Destination');
         // }
+       
+        $total3 = PackageAmenity::where('package_id',$id)->count();
+        if($total3 > 0) {
+            return redirect()->back()->with('error','First Delete All Amenities of This Package');
+        }
 
         $package = Package::where('id', $id)->first();
         unlink(public_path('uploads/'.$package->featured_photo));
@@ -134,33 +142,93 @@ class AdminPackageController extends Controller
     public function package_amenities($id)
     {
         $package = Package::where('id',$id)->first();
-        $package_amenities = PackageAmenity::where('pakage_id',$id)->get();
+        $package_amenities_include = PackageAmenity::with('amenity')->where('package_id',$id)->where('type','Include')->get();
+        $package_amenities_exclude = PackageAmenity::with('amenity')->where('package_id',$id)->where('type','Exclude')->get();
         $amenities = Amenity::orderBy('name','asc')->get();
-        return view('admin.package.amenities',compact('package','package_amenities','amenities'));
+        return view('admin.package.amenities',compact('package','package_amenities_include','package_amenities_exclude','amenities'));
     }
 
     public function package_amenity_submit(Request $request, $id)
+    {
+        $total = PackageAmenity::where('package_id',$id)->where('amenity_id',$request->amenity_id)->count();
+        if($total> 0){
+            return redirect()->back()->with('error','This Item is already Inserted');
+        }
+            $obj = new PackageAmenity;
+            $obj->package_id = $id;
+            $obj->amenity_id = $request->amenity_id;
+            $obj->type = $request->type;
+            $obj->save();
+
+        return redirect()->back()->with('success','Item is Inserted Successfully');
+    }
+
+    public function package_amenity_delete($id)
+    {
+        $obj = PackageAmenity::where('id',$id)->first();
+        $obj->delete();
+        return redirect()->back()->with('success','Item is Deleted Successfully');
+    }
+
+    public function package_itineraries($id)
+    {
+        $package = Package::where('id',$id)->first();
+        $package_itineraries = PackageItinerary::where('package_id',$id)->get();
+        return view('admin.package.itineraries',compact('package','package_itineraries'));
+    }
+
+    public function package_itinerary_submit(Request $request, $id)
+    {
+            $request->validate([
+                'name'=> 'required',
+                'description'=> 'required',
+            ]);
+            
+            $obj = new PackageItinerary;
+            $obj->package_id = $id;
+            $obj->name = $request->name;
+            $obj->description = $request->description;
+            $obj->save();
+
+        return redirect()->back()->with('success','Item is Inserted Successfully');
+    }
+
+    public function package_itinerary_delete($id)
+    {
+        $obj = PackageItinerary::where('id',$id)->first();
+        $obj->delete();
+        return redirect()->back()->with('success','Item is Deleted Successfully');
+    }
+
+    public function package_photos($id)
+    {
+        $package = Package::where('id',$id)->first();
+        $package_photos = PackagePhoto::where('package_id',$id)->get();
+        return view('admin.package.photos',compact('package','package_photos'));
+    }
+
+    public function package_photo_submit(Request $request, $id)
     {
         $request->validate([
             'photo' =>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-         $final_name = 'destination_'.time().'.'.$request->photo->extension();
+         $final_name = 'package_'.time().'.'.$request->photo->extension();
             $request->photo->move(public_path('uploads'), $final_name);
 
-            $obj = new DestinationPhoto;
-            $obj->destination_id =$id;
+            $obj = new PackagePhoto;
+            $obj->package_id =$id;
             $obj->photo = $final_name;
             $obj->save();
 
-        return redirect()->back()->with('success','Destination Photo is updated Successfully');
+        return redirect()->back()->with('success','Photo is updated Successfully');
     }
 
-    public function package_amenity_delete($id)
+    public function package_photo_delete($id)
     {
-        $destination_photo = DestinationPhoto::where('id',$id)->first();
-        unlink(public_path('uploads/'.$destination_photo->photo));
-        $destination_photo->delete();
+        $package_photo = PackagePhoto::where('id',$id)->first();
+        unlink(public_path('uploads/'.$package_photo->photo));
+        $package_photo->delete();
         return redirect()->back()->with('success','Photo is Deleted Successfully');
     }
 

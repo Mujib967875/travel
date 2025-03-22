@@ -43,7 +43,7 @@
                                     <button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-1-pane" type="button" role="tab" aria-controls="tab-1-pane" aria-selected="true">Detail</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-2-pane" type="button" role="tab" aria-controls="tab-2-pane" aria-selected="false">Tour Plan</button>
+                                    <button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-2-pane" type="button" role="tab" aria-controls="tab-2-pane" aria-selected="false">Itinerary</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-3-pane" type="button" role="tab" aria-controls="tab-3-pane" aria-selected="false">Location</button>
@@ -76,42 +76,22 @@
                                     <h2 class="mt_30">Includes</h2>
                                     <div class="amenity">
                                         <div class="row">
+                                            @foreach ($package_amenities_include as $item)
                                             <div class="col-lg-3 mb_15">
-                                                <i class="fas fa-check"></i> Swimming Pool
+                                                <i class="fas fa-check"></i> {{  $item->amenity->name }}
                                             </div>
-                                            <div class="col-lg-3 mb_15">
-                                                <i class="fas fa-check"></i> Mountain Bike
-                                            </div>
-                                            <div class="col-lg-3 mb_15">
-                                                <i class="fas fa-check"></i> Sightseeing
-                                            </div>
-                                            <div class="col-lg-3 mb_15">
-                                                <i class="fas fa-check"></i> Free Wifi
-                                            </div>
-                                            <div class="col-lg-3 mb_15">
-                                                <i class="fas fa-check"></i> Personal Guide
-                                            </div>
-                                            <div class="col-lg-3 mb_15">
-                                                <i class="fas fa-check"></i> Entrance Fees
-                                            </div>
-                                            <div class="col-lg-3 mb_15">
-                                                <i class="fas fa-check"></i> Air fares
-                                            </div>
-                                            <div class="col-lg-3 mb_15">
-                                                <i class="fas fa-check"></i> Accommodation
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
 
                                     <h2 class="mt_30">Excludes</h2>
                                     <div class="amenity">
                                         <div class="row">
+                                            @foreach ($package_amenities_exclude as $item)
                                             <div class="col-lg-3 mb_15">
-                                                <i class="fas fa-times"></i> Departure Taxes
+                                                <i class="fas fa-times"></i> {{ $item->amenity->name }}
                                             </div>
-                                            <div class="col-lg-3 mb_15">
-                                                <i class="fas fa-times"></i> Festival & Events
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                     <!-- // Detail -->
@@ -120,42 +100,25 @@
                                 </div>
 
                                 <div class="tab-pane fade" id="tab-2-pane" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
-                                    <!-- Tour Plan -->
-                                    <h2 class="mt_30">Tour Plan</h2>
+                                    <!-- Itinerary -->
+                                    <h2 class="mt_30">itinerary</h2>
                                     <div class="tour-plan">
                                         
                                         <div class="table-responsive">
                                             <table class="table table-bordered">
+                                                @foreach ($package_itineraries as $item)
                                                 <tr>
-                                                    <td><b>Day 1</b></td>
+                                                    <td><b>{{ $item->name }}</b></td>
                                                     <td>
-                                                        <b>Morning:</b><br>
-                                                        1. Arrive at Cairns or Port Douglas and check into your hotel.<br>
-                                                        2. Welcome meeting with the tour guide and fellow travelers.<br>
-
-                                                        <b>Afternoon</b><br>
-                                                        1. Lunch at a local restaurant.<br>
-                                                        2. Visit the Cairns Aquarium to get an introduction to the marine life of the Great Barrier Reef.<br>
-
-                                                        <b>Evening</b><br>
-                                                        1. Free time to explore the local area.<br>
-                                                        2. Welcome dinner at the hotel, with an overview of the tour itinerary and reef conservation briefing.<br>
+                                                        {!! $item->description !!}
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td><b>Day 2</b></td>
-                                                    <td>
-                                                        <b>Morning: </b><br>
-                                                        1. Early breakfast at the hotel.<br>
-                                                        2. Depart for the Great Barrier Reef on a comfortable catamaran.<br>
-                                                        3. Safety briefing and equipment fitting for snorkeling and diving.<br>
-                                                    </td>
-                                                </tr>
+                                                @endforeach
                                             </table>
                                         </div>
                                     </div>
 
-                                    <!-- // Tour Plan -->
+                                    <!-- // Itinerary -->
                                 </div>
 
                                 <div class="tab-pane fade" id="tab-3-pane" role="tabpanel" aria-labelledby="tab-3" tabindex="0">
@@ -174,62 +137,15 @@
                                     </h2>
                                     <div class="photo-all">
                                         <div class="row">
+                                            @foreach ($package_photos as $item)
                                             <div class="col-md-6 col-lg-3">
                                                 <div class="item">
-                                                    <a href="uploads/package-thumb-1.jpg" class="magnific">
-                                                        <img src="uploads/package-thumb-1.jpg" alt="">
+                                                    <a href="{{ asset('uploads/'.$item->photo) }}" class="magnific">
+                                                        <img src="{{ asset('uploads/'.$item->photo) }}" alt="">
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-lg-3">
-                                                <div class="item">
-                                                    <a href="uploads/package-thumb-2.jpg" class="magnific">
-                                                        <img src="uploads/package-thumb-2.jpg" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-lg-3">
-                                                <div class="item">
-                                                    <a href="uploads/package-thumb-3.jpg" class="magnific">
-                                                        <img src="uploads/package-thumb-3.jpg" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-lg-3">
-                                                <div class="item">
-                                                    <a href="uploads/package-thumb-4.jpg" class="magnific">
-                                                        <img src="uploads/package-thumb-4.jpg" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-lg-3">
-                                                <div class="item">
-                                                    <a href="uploads/package-thumb-5.jpg" class="magnific">
-                                                        <img src="uploads/package-thumb-5.jpg" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-lg-3">
-                                                <div class="item">
-                                                    <a href="uploads/package-thumb-6.jpg" class="magnific">
-                                                        <img src="uploads/package-thumb-6.jpg" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-lg-3">
-                                                <div class="item">
-                                                    <a href="uploads/package-thumb-7.jpg" class="magnific">
-                                                        <img src="uploads/package-thumb-7.jpg" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-lg-3">
-                                                <div class="item">
-                                                    <a href="uploads/package-thumb-8.jpg" class="magnific">
-                                                        <img src="uploads/package-thumb-8.jpg" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
 

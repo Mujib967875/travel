@@ -14,5 +14,15 @@ class Package extends Model
         return $this->belongsTo(Destination::class);
     }
 
+    public function package_itineraries()
+    {
+        return $this->belongsTo(PackageItinerary::class);
+    }
+
+    public function package_photo()
+    {
+        return $this->belongsTo(PackagePhoto::class);
+    }
+
     
 }

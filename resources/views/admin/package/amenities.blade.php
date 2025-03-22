@@ -15,24 +15,26 @@
                     <div class="col-7">
                         <div class="card">
                             <div class="card-body">
+
+
+
+                                <h4>Includes</h4>
                                   <div class="table-responsive">
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>SL</th>
                                                     <th> Amenity</th>
-                                                    <th> Type</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                              @foreach ($package_amenities as $item)                          
+                                              @foreach ($package_amenities_include as $item)                          
                                               <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td> 
-                                                  {{ $item->amenity_id }}
+                                                  {{ $item->amenity->name}}
                                                 </td>
-                                                <td>{{ $item->type }}</td>
                                                 <td>
                                                   <a href="{{ route('admin_package_amenity_delete',$item->id) }}" class="btn btn-danger btn-sm" onClick="return confirm('Are you sure?');">Delete</a>
                                                 </td>
@@ -41,6 +43,35 @@
                                             </tbody>
                                         </table>
                                   </div>
+
+                                <h4>Excludes</h4>
+                                  <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>SL</th>
+                                                    <th> Amenity</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                              @foreach ($package_amenities_exclude as $item)                          
+                                              <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td> 
+                                                  {{ $item->amenity->name}}
+                                                </td>
+                                                <td>
+                                                  <a href="{{ route('admin_package_amenity_delete',$item->id) }}" class="btn btn-danger btn-sm" onClick="return confirm('Are you sure?');">Delete</a>
+                                                </td>
+                                              </tr>
+                                               @endforeach
+                                            </tbody>
+                                        </table>
+                                  </div>
+
+
+
                             </div>
                         </div>
                     </div>
@@ -48,12 +79,17 @@
                         <div class="card">
                             <div class="card-body">
                                    <form action="{{ route('admin_package_amenity_submit',$package->id) }}" method="POST">
+                                    <input type="hidden" name="package_id" value="{{ $package->id }}">
                                   @csrf
                                   <div class="mb-3">
                                     <label class="form-label">amenity *</label>
-                                    <select name="amenity-id" class="form-select">
-
+                                    <select name="amenity_id" class="form-select">
+                                        @foreach ($amenities as $amenity)
+                                            <option value="{{ $amenity->id }}">{{ $amenity->name }}</option>
+                                        @endforeach
                                     </select>
+                                  </div>
+                                  <div class="mb-3">
                                     <select name="type" class="form-select">
                                         <option value="Include">Include</option>
                                         <option value="Exclude">Exclude</option>

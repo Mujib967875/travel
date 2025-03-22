@@ -18,7 +18,11 @@ use App\Models\Destination;
 use App\Models\DestinationPhoto;
 use App\Models\DestinationVideo;
 use App\Models\Package;
+use App\Models\PackageAmenity;
+use App\Models\Amenity;
 use App\Mail\Websitemail;
+use App\Models\PackageItinerary;
+use App\Models\PackagePhoto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
@@ -109,7 +113,11 @@ class FrontController extends Controller
     public function package($slug)
    {
         $package = Package::with('destination')->where('slug',$slug)->first();
-        return view('front.package', compact('package'));
+        $package_amenities_include = PackageAmenity::with('amenity')->where('package_id',$package->id)->where('type','Include')->get();
+        $package_amenities_exclude = PackageAmenity::with('amenity')->where('package_id',$package->id)->where('type','Exclude')->get();
+        $package_itineraries = PackageItinerary::where('package_id',$package->id)->get();
+        $package_photos = PackagePhoto::where('package_id',$package->id)->get();
+        return view('front.package', compact('package','package_amenities_include','package_amenities_exclude','package_itineraries','package_photos'));
    } 
 
     public function registration()
