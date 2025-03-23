@@ -171,6 +171,11 @@ Route::middleware('admin')->prefix('admin')->group(function () {
      Route::get('/package-photos/{id}',[AdminPackageController::class,'package_photos'])->name('admin_package_photos');
      Route::post('/package-photo-submit/{id}',[AdminPackageController::class,'package_photo_submit'])->name('admin_package_photo_submit');
      Route::get('/package-photo-delete/{id}',[AdminPackageController::class,'package_photo_delete'])->name('admin_package_photo_delete');
+     
+     // Package Videos Section
+     Route::get('/package-videos/{id}',[AdminPackageController::class,'package_videos'])->name('admin_package_videos');
+     Route::post('/package-video-submit/{id}',[AdminPackageController::class,'package_video_submit'])->name('admin_package_video_submit');
+     Route::get('/package-video-delete/{id}',[AdminPackageController::class,'package_video_delete'])->name('admin_package_video_delete');
         
      
      // Amenity Section

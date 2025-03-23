@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2025 at 10:42 AM
+-- Generation Time: Mar 23, 2025 at 10:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -66,12 +66,12 @@ INSERT INTO `amenities` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Swimming Pool', '2025-03-21 00:32:40', '2025-03-21 00:32:40'),
 (2, 'Sightseeing', '2025-03-21 00:36:45', '2025-03-21 00:36:45'),
 (3, 'Free Wifi', '2025-03-21 00:36:57', '2025-03-21 00:36:57'),
-(4, 'Gym', '2025-03-21 00:37:04', '2025-03-21 00:37:04'),
 (5, 'Personal Guide', '2025-03-21 00:37:17', '2025-03-21 00:37:17'),
 (6, 'Mountain Bike', '2025-03-21 00:37:28', '2025-03-21 00:37:28'),
 (7, 'Festival', '2025-03-21 00:37:36', '2025-03-21 00:37:36'),
 (8, 'Airconditioner', '2025-03-21 00:38:13', '2025-03-21 00:38:13'),
-(9, 'Free Transportation', '2025-03-21 00:38:40', '2025-03-21 00:38:40');
+(9, 'Free Transportation', '2025-03-21 00:38:40', '2025-03-21 00:38:40'),
+(11, 'Gym', '2025-03-21 22:41:22', '2025-03-21 22:41:22');
 
 -- --------------------------------------------------------
 
@@ -375,7 +375,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (21, '2025_03_15_054838_create_destination_videos_table', 18),
 (22, '2025_03_17_072756_create_packages_table', 19),
 (23, '2025_03_21_032951_create_amenities_table', 20),
-(24, '2025_03_21_075733_create_package_amenities_table', 21);
+(24, '2025_03_21_075733_create_package_amenities_table', 21),
+(25, '2025_03_22_062038_create_package_itineraries_table', 22),
+(26, '2025_03_22_073629_create_package_photos_table', 23),
+(27, '2025_03_23_080316_create_package_videos_table', 24);
 
 -- --------------------------------------------------------
 
@@ -403,7 +406,8 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`id`, `destination_id`, `featured_photo`, `banner`, `name`, `slug`, `description`, `map`, `price`, `old_price`, `created_at`, `updated_at`) VALUES
-(2, 1, 'package_fetured_1742274662.jpg', 'package_fetured_1742275046.jpg', 'Great Barrier Reef', 'great-barrier-reef', '<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">The Great Barrier Reef, located off the coast of Queensland, Australia, is the world\'s largest coral reef system, stretching over 2,300 kilometers and comprising more than 2,900 individual reefs and 900 islands. Renowned for its stunning biodiversity, the reef is home to an extraordinary variety of marine life, including over 1,500 species of fish and 400 types of coral. Its vibrant coral formations and crystal-clear waters make it a premier destination for snorkeling and diving enthusiasts.</p>\r\n<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Beyond its natural beauty, the Great Barrier Reef holds significant ecological and economic importance. It supports a vast array of marine life and contributes to the livelihoods of many local communities through tourism and fishing. However, the reef faces numerous threats, including climate change and coral bleaching, making conservation efforts crucial for its future.</p>', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d424143.8759805434!2d150.60231267007427!3d-33.847805231787184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b129838f39a743f%3A0x3017d681632a850!2sSydney%20New%20South%20Wales%2C%20Australia!5e0!3m2!1sid!2sid!4v1742285686544!5m2!1sid!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', '300', '600', '2025-03-17 09:53:33', '2025-03-18 01:15:41');
+(2, 1, 'package_fetured_1742274662.jpg', 'package_fetured_1742275046.jpg', 'Great Barrier Reef', 'great-barrier-reef', '<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">The Great Barrier Reef, located off the coast of Queensland, Australia, is the world\'s largest coral reef system, stretching over 2,300 kilometers and comprising more than 2,900 individual reefs and 900 islands. Renowned for its stunning biodiversity, the reef is home to an extraordinary variety of marine life, including over 1,500 species of fish and 400 types of coral. Its vibrant coral formations and crystal-clear waters make it a premier destination for snorkeling and diving enthusiasts.</p>\r\n<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Beyond its natural beauty, the Great Barrier Reef holds significant ecological and economic importance. It supports a vast array of marine life and contributes to the livelihoods of many local communities through tourism and fishing. However, the reef faces numerous threats, including climate change and coral bleaching, making conservation efforts crucial for its future.</p>', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d424143.8759805434!2d150.60231267007427!3d-33.847805231787184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b129838f39a743f%3A0x3017d681632a850!2sSydney%20New%20South%20Wales%2C%20Australia!5e0!3m2!1sid!2sid!4v1742285686544!5m2!1sid!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', '300', '600', '2025-03-17 09:53:33', '2025-03-18 01:15:41'),
+(6, 2, 'package_featured_1742720023.jpg', 'package_banner_1742720023.jpg', 'aaa', 'aaa', '<p>aaa</p>', 'aaa', '1', '2', '2025-03-23 01:53:43', '2025-03-23 01:53:43');
 
 -- --------------------------------------------------------
 
@@ -414,11 +418,95 @@ INSERT INTO `packages` (`id`, `destination_id`, `featured_photo`, `banner`, `nam
 CREATE TABLE `package_amenities` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `package_id` int(11) NOT NULL,
-  `amenity_id` int(11) NOT NULL,
+  `amenity_id` int(11) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `package_amenities`
+--
+
+INSERT INTO `package_amenities` (`id`, `package_id`, `amenity_id`, `type`, `created_at`, `updated_at`) VALUES
+(1, 2, 3, 'Include', '2025-03-21 22:51:58', '2025-03-21 22:51:58'),
+(2, 2, 7, 'Include', '2025-03-21 22:52:01', '2025-03-21 22:52:01'),
+(3, 2, 11, 'Include', '2025-03-21 22:52:05', '2025-03-21 22:52:05'),
+(4, 2, 9, 'Exclude', '2025-03-21 22:52:11', '2025-03-21 22:52:11'),
+(5, 2, 6, 'Exclude', '2025-03-21 22:52:19', '2025-03-21 22:52:19'),
+(7, 2, 5, 'Exclude', '2025-03-21 22:52:37', '2025-03-21 22:52:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `package_itineraries`
+--
+
+CREATE TABLE `package_itineraries` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `package_id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `package_itineraries`
+--
+
+INSERT INTO `package_itineraries` (`id`, `package_id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 2, 'Day 1', '<p><span style=\"box-sizing: border-box; font-weight: bolder; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Morning:</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">1. Arrive at Cairns or Port Douglas and check into your hotel.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">2. Welcome meeting with the tour guide and fellow travelers.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"box-sizing: border-box; font-weight: bolder; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Afternoon</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">1. Lunch at a local restaurant.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">2. Visit the Cairns Aquarium to get an introduction to the marine life of the Great Barrier Reef.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"box-sizing: border-box; font-weight: bolder; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Evening</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">1. Free time to explore the local area.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">2. Welcome dinner at the hotel, with an overview of the tour itinerary and reef conservation briefing.</span></p>', '2025-03-22 00:08:41', '2025-03-22 00:08:41'),
+(2, 2, 'Day 2', '<p><span style=\"box-sizing: border-box; font-weight: bolder; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Morning:</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">1. Arrive at Cairns or Port Douglas and check into your hotel.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">2. Welcome meeting with the tour guide and fellow travelers.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"box-sizing: border-box; font-weight: bolder; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Afternoon</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">1. Lunch at a local restaurant.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">2. Visit the Cairns Aquarium to get an introduction to the marine life of the Great Barrier Reef.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"box-sizing: border-box; font-weight: bolder; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Evening</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">1. Free time to explore the local area.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">2. Welcome dinner at the hotel, with an overview of the tour itinerary and reef conservation briefing.</span></p>\r\n<p>&nbsp;</p>', '2025-03-22 00:09:52', '2025-03-22 00:09:52'),
+(4, 2, 'Day 3', '<p><span style=\"box-sizing: border-box; font-weight: bolder; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Morning:</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">1. Arrive at Cairns or Port Douglas and check into your hotel.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">2. Welcome meeting with the tour guide and fellow travelers.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"box-sizing: border-box; font-weight: bolder; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Afternoon</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">1. Lunch at a local restaurant.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">2. Visit the Cairns Aquarium to get an introduction to the marine life of the Great Barrier Reef.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"box-sizing: border-box; font-weight: bolder; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Evening</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">1. Free time to explore the local area.</span><br style=\"box-sizing: border-box; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\" /><span style=\"color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">2. Welcome dinner at the hotel, with an overview of the tour itinerary and reef conservation briefing.</span></p>', '2025-03-22 00:10:59', '2025-03-22 00:10:59');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `package_photos`
+--
+
+CREATE TABLE `package_photos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `package_id` int(11) NOT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `package_photos`
+--
+
+INSERT INTO `package_photos` (`id`, `package_id`, `photo`, `created_at`, `updated_at`) VALUES
+(1, 2, 'package_1742632950.jpg', '2025-03-22 01:42:30', '2025-03-22 01:42:30'),
+(3, 2, 'package_1742633136.jpg', '2025-03-22 01:45:36', '2025-03-22 01:45:36'),
+(4, 2, 'package_1742633142.jpg', '2025-03-22 01:45:42', '2025-03-22 01:45:42'),
+(5, 2, 'package_1742634112.jpg', '2025-03-22 02:01:52', '2025-03-22 02:01:52'),
+(6, 2, 'package_1742634116.jpg', '2025-03-22 02:01:56', '2025-03-22 02:01:56'),
+(7, 2, 'package_1742634126.jpg', '2025-03-22 02:02:06', '2025-03-22 02:02:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `package_videos`
+--
+
+CREATE TABLE `package_videos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `package_id` int(11) NOT NULL,
+  `video` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `package_videos`
+--
+
+INSERT INTO `package_videos` (`id`, `package_id`, `video`, `created_at`, `updated_at`) VALUES
+(1, 2, 'AR1cSKxxSmU', '2025-03-23 01:42:04', '2025-03-23 01:42:04'),
+(2, 6, 'r9PeYPHdpNo', '2025-03-23 01:54:29', '2025-03-23 01:54:29');
 
 -- --------------------------------------------------------
 
@@ -479,7 +567,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('ZKktS4pwRfHYS88CorWqNFlXzv2DWrcRctXellbY', 22, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoibHhyd2pGWDV5UEd1NDRYVmt6NmtiVkFZTXZpQklEUmM0VmJBZlFHSiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9wYWNrYWdlL2luZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MjoibG9naW5fYWRtaW5fNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIyO30=', 1742544227);
+('s8bKCNbFAp2CF5DSHsKSDCOhyxeadStZwn0Kbw00', 22, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaXBjaHZXU2FVMU1Ud3dvaEtSMVJza3F4bUp2WmM4cUZROXUzUWNjYSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wYWNrYWdlL2dyZWF0LWJhcnJpZXItcmVlZiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMjt9', 1742634130),
+('th8FqFS8L2C9eZvHUbJoOvmba4CcU9c72bWZPEOF', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiNFFNV3Q3NXprVjhmTmdNQjhyemxzY0VWaDQzd0hSa3JDMkNZblBJRyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wYWNrYWdlL2dyZWF0LWJhcnJpZXItcmVlZiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1742720853);
 
 -- --------------------------------------------------------
 
@@ -756,6 +845,24 @@ ALTER TABLE `package_amenities`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `package_itineraries`
+--
+ALTER TABLE `package_itineraries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `package_photos`
+--
+ALTER TABLE `package_photos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `package_videos`
+--
+ALTER TABLE `package_videos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
@@ -826,7 +933,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `amenities`
 --
 ALTER TABLE `amenities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `blog_categories`
@@ -886,19 +993,37 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `package_amenities`
 --
 ALTER TABLE `package_amenities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `package_itineraries`
+--
+ALTER TABLE `package_itineraries`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `package_photos`
+--
+ALTER TABLE `package_photos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `package_videos`
+--
+ALTER TABLE `package_videos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `posts`

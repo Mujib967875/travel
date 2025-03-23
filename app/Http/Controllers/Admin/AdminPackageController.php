@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Amenity;
 use App\Models\PackageAmenity;
+use App\Models\PackageVideo;
 use Illuminate\Http\Request;
 use App\Models\Package; 
 use App\Models\Destination;
@@ -117,15 +118,15 @@ class AdminPackageController extends Controller
 
     public function delete($id)
     {
-        // $total = DestinationPhoto::where('destination_id',$id)->count();
-        // if($total > 0) {
-        //     return redirect()->back()->with('error','First Delete All Photos o This Destination');
-        // }
+        $total = PackagePhoto::where('package_id',$id)->count();
+        if($total > 0) {
+            return redirect()->back()->with('error','First Delete All Photos of This Package');
+        }
 
-        // $total = DestinationVideo::where('destination_id',$id)->count();
-        // if($total > 0) {
-        //     return redirect()->back()->with('error','First Delete All Videos o This Destination');
-        // }
+        $total = PackageVideo::where('package_id',$id)->count();
+        if($total > 0) {
+            return redirect()->back()->with('error','First Delete All Videos of  This Package');
+        }
        
         $total3 = PackageAmenity::where('package_id',$id)->count();
         if($total3 > 0) {
@@ -230,6 +231,35 @@ class AdminPackageController extends Controller
         unlink(public_path('uploads/'.$package_photo->photo));
         $package_photo->delete();
         return redirect()->back()->with('success','Photo is Deleted Successfully');
+    }
+
+
+    public function package_videos($id)
+    {
+        $package = Package::where('id',$id)->first();
+        $package_videos = PackageVideo::where('package_id',$id)->get();
+        return view('admin.package.videos',compact('package','package_videos'));
+    } 
+
+    public function package_video_submit(Request $request, $id)
+    {
+        $request->validate([
+            'video' =>'required',
+        ]);
+
+            $obj = new PackageVideo;
+            $obj->package_id =$id;
+            $obj->video = $request->video;
+            $obj->save();
+
+        return redirect()->back()->with('success','Video is updated Successfully');
+    }
+
+    public function package_video_delete($id)
+    {
+        $package_video = PackageVideo::where('id',$id)->first();
+        $package_video->delete();
+        return redirect()->back()->with('success','Video is Deleted Successfully');
     }
 
 

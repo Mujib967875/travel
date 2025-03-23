@@ -19,9 +19,13 @@ class Package extends Model
         return $this->belongsTo(PackageItinerary::class);
     }
 
-    public function package_photo()
+    public function package_photos()
     {
         return $this->belongsTo(PackagePhoto::class);
+    }
+    public function package_videos()
+    {
+        return $this->belongsTo(PackageVideo::class);
     }
 
     
