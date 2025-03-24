@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Amenity;
 use App\Models\PackageAmenity;
+use App\Models\PackageFaq;
 use App\Models\PackageVideo;
 use Illuminate\Http\Request;
 use App\Models\Package; 
@@ -23,7 +24,7 @@ class AdminPackageController extends Controller
     public function create()
     {
         $destinations = Destination::orderBy('name','asc')->get();
-        return view('admin.package.create',compact('destinations'));
+        return view('admin.package.create',compact(var_name: 'destinations'));
     }
 
     public function create_submit(Request $request)
@@ -104,7 +105,8 @@ class AdminPackageController extends Controller
             $package->banner = $final_name;
          }
 
-        $package->destination_id = $request->destination_id;        $package->name = $request->name;
+        $package->destination_id = $request->destination_id;
+        $package->name = $request->name;
         $package->slug = $request->slug;
         $package->description = $request->description;
         $package->price = $request->price;
@@ -123,14 +125,24 @@ class AdminPackageController extends Controller
             return redirect()->back()->with('error','First Delete All Photos of This Package');
         }
 
-        $total = PackageVideo::where('package_id',$id)->count();
+        $total1 = PackageVideo::where('package_id',$id)->count();
         if($total > 0) {
             return redirect()->back()->with('error','First Delete All Videos of  This Package');
         }
        
+        $total2 = PackageAmenity::where('package_id',$id)->count();
+        if($total2 > 0) {
+            return redirect()->back()->with('error','First Delete All Amenities of This Package');
+        }
+        
         $total3 = PackageAmenity::where('package_id',$id)->count();
         if($total3 > 0) {
-            return redirect()->back()->with('error','First Delete All Amenities of This Package');
+            return redirect()->back()->with('error','First Delete All Itineraries of This Package');
+        }
+        
+        $total4 = PackageFaq::where('package_id',$id)->count();
+        if($total4 > 0) {
+            return redirect()->back()->with('error','First Delete All FAQs of This Package');
         }
 
         $package = Package::where('id', $id)->first();
@@ -262,5 +274,33 @@ class AdminPackageController extends Controller
         return redirect()->back()->with('success','Video is Deleted Successfully');
     }
 
+    public function package_faqs($id)
+    {
+        $package = Package::where('id',$id)->first();
+        $package_faqs = PackageFaq::where('package_id',$id)->get();
+        return view('admin.package.faqs',compact('package','package_faqs'));
+    } 
 
+    public function package_faq_submit(Request $request, $id)
+    {
+        $request->validate([
+            'question' =>'required',
+            'answer' =>'required',
+        ]);
+
+            $obj = new PackageFaq;
+            $obj->package_id =$id;
+            $obj->question = $request->question;
+            $obj->answer = $request->answer;
+            $obj->save();
+
+        return redirect()->back()->with('success','Video is updated Successfully');
+    }
+
+    public function package_faq_delete($id)
+    {
+        $package_faq = PackageFaq::where('id',$id)->first();
+        $package_faq->delete();
+        return redirect()->back()->with('success','Faq is Deleted Successfully');
+    }
 }

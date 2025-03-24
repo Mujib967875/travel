@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CounterItem;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Admin;
 use App\Models\Slider;
 use App\Models\WelcomeItem;
 use App\Models\Feature;
@@ -21,6 +22,7 @@ use App\Models\Package;
 use App\Models\PackageAmenity;
 use App\Models\Amenity;
 use App\Mail\Websitemail;
+use App\Models\PackageFaq;
 use App\Models\PackageItinerary;
 use App\Models\PackagePhoto;
 use App\Models\PackageVideo;
@@ -119,8 +121,33 @@ class FrontController extends Controller
         $package_itineraries = PackageItinerary::where('package_id',$package->id)->get();
         $package_photos = PackagePhoto::where('package_id',$package->id)->get();
         $package_videos = PackageVideo::where('package_id',$package->id)->get();
-        return view('front.package', compact('package','package_amenities_include','package_amenities_exclude','package_itineraries','package_photos','package_videos'));
+        $package_faqs = PackageFaq::where('package_id',$package->id)->get();
+        return view('front.package', compact('package','package_amenities_include','package_amenities_exclude','package_itineraries','package_photos','package_videos','package_faqs'));
    } 
+
+   public function enquery_form_submit(Request $request,$id)
+   {
+
+    $package = Package::where('id',$id)->first();
+    $admin = Admin::where('id',1)->first();
+
+        $request->validate([
+            'name' => 'required',
+            'email'=> 'required|email',
+            'phone'=> 'required',
+            'message'=> 'required',
+            ]);
+
+            $subject = "Enquery about the package";
+            $message = "<b>Name:</b><br>".$request->name."<br><br>";
+            $message .= "<b>Email:</b><br>".$request->email."<br><br>";
+            $message .= "<b>Phone:</b><br>".$request->phone."<br><br>";
+            $message .= "<b>Message:</b><br>".nl2br($request->message)."<br><br>";
+
+            Mail::to($request->email)->send(new Websitemail($subject, $message));
+
+            return redirect()->back()->with('success','Your enquery is submitted successfully. We will contact you soon.');
+   }
 
     public function registration()
     {

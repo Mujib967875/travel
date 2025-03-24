@@ -16,17 +16,21 @@ class Package extends Model
 
     public function package_itineraries()
     {
-        return $this->belongsTo(PackageItinerary::class);
+        return $this->hasMany(PackageItinerary::class);
     }
 
     public function package_photos()
     {
-        return $this->belongsTo(PackagePhoto::class);
+        return $this->hasMany(PackagePhoto::class);
     }
     public function package_videos()
     {
-        return $this->belongsTo(PackageVideo::class);
+        return $this->hasMany(PackageVideo::class);
     }
 
-    
+    public function faqs()
+    {
+        return $this->hasMany(PackageFaq::class);
+    }
+
 }

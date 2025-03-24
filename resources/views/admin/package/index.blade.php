@@ -40,8 +40,7 @@
                                                         <a href="{{ route('admin_package_itineraries',$package->id) }}" class="btn btn-success">Itineraries</a>
                                                         <a href="{{ route('admin_package_photos',$package->id) }}" class="btn btn-success">Photo Gallery</a>
                                                         <a href="{{ route('admin_package_videos',$package->id) }}" class="btn btn-success">Video Gallery</a>
-                                                        {{-- <a href="{{ route('admin_package_photos',$package->id) }}" class="btn btn-success btn-sm">Photo Gallery</a>
-                                                        <a href="{{ route('admin_package_videos',$package->id) }}" class="btn btn-success btn-sm">Video Gallery</a> --}}
+                                                        <a href="{{ route('admin_package_faqs',$package->id) }}" class="btn btn-success"> FAQ</a>
                                                     </td>
                                                     <td class="pt_10 pb_10">
                                                         <a href="{{ route('admin_package_edit', $package->id)}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
