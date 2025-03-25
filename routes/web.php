@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminDestinationController;
 use App\Http\Controllers\Admin\AdminPackageController;
 use App\Http\Controllers\Admin\AdminAmenityController;
+use App\Http\Controllers\Admin\AdminTourController;
 
 use App\Http\Controllers\Front\FrontController;
 
@@ -191,6 +192,14 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/amenity/edit/{id}',[AdminAmenityController::class,'edit'])->name('admin_amenity_edit');
     Route::post('/amenity/edit/{id}',[AdminAmenityController::class,'edit_submit'])->name('admin_amenity_edit_submit');
     Route::get('/amenity/delete/{id}',[AdminAmenityController::class,'delete'])->name('admin_amenity_delete');
+
+    // Tour Section
+    Route::get('/tour/index',[AdminTourController::class,'index'])->name('admin_tour_index');
+    Route::get('/tour/create',[AdminTourController::class,'create'])->name('admin_tour_create');
+    Route::post('/tour/create',[AdminTourController::class,'create_submit'])->name('admin_tour_create_submit');
+    Route::get('/tour/edit/{id}',[AdminTourController::class,'edit'])->name('admin_tour_edit');
+    Route::post('/tour/edit/{id}',[AdminTourController::class,'edit_submit'])->name('admin_tour_edit_submit');
+    Route::get('/tour/delete/{id}',[AdminTourController::class,'delete'])->name('admin_tour_delete');
 });    
 Route::prefix('admin')->group(function () {
        Route::get('/login',[AdminLoginController::class,'login'])->name('admin_login');

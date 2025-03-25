@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('dist/css/bootstrap4-toggle.min.css')}}">
     <link rel="stylesheet" href="{{ asset('dist/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('dist/css/components.css')}}">
-    <link rel="stylesheet" href="{{ asset('dist/css/air-datepicker.min.css2')}}">
+    <link rel="stylesheet" href="{{ asset('dist/css/air-datepicker.min.css')}}">
     <link rel="stylesheet" href="{{ asset('dist/css/spacing.css')}}">
     <link rel="stylesheet" href="{{ asset('dist/css/custom.css')}}">
 
