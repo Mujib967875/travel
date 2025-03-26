@@ -12,6 +12,7 @@ use App\Models\Package;
 use App\Models\Destination;
 use App\Models\PackageItinerary;
 use App\Models\PackagePhoto;
+use App\Models\Tour;
 
 class AdminPackageController extends Controller
 {
@@ -143,6 +144,11 @@ class AdminPackageController extends Controller
         $total4 = PackageFaq::where('package_id',$id)->count();
         if($total4 > 0) {
             return redirect()->back()->with('error','First Delete All FAQs of This Package');
+        }
+        
+        $total5 = Tour::where('package_id',$id)->count();
+        if($total5 > 0) {
+            return redirect()->back()->with('error','First Delete All Tours of This Package');
         }
 
         $package = Package::where('id', $id)->first();

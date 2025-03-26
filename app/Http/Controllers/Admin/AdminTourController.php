@@ -44,7 +44,8 @@ class AdminTourController extends Controller
 
     public function edit($id)
     {
-    $faq = Tour::where('id', $id)->first();
+    $tour = Tour::where('id', $id)->first();
+    $packages = Package::orderBy('name','asc')->get();
         return view('admin.tour.edit', compact('tour','packages'));
     }
 
@@ -53,22 +54,27 @@ class AdminTourController extends Controller
          $obj = Tour::where('id',$id)->first();
 
         $request->validate([
-            'question' =>'required',
-            'answer' =>'required',
+            'tour_start_date' =>'required',
+            'tour_end_date' =>'required',
+            'booking_end_date' =>'required',
+            'total_seat' =>'required',
         ]);
 
-        $obj->question = $request->question;
-        $obj->answer = $request->answer;
+        $obj->package_id = $request->package_id;
+        $obj->tour_start_date = $request->tour_start_date;
+        $obj->tour_end_date = $request->tour_end_date;
+        $obj->booking_end_date = $request->booking_end_date;
+        $obj->total_seat = $request->total_seat;
         $obj->save();
 
-        return redirect()->route('admin_faq_index')->with('success', 'FAQ is updated successfully');
+        return redirect()->route('admin_tour_index')->with('success', 'Tour is updated successfully');
 
     }
 
     public function delete($id)
     {
-        $faq = FAQ::where('id', $id)->first();
-        $faq->delete();
-        return redirect()->route('admin_faq_index')->with('success', 'FAQ is deleted successfully');
+        $obj = Tour::where('id', $id)->first();
+        $obj->delete();
+        return redirect()->route('admin_tour_index')->with('success', 'Tour is deleted successfully');
     }
 }

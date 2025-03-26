@@ -26,9 +26,11 @@ use App\Models\PackageFaq;
 use App\Models\PackageItinerary;
 use App\Models\PackagePhoto;
 use App\Models\PackageVideo;
+use App\Models\Tour;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Srmklive\PayPal\Services\Paypal as PayPalClient;
 
 class FrontController extends Controller
 {
@@ -122,8 +124,20 @@ class FrontController extends Controller
         $package_photos = PackagePhoto::where('package_id',$package->id)->get();
         $package_videos = PackageVideo::where('package_id',$package->id)->get();
         $package_faqs = PackageFaq::where('package_id',$package->id)->get();
-        return view('front.package', compact('package','package_amenities_include','package_amenities_exclude','package_itineraries','package_photos','package_videos','package_faqs'));
+        $tours = Tour::where('package_id',$package->id)->get();
+        return view('front.package', compact('package','package_amenities_include','package_amenities_exclude','package_itineraries','package_photos','package_videos','package_faqs','tours'));
    } 
+
+   public function payment(Request $request)
+   {
+    // dd($request->all());
+    if($request->payment_method == 'PayPal')
+    {
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $paypalToken = $provider->getAccessToken();
+    }
+   }
 
    public function enquery_form_submit(Request $request,$id)
    {

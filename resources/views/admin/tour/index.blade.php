@@ -40,7 +40,12 @@
                                                     <td>{{ $tour->tour_start_date }}</td>
                                                     <td>{{ $tour->tour_end_date }}</td>
                                                     <td>{{ $tour->booking_end_date }}</td>
-                                                    <td>{{ $tour->total_seat }}</td>
+                                                    <td>
+                                                        @if($tour->total_seat == -1)
+                                                        unlimited
+                                                        @else
+                                                        {{ $tour->total_seat }}</td>
+                                                        @endif
                                                     <td class="pt_10 pb_10">
                                                         <a href="{{ route('admin_tour_edit', $tour->id)}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                                         <a href="{{ route('admin_tour_delete',$tour->id)}}" class="btn btn-danger" onClick="return confirm('Are you sure?');"><i class="fas fa-trash"></i></a>
