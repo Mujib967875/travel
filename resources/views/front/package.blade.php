@@ -410,8 +410,8 @@
                                                                         <td>
                                                                             <label for=""><b>Select Payment Method</b></label>
                                                                             <select name="payment_method" class="form-select">
-                                                                                <option value="PayPal">PayPal</option>
                                                                                 <option value="Stripe">Stripe</option>
+                                                                                {{-- <option value="PayPal">PayPal</option> --}}
                                                                             </select>
                                                                         </td>
                                                                     </tr>

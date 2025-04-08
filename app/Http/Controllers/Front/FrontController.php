@@ -155,12 +155,11 @@ class FrontController extends Controller
     foreach($all_data as $data){
         $total_booked_seats += $data->total_person;
     }
-    }
 
 
     $remaining_seats = $total_allowed_seats - $total_booked_seats;
 
-    if($total_booked_seats+$request->total_person > $total_allowed_seats) {
+    if($total_booked_seats + $request->total_person > $total_allowed_seats) {
         return redirect()->back()->with('error','Sorry! Only '.$total_allowed_seats.'seats are available for this tour!');
     }
 
@@ -169,7 +168,6 @@ class FrontController extends Controller
     $total_price  = $request->ticket_price * $request->total_person;
     if($request->payment_method == 'PayPal')
     {
-
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
@@ -211,17 +209,17 @@ class FrontController extends Controller
             'line_items' => [
                 [
                 'price_data' => [
-                    'currency' => 'usd',
+                    'currency' => 'idr',
                     'product_data' => [
                         'name' => $package->name,
                       ],
-                    'unit_amount' => $request->price*100,
+                    'unit_amount' => $total_price * 100 * 16890,
                    ],
                 'quantity' => $request->total_person,
                 ],
             ],
             'mode' => 'payment',
-            'success_url' => route('stripe_success').'?session_id={CHECKOUT_SESSION_ID}',
+            'success_url' => route('stripe_success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('stripe_cancel'),
         ]);
         //dd($response);
@@ -232,12 +230,13 @@ class FrontController extends Controller
             session()->put('total_person', $request->total_person);
             session()->put('tour_id', $request->tour_id);
             session()->put('package_id', $request->package_id);
-            session()->put('user_id', $request->user_id);
+            session()->put('user_id', $user_id);
             session()->put('paid_amount', $total_price);
             return redirect($response->url);
         } else {
             return redirect()->route('stripe_cancel');
         }
+    }
     }
    }
 
@@ -261,7 +260,7 @@ class FrontController extends Controller
             // $obj->payer_name = $response['payer']['name']['given_name'];
             // $obj->payer_email = ['payer']['email_address'];
             $obj->payment_method = "PayPal";
-            $obj->payment_status = ['status'];
+            $obj->payment_status = 'Completed';
             $obj->invoice_no = time();
             $obj->save();
 
@@ -281,7 +280,7 @@ class FrontController extends Controller
         return redirect()->back()->with('error', 'Payment is Cancelled!');
    }
 
-   public function success (Request $request)
+   public function stripe_success (Request $request)
    {
     if(isset($request->session_id)) {
         $stripe = new \Stripe\StripeClient(config('stripe.stripe_sk')); $response = $stripe->checkout->sessions->retrieve ($request->session_id); 
@@ -292,10 +291,10 @@ class FrontController extends Controller
         $obj->tour_id = session()->get('tour_id');
         $obj->package_id = session()->get('package_id');
         $obj->user_id = session()->get('user_id');
-        $obj->quantity = session()->get('total_person');
+        $obj->total_person = session()->get('total_person');
         $obj->paid_amount = session()->get('paid_amount');
         $obj->payment_method = "Stripe";
-        $obj->payment_status = $response->status;
+        $obj->payment_status = "Completed";
         $obj->invoice_no = time();
         $obj->save();
 
