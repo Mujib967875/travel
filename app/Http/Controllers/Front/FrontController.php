@@ -20,13 +20,14 @@ use App\Models\DestinationPhoto;
 use App\Models\DestinationVideo;
 use App\Models\Package;
 use App\Models\PackageAmenity;
-use App\Models\Amenity;
+// use App\Models\Amenity;
 use App\Mail\Websitemail;
 use App\Models\PackageFaq;
 use App\Models\PackageItinerary;
 use App\Models\PackagePhoto;
 use App\Models\PackageVideo;
 use App\Models\Tour;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
@@ -117,27 +118,204 @@ class FrontController extends Controller
 
     public function package($slug)
    {
-        $package = Package::with('destination')->where('slug',$slug)->first();
-        $package_amenities_include = PackageAmenity::with('amenity')->where('package_id',$package->id)->where('type','Include')->get();
-        $package_amenities_exclude = PackageAmenity::with('amenity')->where('package_id',$package->id)->where('type','Exclude')->get();
+        $package = Package::with('destination')->where('slug', $slug)->first();
+        $package_amenities_includes = PackageAmenity::with('amenity')
+            ->where('package_id', $package->id)
+            ->where('type', 'include')
+            ->get();
+        $package_amenities_excludes = PackageAmenity::with('amenity')
+            ->where('package_id', $package->id)
+            ->where('type', 'exclude')
+            ->get();
+
         $package_itineraries = PackageItinerary::where('package_id',$package->id)->get();
         $package_photos = PackagePhoto::where('package_id',$package->id)->get();
         $package_videos = PackageVideo::where('package_id',$package->id)->get();
         $package_faqs = PackageFaq::where('package_id',$package->id)->get();
         $tours = Tour::where('package_id',$package->id)->get();
-        return view('front.package', compact('package','package_amenities_include','package_amenities_exclude','package_itineraries','package_photos','package_videos','package_faqs','tours'));
+        return view('front.package', compact('package','package_amenities_includes','package_amenities_excludes','package_itineraries','package_photos','package_videos','package_faqs','tours'));
    } 
 
    public function payment(Request $request)
    {
     // dd($request->all());
+
+    // Check the tour selection
+    if(!$request->tour_id) {
+        return redirect()->back()->with('error', 'Please Select A Tour First!');
+    }
+
+    // Check the seat avalability
+    $tour_data = Tour::where('id',$request->tour_id)->first();
+    $total_allowed_seats = $tour_data->total_seat;
+
+    if($total_allowed_seats != '-1'){
+        $total_booked_seats = 0;
+    $all_data =Booking::where('tour_id',$request->tour_id)->where('package_id',$request->package_id)->get();
+    foreach($all_data as $data){
+        $total_booked_seats += $data->total_person;
+    }
+    }
+
+
+    $remaining_seats = $total_allowed_seats - $total_booked_seats;
+
+    if($total_booked_seats+$request->total_person > $total_allowed_seats) {
+        return redirect()->back()->with('error','Sorry! Only '.$total_allowed_seats.'seats are available for this tour!');
+    }
+
+    $user_id = Auth::guard('web')->user()->id;
+    $package = Package::where('id',$request->package_id)->first();
+    $total_price  = $request->ticket_price * $request->total_person;
     if($request->payment_method == 'PayPal')
     {
+
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
+        $response = $provider->createOrder([
+            "intent" => "CAPTURE",
+            "application_content" => [
+                "return_url" => route('paypal_success'),
+                "cancel_url" => route('paypal_cancel')
+            ],
+            "purchase_units" => [
+                [
+                    "amount" => [
+                        "currency_code" => "USD",
+                        "value" => $request->price
+                    ]
+                ]
+            ]
+        ]);
+
+        if(isset($response['id']) &&$response['id'] != null) {
+            foreach($response['links'] as $link) {
+                if($link['rel'] == 'approve') {
+                    session()->put('total_person', $request->total_person);
+                    session()->put('tour_id', $request->tour_id);
+                    session()->put('package_id', $request->package_id);
+                    session()->put('user_id', $request->user_id);
+                    return redirect()->away($link['href']);
+                }
+            }
+        }else {
+            return redirect()->route('cancel');
+        }
+    }
+
+    else
+    {
+        $stripe = new \Stripe\StripeClient(config('stripe.stripe_sk'));
+        $response = $stripe->checkout->sessions->create([
+            'line_items' => [
+                [
+                'price_data' => [
+                    'currency' => 'usd',
+                    'product_data' => [
+                        'name' => $package->name,
+                      ],
+                    'unit_amount' => $request->price*100,
+                   ],
+                'quantity' => $request->total_person,
+                ],
+            ],
+            'mode' => 'payment',
+            'success_url' => route('stripe_success').'?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('stripe_cancel'),
+        ]);
+        //dd($response);
+        if(isset($response->id) && $response->id != ''){
+            // session()->put('product_name', $request->product_name);
+            // session()->put('quantity', $request->quantity);
+            // session()->put('price', $request->price);
+            session()->put('total_person', $request->total_person);
+            session()->put('tour_id', $request->tour_id);
+            session()->put('package_id', $request->package_id);
+            session()->put('user_id', $request->user_id);
+            session()->put('paid_amount', $total_price);
+            return redirect($response->url);
+        } else {
+            return redirect()->route('stripe_cancel');
+        }
     }
    }
+
+   public function paypal_success(Request $request)
+   {
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $paypalToken = $provider->getAccessToken();
+        $response = $provider->capturePaymentOrder($request->token);
+        //dd($response)
+        if(isset($response['status']) && $response['status'] == 'COMPLETE'){
+
+            //Insert data into database
+            $obj = new Booking;
+            $obj->tour_id = session()->get('tour_id');
+            $obj->package_id = session()->get('package_id');
+            $obj->user_id = session()->get('user_id');
+            $obj->quantity = session()->get('quantity');
+            $obj->amount = $response['puchase_units'][0]['payments']['captures'][0]['amount']['value'];
+            // $obj->currency = $response['puchase_units'][0]['payments']['captures'][0]['amount']['currency_code'];
+            // $obj->payer_name = $response['payer']['name']['given_name'];
+            // $obj->payer_email = ['payer']['email_address'];
+            $obj->payment_method = "PayPal";
+            $obj->payment_status = ['status'];
+            $obj->invoice_no = time();
+            $obj->save();
+
+            return redirect()->back()->with('success', 'Payment is Successful!');
+
+            unset($_SESSION['tour_id']);
+            unset($_SESSION['package_id']);
+            unset($_SESSION['user_id']);
+            unset($_SESSION['total_person']);
+        } else {
+            return redirect()->route('paypal_cancel');
+        }
+   }
+
+   public function paypal_cancel()
+   {
+        return redirect()->back()->with('error', 'Payment is Cancelled!');
+   }
+
+   public function success (Request $request)
+   {
+    if(isset($request->session_id)) {
+        $stripe = new \Stripe\StripeClient(config('stripe.stripe_sk')); $response = $stripe->checkout->sessions->retrieve ($request->session_id); 
+        //dd($response);
+
+
+        $obj = new Booking;
+        $obj->tour_id = session()->get('tour_id');
+        $obj->package_id = session()->get('package_id');
+        $obj->user_id = session()->get('user_id');
+        $obj->quantity = session()->get('total_person');
+        $obj->paid_amount = session()->get('paid_amount');
+        $obj->payment_method = "Stripe";
+        $obj->payment_status = $response->status;
+        $obj->invoice_no = time();
+        $obj->save();
+
+        return redirect()->back()->with('success','Payment is Successful!');
+
+        unset($_SESSION['tour_id']);
+        unset($_SESSION['package_id']);
+        unset($_SESSION['user_id']);
+        unset($_SESSION['total_person']);
+        unset($_SESSION['paid_amount']);
+
+    } else {
+        return redirect()->route('stripe_cancel');
+    } 
+    }
+    
+    public function stripe_cancel()
+    {
+        return redirect()->back()->with('error','Payment is Canceled');
+    }
 
    public function enquery_form_submit(Request $request,$id)
    {

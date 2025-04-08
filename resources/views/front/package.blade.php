@@ -80,7 +80,7 @@
                                     <h2 class="mt_30">Includes</h2>
                                     <div class="amenity">
                                         <div class="row">
-                                            @foreach ($package_amenities_include as $item)
+                                            @foreach ($package_amenities_includes as $item)
                                             <div class="col-lg-3 mb_15">
                                                 <i class="fas fa-check"></i> {{  $item->amenity->name }}
                                             </div>
@@ -91,7 +91,7 @@
                                     <h2 class="mt_30">Excludes</h2>
                                     <div class="amenity">
                                         <div class="row">
-                                            @foreach ($package_amenities_exclude as $item)
+                                            @foreach ($package_amenities_excludes as $item)
                                             <div class="col-lg-3 mb_15">
                                                 <i class="fas fa-times"></i> {{ $item->amenity->name }}
                                             </div>
@@ -324,11 +324,29 @@
                                             <input type="hidden" name="package_id" value="{{ $package->id }}">
                                             <div class="row">
                                                 <div class="col-md-8">
+                                                    @php $i=0; @endphp
 
                                                     @foreach ($tours as $item)
+                                                    @if($item->booking_end_date < date('Y-m-d'))
+                                                     @continue
+                                                     @endif
+                                                     @php 
+                                                     $i++; 
+                                                     $total_booked_seats = 0;
+                                                     $all_data = App\Models\Booking::where('tour_id',$item->id)->where('package_id',$package->id)->get();
+                                                     foreach($all_data as $data){
+                                                         $total_booked_seats += $data->total_person;
+                                                     }
+
+                                                     if($item->total_seat == -1){
+                                                         $remaining_seats = 'unlimited';
+                                                     }else{
+                                                     $remaining_seats = $item->total_seat - $total_booked_seats;
+                                                     }
+                                                     @endphp
                                                     <h2 class="mt_30">
-                                                        <input type="radio" name="tour_id" value="{{ $item->id }}" @if($loop->iteration == 1)checked @endif>
-                                                        Tour {{ $loop->iteration }}
+                                                        <input type="radio" name="tour_id" value="{{ $item->id }}" @if($i == 1)checked @endif>
+                                                        Tour {{ $i }}
                                                     </h2>
                                                     <div class="summary">
                                                         <div class="table-responsive">
@@ -357,7 +375,11 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td><b>Booked Seat</b></td>
-                                                                    <td>9999999</td>
+                                                                    <td>{{ $total_booked_seats }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Remaining Seat</b></td>
+                                                                    <td>{{ $remaining_seats }}</td>
                                                                 </tr>
                                                             </table>
                                                         </div>
