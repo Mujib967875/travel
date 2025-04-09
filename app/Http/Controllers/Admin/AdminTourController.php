@@ -74,6 +74,11 @@ class AdminTourController extends Controller
 
     public function delete($id)
     {
+        $total = Booking::where('tour_id', $id)->count();
+        if($total > 0){
+            return redirect()->route('admin_tour_index')->with('error', 'This Tour has Bookings. So it can not be deleted.');
+        }
+
         $obj = Tour::where('id', $id)->first();
         $obj->delete();
         return redirect()->route('admin_tour_index')->with('success', 'Tour is deleted successfully');
@@ -88,7 +93,7 @@ class AdminTourController extends Controller
 
     public function tour_invoice($invoice_no)
     {
-        $booking = Booking::with('user')->where('invoice_no', $invoice_no)->first();
+        $booking = Booking::with(['user','tour','package'])->where('invoice_no', $invoice_no)->first();
         return view('admin.tour.invoice', compact('booking'));
     }
 }
