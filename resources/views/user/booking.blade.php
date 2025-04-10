@@ -6,11 +6,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Dashboard</h2>
+                        <h2>Booking</h2>
                         <div class="breadcrumb-container">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('home')}}">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard</li>
+                                <li class="breadcrumb-item active">Booking</li>
                             </ol>
                         </div>
                     </div>
@@ -32,135 +32,115 @@
                                 <tbody>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Package</th>
-                                        <th>Destination</th>
+                                        <th>Invoice No</th>
+                                        <th>Total Person</th>
                                         <th>Paid Amount</th>
                                         <th>Payment Method</th>
-                                        <th>Payment Date</th>
-                                        <th>Status</th>
+                                        <th>Payment Status</th>
                                         <th class="w-100">
                                             Action
                                         </th>
                                     </tr>
+                                    @foreach ($all_data as $item)
                                     <tr>
-                                        <td>1</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>
-                                            <a href="" class="text-decoration-underline">Royal Ontario Museum</a>
+                                            {{ $item->invoice_no }}
                                         </td>
                                         <td>
-                                            <a href="" class="text-decoration-underline">Canada</a>
+                                            {{ $item->total_person }}
                                         </td>
-                                        <td>$100</td>
-                                        <td>Paypal</td>
-                                        <td>2024-8-25</td>
+                                        <td>Rp.{{ $item->paid_amount }}</td>
                                         <td>
-                                            <div class="badge bg-danger">Pending</div>
+                                            @if ($item->payment_method == 'Midtrans')
+                                                <p> Non-tunai </p>
+                                                @elseif ($item->payment_method == 'Cash')
+                                                <p> Cash </p>
+                                                @elseif ($item->payment_method == 'Stripe')
+                                                <p> Stripe </p>
+                                                @elseif ($item->payment_method == 'PayPal')
+                                                <p> Paypal </p>
+                                            @endif
+                                        </td>   
+                                        <td>
+                                            @if ($item->payment_status == 'Completed')
+                                                <div class="badge bg-success">Completed</div>
+                                            @elseif ($item->payment_status == 'Pending')
+                                                <div class="badge bg-danger">Pending</div>
+                                            @elseif ($item->payment_status == 'Denied')
+                                                <div class="badge bg-danger">Denied</div>
+                                            @elseif ($item->payment_status == 'Expired')
+                                                <div class="badge bg-warning">Expired</div>
+                                            @elseif ($item->payment_status == 'Cancelled')
+                                                <div class="badge bg-primary">Cancelled</div>
+                                            @endif
                                         </td>
                                         <td>
-                                            <a href="" class="btn btn-secondary btn-sm mb-1 w-100-p" data-bs-toggle="modal" data-bs-target="#exampleModal">Detail</a>
-                                            <a href="user-order-invoice.html" class="btn btn-secondary btn-sm w-100-p">Invoice</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>
-                                            <a href="" class="text-decoration-underline">Royal Ontario Museum</a>
-                                        </td>
-                                        <td>
-                                            <a href="" class="text-decoration-underline">Canada</a>
-                                        </td>
-                                        <td>$100</td>
-                                        <td>Paypal</td>
-                                        <td>2024-8-25</td>
-                                        <td>
-                                            <div class="badge bg-success">Success</div>
-                                        </td>
-                                        <td>
-                                            <a href="" class="btn btn-secondary btn-sm mb-1 w-100-p">Detail</a>
-                                            <a href="user-order-invoice.html" class="btn btn-secondary btn-sm w-100-p">Invoice</a>
+                                            <a href="" class="btn btn-secondary btn-sm mb-1 w-100-p" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $loop->iteration }}">Detail</a>
+                                            <a href="{{ route('user_invoice', $item->invoice_no) }}" class="btn btn-secondary btn-sm w-100-p">Invoice</a>
                                         </td>
                                     </tr>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Detail</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div class="modal fade" id="exampleModal{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Detail</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3 row modal-seperator">
+                                                    <div class="col-md-5">
+                                                        <b>Invoice No:</b>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        {{ $item->invoice_no }}
+                                                    </div>
                                                 </div>
-                                                <div class="modal-body">
-                                                    <div class="mb-3 row modal-seperator">
-                                                        <div class="col-md-5">
-                                                            <b>Order No:</b>
-                                                        </div>
-                                                        <div class="col-md-7">
-                                                            ORD-123443
-                                                        </div>
+                                                <div class="mb-3 row modal-seperator">
+                                                    <div class="col-md-5">
+                                                        <b>Package Detail:</b>
                                                     </div>
-                                                    <div class="mb-3 row modal-seperator">
-                                                        <div class="col-md-5">
-                                                            <b>Package Name:</b>
-                                                        </div>
-                                                        <div class="col-md-7">
-                                                            Royal Ontario Museum
-                                                        </div>
+                                                    <div class="col-md-7">
+                                                        <b>Name :</b> {{ $item->package->name }}<br>
+                                                        <a href="{{ route('package', $item->package->slug) }}" target="_blank">See Details</a>
                                                     </div>
-                                                    <div class="mb-3 row modal-seperator">
-                                                        <div class="col-md-5">
-                                                            <b>Destination:</b>
-                                                        </div>
-                                                        <div class="col-md-7">
-                                                            Canada
-                                                        </div>
+                                                </div>
+                                                <div class="mb-3 row modal-seperator">
+                                                    <div class="col-md-5">
+                                                        <b>Tour Detail:</b>
                                                     </div>
-                                                    <div class="mb-3 row modal-seperator">
-                                                        <div class="col-md-5">
-                                                            <b>Total Persons:</b>
-                                                        </div>
-                                                        <div class="col-md-7">
-                                                            3
-                                                        </div>
+                                                    <div class="col-md-7">
+                                                        <b>Start Date : </b>
+                                                        {{ $item->tour->tour_start_date ?? 'Tour Not Found.' }}<br>
+                                                        <b>End Date : </b>
+                                                        {{ $item->tour->tour_end_date ?? 'Tour Not Found.' }}<br>
                                                     </div>
-                                                    <div class="mb-3 row modal-seperator">
-                                                        <div class="col-md-5">
-                                                            <b>Per Person Cost:</b>
-                                                        </div>
-                                                        <div class="col-md-7">
-                                                            $300
-                                                        </div>
+                                                </div>
+                                                <div class="mb-3 row modal-seperator">
+                                                    <div class="col-md-5">
+                                                        <b>Total Persons:</b>
                                                     </div>
-                                                    <div class="mb-3 row modal-seperator">
-                                                        <div class="col-md-5">
-                                                            <b>Total Cost:</b>
-                                                        </div>
-                                                        <div class="col-md-7">
-                                                            $900
-                                                        </div>
+                                                    <div class="col-md-7">
+                                                        {{ $item->total_person }}
                                                     </div>
-                                                    <div class="mb-3 row modal-seperator">
-                                                        <div class="col-md-5">
-                                                            <b>Payment Method:</b>
-                                                        </div>
-                                                        <div class="col-md-7">
-                                                            PayPal
-                                                        </div>
+                                                </div>
+                                                <div class="mb-3 row modal-seperator">
+                                                    <div class="col-md-5">
+                                                        <b>Paid Amount:</b>
                                                     </div>
-                                                    <div class="mb-3 row modal-seperator">
-                                                        <div class="col-md-5">
-                                                            <b>Travel Start Date:</b>
-                                                        </div>
-                                                        <div class="col-md-7">
-                                                            2024-09-10
-                                                        </div>
+                                                    <div class="col-md-7">
+                                                        Rp. {{ $item->paid_amount }}
                                                     </div>
-                                                    <div class="mb-3 row modal-seperator">
-                                                        <div class="col-md-5">
-                                                            <b>Travel End Date:</b>
-                                                        </div>
-                                                        <div class="col-md-7">
-                                                            2024-09-20
-                                                        </div>
+                                                </div>
+                                                <div class="mb-3 row modal-seperator">
+                                                    <div class="col-md-5">
+                                                        <b>Payment Method:</b>
                                                     </div>
+                                                    <div class="col-md-7">
+                                                        {{ $item->payment_method }}
+                                                    </div>
+                                                </div>
                                                     <div class="mb-3 row modal-seperator">
                                                         <div class="col-md-5">
                                                             <b>Payment Status:</b>
@@ -174,6 +154,7 @@
                                         </div>
                                     </div>
                                     <!-- // Modal -->
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

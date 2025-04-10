@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -11,13 +12,22 @@ class UserController extends Controller
 {
     public function dashboard()
     {
-        return view('user.dashboard');
+        $total_completed_orders = Booking::where('user_id', Auth::guard('web')->user()->id)->where('payment_status', 'Completed')->count();
+        $total_pending_orders = Booking::where('user_id', Auth::guard('web')->user()->id)->where('payment_status', 'Pending')->count();
+        return view('user.dashboard',compact('total_completed_orders','total_pending_orders'));
     }
 
     public function booking(Request $request)
     {
-       
-        return view('user.booking');
+        $all_data = Booking::with(['tour','package'])->where('user_id', Auth::guard('web')->user()->id)->get();
+        return view('user.booking',compact('all_data'));
+    }
+
+    public function invoice($invoice_no)
+    {
+        $admin_data = admin::where('id', 1)->first();
+        $booking = Booking::with(['tour','package'])->where('invoice_no', $invoice_no)->first();
+        return view('user.invoice',compact('invoice_no','booking','admin_data'));
     }
 
    public function profile()

@@ -91,9 +91,22 @@ class AdminTourController extends Controller
         return view('admin.tour.booking', compact('all_data'));
     }
 
+    public function tour_booking_delete($id)
+    {
+        $obj = Booking::where('id', $id)->first();
+        $obj->delete();
+        return redirect()->back()->with('success','Booking is deleted successfully');
+    }
+
     public function tour_invoice($invoice_no)
     {
         $booking = Booking::with(['user','tour','package'])->where('invoice_no', $invoice_no)->first();
         return view('admin.tour.invoice', compact('booking'));
+    }
+
+    public function tour_booking_approve($id)
+    {
+        Booking::where('id', $id)->update(['payment_status' => 'Completed']);
+        return redirect()->back()->with('success','Booking is approved successfully');
     }
 }

@@ -53,7 +53,8 @@
                                                     @if($item->payment_status == 'Completed')
                                                         <span class="badge bg-success">Completed</span>
                                                     @else
-                                                        <span class="badge bg-danger">Pending</span>
+                                                        <span class="badge bg-danger">Pending</span><br>
+                                                        <a href="{{ route('admin_tour_booking_approve', $item->id) }}">Approve it</a>
                                                     @endif
                                                 </td>
                                                 <td>

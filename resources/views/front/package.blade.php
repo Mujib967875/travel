@@ -19,7 +19,7 @@
                             <span>(4.2 out of 5)</span>
                         </div>
                         <div class="price">
-                            ${{ $package->price }} @if($package->old_price != '')<del>${{ $package->old_price }}</del>@endif
+                            Rp.{{ $package->price }} @if($package->old_price != '')<del>Rp.{{ $package->old_price }}</del>@endif
                         </div>
                         <div class="person">
                             per person
@@ -248,40 +248,71 @@
                                         <div class="mt_40"></div>
         
                                         <h2>Leave Your Review</h2>
-        
-                                        <div class="mb-3">
-                                            <div class="give-review-auto-select">
-                                                <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
-                                                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
-                                                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
-                                                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
-                                                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"><i class="fas fa-star"></i></label>
-                                            </div>
-                                            <script>
-                                                document.addEventListener('DOMContentLoaded', (event) => {
-                                                    const stars = document.querySelectorAll('.star-rating label');
-                                                    stars.forEach(star => {
-                                                        star.addEventListener('click', function() {
-                                                            stars.forEach(s => s.style.color = '#ccc');
-                                                            this.style.color = '#f5b301';
-                                                            let previousStar = this.previousElementSibling;
-                                                            while(previousStar) {
-                                                                if (previousStar.tagName === 'LABEL') {
-                                                                    previousStar.style.color = '#f5b301';
+
+                                        @if(Auth::guard('web')->check())
+                                            @php
+                                                $review_possible = App\Models\Booking::where('package_id',$package->id)->where('user_id',Auth::guard('web')->user()->id)->where('payment_status','Completed')->count();
+                                            @endphp
+
+                                            @if($review_possible > 0)
+                                            @php
+                                                    App\Models\Review::where('package_id', $package->id)
+                                                    ->where('user_id', Auth::guard('web')->user()->id)
+                                                    ->count() > 0
+                                                    ? ($reviewed = true)
+                                                    : ($reviewed = false);
+                                            @endphp
+                                            @if ($reviewed == false)
+                                            <form action="{{ route('review_submit') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="package_id" value="{{ $package->id }}">
+                                            <div class="mb-3">
+                                                <div class="give-review-auto-select">
+                                                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
+                                                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
+                                                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
+                                                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
+                                                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"><i class="fas fa-star"></i></label>
+                                                </div>
+                                                <script>
+                                                    document.addEventListener('DOMContentLoaded', (event) => {
+                                                        const stars = document.querySelectorAll('.star-rating label');
+                                                        stars.forEach(star => {
+                                                            star.addEventListener('click', function() {
+                                                                stars.forEach(s => s.style.color = '#ccc');
+                                                                this.style.color = '#f5b301';
+                                                                let previousStar = this.previousElementSibling;
+                                                                while(previousStar) {
+                                                                    if (previousStar.tagName === 'LABEL') {
+                                                                        previousStar.style.color = '#f5b301';
+                                                                    }
+                                                                    previousStar = previousStar.previousElementSibling;
                                                                 }
-                                                                previousStar = previousStar.previousElementSibling;
-                                                            }
+                                                            });
                                                         });
                                                     });
-                                                });
-                                            </script>
-                                        </div>
-                                        <div class="mb-3">
-                                            <textarea class="form-control" rows="3" placeholder="Comment"></textarea>
-                                        </div>
-                                        <div class="mb-3">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
+                                                </script>
+                                            </div>
+                                            <div class="mb-3">
+                                                <textarea class="form-control"name="comment" rows="3" placeholder="Comment"></textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                            </form>
+                                            @else
+                                                <div class="alert alert-danger">
+                                                    You have already reviewed this package.
+                                                </div>
+                                            @endif
+                                            @else
+                                            <div class="alert alert-danger">
+                                                Sorry, you can't review this package because you haven't booked it yet.
+                                            </div>
+                                            @endif
+                                        @else
+                                            <a href="{{ route('login') }}" class="text-danger text-decoration-underline">Login To Review</a>
+                                        @endif
                                     </div>
                                     <!-- // Review -->
                                 </div>
@@ -408,11 +439,37 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>
-                                                                            <label for=""><b>Select Payment Method</b></label>
-                                                                            <select name="payment_method" class="form-select">
+                                                                            <label for="" class="mb-2 mt-2"><b>Select Payment Method</b></label>
+                                                                            {{-- <select name="payment_method" class="form-select">
                                                                                 <option value="Stripe">Stripe</option>
-                                                                                {{-- <option value="PayPal">PayPal</option> --}}
-                                                                            </select>
+                                                                                {{-- <option value="PayPal">PayPal</option>
+                                                                            </select> --}}
+                                                                            <div class="mb-3">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="radio" name="payment_method" id="midtrans" value="Midtrans">
+                                                                                    <label class="form-check-label" for="midtrans">
+                                                                                        Non-tunai
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="radio" name="payment_method" id="cash" value="Cash">
+                                                                                    <label class="form-check-label" for="cash">
+                                                                                        Cash
+                                                                                    </label>
+                                                                                </div>
+                                                                                {{-- <div class="form-check">
+                                                                                    <input class="form-check-input" type="radio" name="payment_method" id="paypal" value="PayPal">
+                                                                                    <label class="form-check-label" for="paypal">
+                                                                                        PayPal
+                                                                                    </label>
+                                                                                </div> --}}
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="radio" name="payment_method" id="stripe" value="Stripe">
+                                                                                    <label class="form-check-label" for="stripe">
+                                                                                        Stripe
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>

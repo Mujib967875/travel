@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2025 at 12:37 PM
+-- Generation Time: Apr 10, 2025 at 12:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -43,7 +43,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `photo`, `password`, `token`, `created_at`, `updated_at`) VALUES
-(1, 'mujib my', 'admin@gmail.com', 'admin_1741198521.png', '$2y$12$5sXrx7jjXhqS8rfgmXoYoOuBpX3PjFezwvGzDj9PUtO86TYnPKPmC', '1c262c316d622bf0cfd14189e9755444f73845a03c4ae9050834046a58b92f55', '2025-01-28 04:12:53', '2025-03-21 00:07:12');
+(1, 'Admin', 'admin@gmail.com', 'admin_1741198521.png', '$2y$12$5sXrx7jjXhqS8rfgmXoYoOuBpX3PjFezwvGzDj9PUtO86TYnPKPmC', '1c262c316d622bf0cfd14189e9755444f73845a03c4ae9050834046a58b92f55', '2025-01-28 04:12:53', '2025-04-09 23:00:25');
 
 -- --------------------------------------------------------
 
@@ -121,7 +121,12 @@ CREATE TABLE `bookings` (
 --
 
 INSERT INTO `bookings` (`id`, `tour_id`, `package_id`, `user_id`, `total_person`, `paid_amount`, `payment_method`, `payment_status`, `invoice_no`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 22, 40, '12000', 'Stripe', 'Completed', '1744108315', '2025-04-08 03:31:55', '2025-04-08 03:31:55');
+(1, 1, 2, 22, 40, '12000', 'Stripe', 'Completed', '1744108315', '2025-04-08 03:31:55', '2025-04-08 03:31:55'),
+(2, 1, 2, 22, 1, '300', 'Stripe', 'Completed', '1744180825', '2025-04-08 23:40:25', '2025-04-08 23:40:25'),
+(3, 4, 8, 22, 1, '100', 'Stripe', 'Completed', '1744189584', '2025-04-09 02:06:24', '2025-04-09 02:06:24'),
+(4, 1, 2, 22, 44, '13200', 'Stripe', 'Completed', '1744262281', '2025-04-09 22:18:01', '2025-04-09 22:18:01'),
+(5, 1, 2, 22, 5, '1500', 'Cash', 'Completed', '1744267205', '2025-04-09 23:40:05', '2025-04-09 23:57:08'),
+(6, 1, 2, 22, 1, '300', 'Cash', 'Completed', '1744268300', '2025-04-09 23:58:20', '2025-04-10 00:06:48');
 
 -- --------------------------------------------------------
 
@@ -407,7 +412,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (27, '2025_03_23_080316_create_package_videos_table', 24),
 (28, '2025_03_24_045227_create_package_faqs_table', 25),
 (29, '2025_03_25_070710_create_tours_table', 26),
-(30, '2025_03_26_082632_create_bookings_table', 27);
+(30, '2025_03_26_082632_create_bookings_table', 27),
+(31, '2025_04_10_094421_create_reviews_table', 28);
 
 -- --------------------------------------------------------
 
@@ -435,7 +441,8 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`id`, `destination_id`, `featured_photo`, `banner`, `name`, `slug`, `description`, `map`, `price`, `old_price`, `created_at`, `updated_at`) VALUES
-(2, 1, 'package_fetured_1742274662.jpg', 'package_fetured_1742275046.jpg', 'Great Barrier Reef', 'great-barrier-reef', '<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">The Great Barrier Reef, located off the coast of Queensland, Australia, is the world\'s largest coral reef system, stretching over 2,300 kilometers and comprising more than 2,900 individual reefs and 900 islands. Renowned for its stunning biodiversity, the reef is home to an extraordinary variety of marine life, including over 1,500 species of fish and 400 types of coral. Its vibrant coral formations and crystal-clear waters make it a premier destination for snorkeling and diving enthusiasts.</p>\r\n<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Beyond its natural beauty, the Great Barrier Reef holds significant ecological and economic importance. It supports a vast array of marine life and contributes to the livelihoods of many local communities through tourism and fishing. However, the reef faces numerous threats, including climate change and coral bleaching, making conservation efforts crucial for its future.</p>', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d424143.8759805434!2d150.60231267007427!3d-33.847805231787184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b129838f39a743f%3A0x3017d681632a850!2sSydney%20New%20South%20Wales%2C%20Australia!5e0!3m2!1sid!2sid!4v1742285686544!5m2!1sid!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', '300', '600', '2025-03-17 09:53:33', '2025-03-18 01:15:41');
+(2, 1, 'package_fetured_1742274662.jpg', 'package_fetured_1742275046.jpg', 'Great Barrier Reef', 'great-barrier-reef', '<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">The Great Barrier Reef, located off the coast of Queensland, Australia, is the world\'s largest coral reef system, stretching over 2,300 kilometers and comprising more than 2,900 individual reefs and 900 islands. Renowned for its stunning biodiversity, the reef is home to an extraordinary variety of marine life, including over 1,500 species of fish and 400 types of coral. Its vibrant coral formations and crystal-clear waters make it a premier destination for snorkeling and diving enthusiasts.</p>\r\n<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Beyond its natural beauty, the Great Barrier Reef holds significant ecological and economic importance. It supports a vast array of marine life and contributes to the livelihoods of many local communities through tourism and fishing. However, the reef faces numerous threats, including climate change and coral bleaching, making conservation efforts crucial for its future.</p>', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d424143.8759805434!2d150.60231267007427!3d-33.847805231787184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b129838f39a743f%3A0x3017d681632a850!2sSydney%20New%20South%20Wales%2C%20Australia!5e0!3m2!1sid!2sid!4v1742285686544!5m2!1sid!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', '300', '600', '2025-03-17 09:53:33', '2025-03-18 01:15:41'),
+(8, 5, 'package_featured_1744189479.jpg', 'package_banner_1744189479.jpg', 'aaa', 'aaa-aaa', '<p>aaa</p>', 'ppp', '100', '1000', '2025-04-09 02:04:39', '2025-04-09 02:04:39');
 
 -- --------------------------------------------------------
 
@@ -607,6 +614,22 @@ INSERT INTO `posts` (`id`, `blog_category_id`, `title`, `slug`, `short_descripti
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `package_id` int(11) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `comment` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sessions`
 --
 
@@ -624,7 +647,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('WJfMLGbMHC09q5isjV6NYPmuww62jJjGGKT8fIYF', 22, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YToxMDp7czo2OiJfdG9rZW4iO3M6NDA6Ilp3QW5icGF5Y3d6QUZPYzJoV1NNNE1TZHphN1c2QW16TEVhUjVTN2IiO3M6NjoiX2ZsYXNoIjthOjI6e3M6MzoibmV3IjthOjA6e31zOjM6Im9sZCI7YTowOnt9fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQ0OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRtaW4vdG91ci9ib29raW5nLzEvMiI7fXM6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMjtzOjEyOiJ0b3RhbF9wZXJzb24iO3M6MjoiNDAiO3M6NzoidG91cl9pZCI7czoxOiIxIjtzOjEwOiJwYWNrYWdlX2lkIjtzOjE6IjIiO3M6NzoidXNlcl9pZCI7aToyMjtzOjExOiJwYWlkX2Ftb3VudCI7aToxMjAwMDt9', 1744108596);
+('Q7O9yVhMtbeDaDuIUp8smDZW3ZRM8jmKHaBDQi9G', 22, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSFlFNWdyTDM0MjVkZ2FmQlB5M3BYYkdIVzlySkt3aUxQS2ZoSkpPNCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJuZXciO2E6MDp7fXM6Mzoib2xkIjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wYWNrYWdlL2dyZWF0LWJhcnJpZXItcmVlZiI7fXM6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMjt9', 1744278158);
 
 -- --------------------------------------------------------
 
@@ -758,7 +781,8 @@ CREATE TABLE `tours` (
 INSERT INTO `tours` (`id`, `package_id`, `tour_start_date`, `tour_end_date`, `booking_end_date`, `total_seat`, `created_at`, `updated_at`) VALUES
 (1, 2, '2025-04-26', '2025-04-28', '2025-04-27}', '120', '2025-03-25 01:39:56', '2025-04-08 03:23:38'),
 (2, 2, '2025-04-24', '2025-04-26', '2025-04-24}', '-1', '2025-03-25 01:40:18', '2025-04-07 22:41:52'),
-(3, 2, '2025-03-03', '2025-03-04', '2025-03-05', '23', '2025-03-25 01:41:06', '2025-03-25 01:41:06');
+(3, 2, '2025-03-03', '2025-03-04', '2025-03-05', '23', '2025-03-25 01:41:06', '2025-03-25 01:41:06'),
+(4, 8, '2025-04-23', '2025-04-26', '2025-04-24', '20', '2025-04-09 02:05:43', '2025-04-09 02:05:43');
 
 -- --------------------------------------------------------
 
@@ -789,7 +813,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `photo`, `password`, `phone`, `country`, `address`, `state`, `city`, `zip`, `token`, `status`, `created_at`, `updated_at`) VALUES
-(22, 'lasttest', 'lasttest@gmail.com', '1741444611.jpg', '$2y$12$Spt3M6/ZEDpyU9LZvW3J9ui0Blmz//zOdAE3wCWEKvT7.eG4V..bK', '083128319917', 'Indonesia', '04,ABC Street', 'NYC', 'NYC', '91281', '', '1', '2025-03-07 03:52:10', '2025-03-08 07:40:06');
+(22, 'lasttest', 'lasttest@gmail.com', '1741444611.jpg', '$2y$12$Spt3M6/ZEDpyU9LZvW3J9ui0Blmz//zOdAE3wCWEKvT7.eG4V..bK', '083128319917', 'Indonesia', '04,ABC Street', 'NYC', 'NYC', '91281', '', '1', '2025-03-07 03:52:10', '2025-03-08 07:40:06'),
+(24, 'Smit', 'smit@gmail.com', NULL, '$2y$12$7ZVYCu/sTxXSiVdp1yBk5OmN5wjuK4FsGRX47p1501K23sTxXuY5a', NULL, NULL, NULL, NULL, NULL, NULL, '', '1', '2025-04-10 02:32:16', '2025-04-10 02:32:27');
 
 -- --------------------------------------------------------
 
@@ -969,6 +994,12 @@ ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sessions`
 --
 ALTER TABLE `sessions`
@@ -1045,7 +1076,7 @@ ALTER TABLE `blog_categories`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `counter_items`
@@ -1099,13 +1130,13 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `package_amenities`
@@ -1144,6 +1175,12 @@ ALTER TABLE `posts`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `sliders`
 --
 ALTER TABLE `sliders`
@@ -1171,13 +1208,13 @@ ALTER TABLE `testimonials`
 -- AUTO_INCREMENT for table `tours`
 --
 ALTER TABLE `tours`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `welcome_items`

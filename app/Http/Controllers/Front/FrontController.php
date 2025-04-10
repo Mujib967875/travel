@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\CounterItem;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Admin;
@@ -166,8 +167,7 @@ class FrontController extends Controller
     $user_id = Auth::guard('web')->user()->id;
     $package = Package::where('id',$request->package_id)->first();
     $total_price  = $request->ticket_price * $request->total_person;
-    if($request->payment_method == 'PayPal')
-    {
+    if($request->payment_method == 'PayPal'){
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
@@ -198,12 +198,10 @@ class FrontController extends Controller
                 }
             }
         }else {
-            return redirect()->route('cancel');
+            return redirect()->route('paypal_cancel');
         }
     }
-
-    else
-    {
+    elseif($request->payment_method == 'Stripe'){
         $stripe = new \Stripe\StripeClient(config('stripe.stripe_sk'));
         $response = $stripe->checkout->sessions->create([
             'line_items' => [
@@ -237,8 +235,22 @@ class FrontController extends Controller
             return redirect()->route('stripe_cancel');
         }
     }
+    elseif ($request->payment_method == 'Cash') {
+        $obj = new Booking();
+        $obj->tour_id = $request->tour_id;
+        $obj->package_id = $request->package_id;
+        $obj->user_id = Auth::guard('web')->user()->id;
+        $obj->total_person = $request->total_person;
+        $obj->paid_amount = $request->ticket_price * $request->total_person;
+        $obj->payment_method = 'Cash';
+        $obj->payment_status = 'Pending';
+        $obj->invoice_no = time();
+        $obj->save();
+
+        return redirect()->back()->with('success', 'Payment is pending and will be successful after admin approval!');
     }
-   }
+}
+}
 
    public function paypal_success(Request $request)
    {
@@ -340,6 +352,29 @@ class FrontController extends Controller
             return redirect()->back()->with('success','Your enquery is submitted successfully. We will contact you soon.');
    }
 
+   public function review_submit(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'rating' => 'required',
+            'comment' => 'required',
+        ]);
+
+        $obj = new Review();
+        $obj->user_id = Auth::guard('web')->user()->id;
+        $obj->package_id = $request->package_id;
+        $obj->rating = $request->rating;
+        $obj->comment = $request->comment;
+        $obj->save();
+
+        $package_data = Package::where('id', $request->package_id)->first();
+        $package_data->total_rating = $package_data->total_rating + 1;
+        $package_data->total_score = $package_data->total_score + $request->rating;
+        $package_data->update();
+
+        return redirect()->back()->with('success', 'Review is submitted successfully!');
+    }
+
     public function registration()
     {
         return view("front.registration");
@@ -378,7 +413,7 @@ class FrontController extends Controller
 
     public function registration_verify($email, $token)
     {
-        dd($token, $email); 
+        // dd($token, $email); 
         $user = User::where('token',$token)->where('email',$email)->first();
         if(!$user) {
             return redirect()->route('login');

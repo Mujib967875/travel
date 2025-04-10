@@ -34,12 +34,14 @@ Route::get('/destinations',[FrontController::class,'destinations'])->name('desti
 Route::get('/destination/{slug}',[FrontController::class,'destination'])->name('destination');
 Route::get('/package/{slug}',[FrontController::class,'package'])->name('package');
 Route::post('/enquery/submit/{id}',[FrontController::class,'enquery_form_submit'])->name('enquery_form_submit');
+Route::post('/review/submit', [FrontController::class, 'review_submit'])->name('review_submit');
+
 
 //payment
 Route::post('/payment',[FrontController::class,'payment'])->name('payment');
 
-Route::post('/paypal/success',[FrontController::class,'paypal_success'])->name('paypal_success');
-Route::post('/paypal/cancel',[FrontController::class,'paypal_cancel'])->name('paypal_cancel');
+Route::get('/paypal/success',[FrontController::class,'paypal_success'])->name('paypal_success');
+Route::get('/paypal/cancel',[FrontController::class,'paypal_cancel'])->name('paypal_cancel');
 
 // Route::post('/stripe/success',[FrontController::class,'stripe_success'])->name('stripe_success');
 // Route::post('/stripe/cancel',[FrontController::class,'stripe_cancel'])->name('stripe_cancel');
@@ -67,6 +69,7 @@ Route::get('/logout',[FrontController::class,'logout'])->name('logout');
 Route::middleware('auth')->prefix('user')->group(function () {    
     Route::get('/dashboard',[UserController::class,'dashboard'])->name('user_dashboard');
     Route::get('/booking',[UserController::class,'booking'])->name('user_booking');
+    Route::get('/invoice/{invoice_no}',[UserController::class,'invoice'])->name('user_invoice');
     Route::get('/profile', [UserController::class,'profile'])->name('user_profile');
     Route::post('/profile', [UserController::class,'profile_submit'])->name('user_profile_submit');
 
@@ -215,15 +218,17 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/tour/delete/{id}',[AdminTourController::class,'delete'])->name('admin_tour_delete');
     Route::get('/tour/booking/{tour_id}/{package_id}',[AdminTourController::class,'tour_booking'])->name('admin_tour_booking');
     Route::get('/tour/booking/delete/{id}',[AdminTourController::class,'tour_booking_delete'])->name('admin_tour_booking_delete');
+    Route::get('/tour/booking-approve/{id}',[AdminTourController::class,'tour_booking_approve'])->name('admin_tour_booking_approve');
     Route::get('/tour/invoice/{invoice_no}',[AdminTourController::class,'tour_invoice'])->name('admin_tour_invoice');
-});    
+}); 
+
 Route::prefix('admin')->group(function () {
-       Route::get('/login',[AdminLoginController::class,'login'])->name('admin_login');
-       Route::post('/login-submit',[AdminLoginController::class,'login_submit'])->name('admin_login_submit');
-       Route::get('/logout',[AdminLoginController::class,'logout'])->name('admin_logout');
-       Route::get('/forget-password',[AdminLoginController::class,'forget_password'])->name('admin_forget_password');
-       Route::post('/forget-password',[AdminLoginController::class,'forget_password_submit'])->name('admin_forget_password_submit');
-       Route::get('/reset-password/{token}/{email}',[AdminLoginController::class,'reset_password'])->name('admin_reset_password');
-       Route::post('/reset-password/{token}/{email}',[AdminLoginController::class,'reset_password_submit'])->name('admin_reset_password_submit');
+    Route::get('/login',[AdminLoginController::class,'login'])->name('admin_login');
+    Route::post('/login-submit',[AdminLoginController::class,'login_submit'])->name('admin_login_submit');
+    Route::get('/logout',[AdminLoginController::class,'logout'])->name('admin_logout');
+    Route::get('/forget-password',[AdminLoginController::class,'forget_password'])->name('admin_forget_password');
+    Route::post('/forget-password',[AdminLoginController::class,'forget_password_submit'])->name('admin_forget_password_submit');
+    Route::get('/reset-password/{token}/{email}',[AdminLoginController::class,'reset_password'])->name('admin_reset_password');
+    Route::post('/reset-password/{token}/{email}',[AdminLoginController::class,'reset_password_submit'])->name('admin_reset_password_submit');
     
 }); 

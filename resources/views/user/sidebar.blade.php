@@ -2,9 +2,9 @@
     <li class="list-group-item {{ Route::is('user_dashboard')? 'active' : ''}}">
         <a href="{{ route('user_dashboard')}}">Dashboard</a>
     </li>
-    <li class="list-group-item {{ Route::is('user_booking')? 'active' : ''}}">
+    <li class="list-group-item {{ Route::is('user_booking')||Request::is('user/invoice/*')? 'active' : ''}}">
         <a href="{{ route('user_booking')}}">Booking</a>
-    </li>
+    <li>
     <li class="list-group-item">
         <a href="user-wishlist.html">Wishlist</a>
     </li>
