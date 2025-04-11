@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2025 at 12:13 PM
+-- Generation Time: Apr 11, 2025 at 12:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -126,7 +126,9 @@ INSERT INTO `bookings` (`id`, `tour_id`, `package_id`, `user_id`, `total_person`
 (3, 4, 8, 22, 1, '100', 'Stripe', 'Completed', '1744189584', '2025-04-09 02:06:24', '2025-04-09 02:06:24'),
 (4, 1, 2, 22, 44, '13200', 'Stripe', 'Completed', '1744262281', '2025-04-09 22:18:01', '2025-04-09 22:18:01'),
 (5, 1, 2, 22, 5, '1500', 'Cash', 'Completed', '1744267205', '2025-04-09 23:40:05', '2025-04-09 23:57:08'),
-(6, 1, 2, 22, 1, '300', 'Cash', 'Completed', '1744268300', '2025-04-09 23:58:20', '2025-04-10 00:06:48');
+(6, 1, 2, 22, 1, '300', 'Cash', 'Completed', '1744268300', '2025-04-09 23:58:20', '2025-04-10 00:06:48'),
+(7, 1, 2, 24, 1, '300', 'Stripe', 'Completed', '1744355162', '2025-04-11 00:06:02', '2025-04-11 00:06:02'),
+(8, 1, 2, 22, 1, '300', 'Stripe', 'Completed', '1744364373', '2025-04-11 02:39:33', '2025-04-11 02:39:33');
 
 -- --------------------------------------------------------
 
@@ -431,6 +433,8 @@ CREATE TABLE `packages` (
   `description` text DEFAULT NULL,
   `map` text DEFAULT NULL,
   `price` varchar(255) DEFAULT NULL,
+  `total_rating` int(11) NOT NULL,
+  `total_score` int(11) NOT NULL,
   `old_price` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -440,9 +444,9 @@ CREATE TABLE `packages` (
 -- Dumping data for table `packages`
 --
 
-INSERT INTO `packages` (`id`, `destination_id`, `featured_photo`, `banner`, `name`, `slug`, `description`, `map`, `price`, `old_price`, `created_at`, `updated_at`) VALUES
-(2, 1, 'package_fetured_1742274662.jpg', 'package_fetured_1742275046.jpg', 'Great Barrier Reef', 'great-barrier-reef', '<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">The Great Barrier Reef, located off the coast of Queensland, Australia, is the world\'s largest coral reef system, stretching over 2,300 kilometers and comprising more than 2,900 individual reefs and 900 islands. Renowned for its stunning biodiversity, the reef is home to an extraordinary variety of marine life, including over 1,500 species of fish and 400 types of coral. Its vibrant coral formations and crystal-clear waters make it a premier destination for snorkeling and diving enthusiasts.</p>\r\n<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Beyond its natural beauty, the Great Barrier Reef holds significant ecological and economic importance. It supports a vast array of marine life and contributes to the livelihoods of many local communities through tourism and fishing. However, the reef faces numerous threats, including climate change and coral bleaching, making conservation efforts crucial for its future.</p>', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d424143.8759805434!2d150.60231267007427!3d-33.847805231787184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b129838f39a743f%3A0x3017d681632a850!2sSydney%20New%20South%20Wales%2C%20Australia!5e0!3m2!1sid!2sid!4v1742285686544!5m2!1sid!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', '300', '600', '2025-03-17 09:53:33', '2025-03-18 01:15:41'),
-(8, 5, 'package_featured_1744189479.jpg', 'package_banner_1744189479.jpg', 'aaa', 'aaa-aaa', '<p>aaa</p>', 'ppp', '100', '1000', '2025-04-09 02:04:39', '2025-04-09 02:04:39');
+INSERT INTO `packages` (`id`, `destination_id`, `featured_photo`, `banner`, `name`, `slug`, `description`, `map`, `price`, `total_rating`, `total_score`, `old_price`, `created_at`, `updated_at`) VALUES
+(2, 1, 'package_fetured_1742274662.jpg', 'package_fetured_1742275046.jpg', 'Great Barrier Reef', 'great-barrier-reef', '<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">The Great Barrier Reef, located off the coast of Queensland, Australia, is the world\'s largest coral reef system, stretching over 2,300 kilometers and comprising more than 2,900 individual reefs and 900 islands. Renowned for its stunning biodiversity, the reef is home to an extraordinary variety of marine life, including over 1,500 species of fish and 400 types of coral. Its vibrant coral formations and crystal-clear waters make it a premier destination for snorkeling and diving enthusiasts.</p>\r\n<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Beyond its natural beauty, the Great Barrier Reef holds significant ecological and economic importance. It supports a vast array of marine life and contributes to the livelihoods of many local communities through tourism and fishing. However, the reef faces numerous threats, including climate change and coral bleaching, making conservation efforts crucial for its future.</p>', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d424143.8759805434!2d150.60231267007427!3d-33.847805231787184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b129838f39a743f%3A0x3017d681632a850!2sSydney%20New%20South%20Wales%2C%20Australia!5e0!3m2!1sid!2sid!4v1742285686544!5m2!1sid!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', '300', 1, 5, '600', '2025-03-17 09:53:33', '2025-04-11 03:54:52'),
+(8, 5, 'package_featured_1744189479.jpg', 'package_banner_1744189479.jpg', 'aaa', 'aaa-aaa', '<p>aaa</p>', 'ppp', '100', 0, 0, '1000', '2025-04-09 02:04:39', '2025-04-09 02:04:39');
 
 -- --------------------------------------------------------
 
@@ -627,6 +631,13 @@ CREATE TABLE `reviews` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `user_id`, `package_id`, `rating`, `comment`, `created_at`, `updated_at`) VALUES
+(4, 22, 2, 5, 'oh', '2025-04-11 02:07:05', '2025-04-11 02:07:05');
+
 -- --------------------------------------------------------
 
 --
@@ -647,7 +658,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('Q7O9yVhMtbeDaDuIUp8smDZW3ZRM8jmKHaBDQi9G', 22, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSFlFNWdyTDM0MjVkZ2FmQlB5M3BYYkdIVzlySkt3aUxQS2ZoSkpPNCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJuZXciO2E6MDp7fXM6Mzoib2xkIjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wYWNrYWdlL2dyZWF0LWJhcnJpZXItcmVlZiI7fXM6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMjt9', 1744278158);
+('MsnmAOfQB2R6ksjkktp52LqQuyWKAw1PN1hwtzF0', 22, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YToxMDp7czo2OiJfdG9rZW4iO3M6NDA6IjBJalJxdmw1TU5iNzRjUUozYVlMdXlNUHRmUDl0RGFzRDQ5U1I5WnQiO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRtaW4vcmV2aWV3cy9pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MTI6InRvdGFsX3BlcnNvbiI7czoxOiIxIjtzOjc6InRvdXJfaWQiO3M6MToiMSI7czoxMDoicGFja2FnZV9pZCI7czoxOiIyIjtzOjc6InVzZXJfaWQiO2k6MjI7czoxMToicGFpZF9hbW91bnQiO2k6MzAwO3M6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIyO3M6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1744368892);
 
 -- --------------------------------------------------------
 
@@ -779,9 +790,8 @@ CREATE TABLE `tours` (
 --
 
 INSERT INTO `tours` (`id`, `package_id`, `tour_start_date`, `tour_end_date`, `booking_end_date`, `total_seat`, `created_at`, `updated_at`) VALUES
-(1, 2, '2025-04-26', '2025-04-28', '2025-04-27}', '120', '2025-03-25 01:39:56', '2025-04-08 03:23:38'),
-(2, 2, '2025-04-24', '2025-04-26', '2025-04-24}', '-1', '2025-03-25 01:40:18', '2025-04-07 22:41:52'),
-(3, 2, '2025-03-03', '2025-03-04', '2025-03-05', '23', '2025-03-25 01:41:06', '2025-03-25 01:41:06'),
+(1, 2, '2025-04-26', '2025-04-28', '2025-04-27', '120', '2025-03-25 01:39:56', '2025-04-08 03:23:38'),
+(3, 2, '2025-05-03', '2025-05-24', '2025-05-15', '23', '2025-03-25 01:41:06', '2025-04-11 02:51:29'),
 (4, 8, '2025-04-23', '2025-04-26', '2025-04-24', '20', '2025-04-09 02:05:43', '2025-04-09 02:05:43');
 
 -- --------------------------------------------------------
@@ -1076,7 +1086,7 @@ ALTER TABLE `blog_categories`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `counter_items`
@@ -1178,7 +1188,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sliders`
