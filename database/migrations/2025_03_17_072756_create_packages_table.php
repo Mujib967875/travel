@@ -14,14 +14,16 @@ return new class extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
             $table->integer('destination_id');
-            $table->string('featured_photo')->nullable();
-            $table->string('banner')->nullable();
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
             $table->text('description')->nullable();
+            $table->string('featured_photo')->nullable();
+            $table->string('banner')->nullable();
             $table->text('map')->nullable();
-            $table->string('price')->nullable();
+            $table->float('price')->nullable();
             $table->string('old_price')->nullable();
+            $table->integer('total_rating');
+            $table->integer('total_score');
             $table->timestamps();
         });
     }

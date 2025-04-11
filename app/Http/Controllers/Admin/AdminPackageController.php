@@ -58,6 +58,8 @@ class AdminPackageController extends Controller
         $obj->price = $request->price;
         $obj->old_price = $request->old_price;
         $obj->map = $request->map;
+        $obj->total_rating = 0;
+        $obj->total_score = 0;
         $obj->save();
 
         return redirect()->route('admin_package_index')->with('success', 'Package is created successfully');
