@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminReviewController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminDashboardController;
@@ -220,6 +221,10 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/tour/booking/delete/{id}',[AdminTourController::class,'tour_booking_delete'])->name('admin_tour_booking_delete');
     Route::get('/tour/booking-approve/{id}',[AdminTourController::class,'tour_booking_approve'])->name('admin_tour_booking_approve');
     Route::get('/tour/invoice/{invoice_no}',[AdminTourController::class,'tour_invoice'])->name('admin_tour_invoice');
+
+    // Reviews Section
+    Route::get('/reviews/index', [AdminReviewController::class, 'index'])->name('admin_review_index');
+    Route::get('/reviews/delete/{id}', [AdminReviewController::class, 'delete'])->name('admin_review_delete');
 }); 
 
 Route::prefix('admin')->group(function () {

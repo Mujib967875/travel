@@ -58,7 +58,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Booking End Date *</label>
                                             <input id="datepicker3" type="text" class="form-control" name="booking_end_date" 
-                                            value="{{ $tour->booking_end_date }}}">
+                                            value="{{ $tour->booking_end_date }}">
                                         </div>
                                     </div>
                                   </div>

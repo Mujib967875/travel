@@ -39,6 +39,10 @@
                     <li class="{{ Request::is('admin/package/*')||Request::is('admin/package-itineraries/*')||Request::is('admin/package-itinerary/*')||Request::is('admin/package-amenities/*')||Request::is('admin/package-amenity/*')||Request::is('admin/package-photos/*')||Request::is('admin/package-photo/*')||Request::is('admin/package-videos/*')||Request::is('admin/package-video/*')||Request::is('admin/package-faqs/*')||Request::is('admin/package-faq/*')? 'active' : '' }}"><a class="nav-link" href="{{ route('admin_package_index')}}"><i class="fas fa-hand-point-right"></i> <span> Package</span></a></li>
 
                     <li class="{{ Request::is('admin/tour/*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin_tour_index')}}"><i class="fas fa-hand-point-right"></i> <span> Tour</span></a></li>
+
+                    <li class="{{ Route::is('admin_review_index') ? 'active' : '' }}"><a class="nav-link"
+                        href="{{ route('admin_review_index') }}"><i class="far fa-grin-beam"></i>
+                        <span>Review</span></a></li>
                    
                     <li class="{{ Request::is('admin/amenity/*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin_amenity_index')}}"><i class="fas fa-hand-point-right"></i> <span> Amenity</span></a></li>
 

@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2>Bookings</h2>
+                <h2>Invoice: {{ $invoice_no }}</h2>
                 <div class="breadcrumb-container">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>

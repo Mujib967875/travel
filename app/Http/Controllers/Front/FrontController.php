@@ -134,7 +134,8 @@ class FrontController extends Controller
         $package_videos = PackageVideo::where('package_id',$package->id)->get();
         $package_faqs = PackageFaq::where('package_id',$package->id)->get();
         $tours = Tour::where('package_id',$package->id)->get();
-        return view('front.package', compact('package','package_amenities_includes','package_amenities_excludes','package_itineraries','package_photos','package_videos','package_faqs','tours'));
+        $reviews = Review::with('user')->where('package_id',$package->id)->get();
+        return view('front.package', compact('package','package_amenities_includes','package_amenities_excludes','package_itineraries','package_photos','package_videos','package_faqs','tours','reviews'));
    } 
 
    public function payment(Request $request)
@@ -211,7 +212,7 @@ class FrontController extends Controller
                     'product_data' => [
                         'name' => $package->name,
                       ],
-                    'unit_amount' => $total_price * 100 * 16890,
+                    'unit_amount' => $total_price * 100 * 16810,
                    ],
                 'quantity' => $request->total_person,
                 ],

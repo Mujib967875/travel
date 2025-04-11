@@ -1,511 +1,618 @@
 @extends('front.layout.master')
 
 @section('main_content')
+    <div class="page-top page-top-package" style="background-image: url({{ asset('uploads/' . $package->banner) }})">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>{{ $package->name }}</h2>
+                    <h3><i class="fas fa-plane-departure"></i> {{ $package->destination->name }}</h3>
 
-<div class="page-top page-top-package" style="background-image: url({{ asset('uploads/'.$package->banner) }})">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>{{ $package->name }}</h2>
-                        <h3><i class="fas fa-plane-departure"></i>{{ $package->destination->name }}</h3>
+
+                    @if ($package->total_score || $package->total_rating)
                         <div class="review">
                             <div class="set">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
+                                @php
+                                    $raw_rating = $package->total_score / $package->total_rating;
+                                    $package_rating = round($raw_rating * 2) / 2;
+                                @endphp
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if ($i <= $package_rating)
+                                        <i class="fas fa-star"></i>
+                                    @elseif($i - 0.5 <= $package_rating)
+                                        <i class="fas fa-star-half-alt"></i>
+                                    @else
+                                        <i class="far fa-star"></i>
+                                    @endif
+                                @endfor
                             </div>
-                            <span>(4.2 out of 5)</span>
+                            <span>({{ $package_rating }} dari 5)</span>
                         </div>
-                        <div class="price">
-                            Rp.{{ $package->price }} @if($package->old_price != '')<del>Rp.{{ $package->old_price }}</del>@endif
+                    @else
+                        <div class="review">
+                            <div class="set">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <i class="far fa-star"></i>
+                                @endfor
+                            </div>
+                            <span>No Reviews!</span>
                         </div>
-                        <div class="person">
-                            per person
-                        </div>
+                    @endif
+
+
+                    <div class="price">
+                        ${{ $package->price }} @if ($package->price != '')
+                            <del>${{ $package->old_price }}</del>
+                        @endif
+                    </div>
+                    <div class="person">
+                        per person
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="package-detail pt_50 pb_50">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
 
-        <div class="package-detail pt_50 pb_50">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
+                    <div class="main-item mb_50">
 
+                        <ul class="nav nav-tabs d-flex justify-content-center" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="tab-1" data-bs-toggle="tab"
+                                    data-bs-target="#tab-1-pane" type="button" role="tab" aria-controls="tab-1-pane"
+                                    aria-selected="true">Detail</button>
+                            </li>
+                            @if ($package_itineraries->count() > 0)
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="tab-2" data-bs-toggle="tab"
+                                        data-bs-target="#tab-2-pane" type="button" role="tab"
+                                        aria-controls="tab-2-pane" aria-selected="false">Itinerary</button>
+                                </li>
+                            @endif
+                            @if ($package->map != '')
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="tab-3" data-bs-toggle="tab"
+                                        data-bs-target="#tab-3-pane" type="button" role="tab"
+                                        aria-controls="tab-3-pane" aria-selected="false">Location</button>
+                                </li>
+                            @endif
+                            @if ($package_photos->count() > 0 || $package_videos->count() > 0)
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="tab-4" data-bs-toggle="tab"
+                                        data-bs-target="#tab-4-pane" type="button" role="tab"
+                                        aria-controls="tab-4-pane" aria-selected="false">Gallery</button>
+                                </li>
+                            @endif
+                            @if ($package_faqs->count() > 0)
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="tab-5" data-bs-toggle="tab"
+                                        data-bs-target="#tab-5-pane" type="button" role="tab"
+                                        aria-controls="tab-5-pane" aria-selected="false">FAQ</button>
+                                </li>
+                            @endif
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="tab-6" data-bs-toggle="tab" data-bs-target="#tab-6-pane"
+                                    type="button" role="tab" aria-controls="tab-6-pane"
+                                    aria-selected="false">Review</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="tab-7" data-bs-toggle="tab" data-bs-target="#tab-7-pane"
+                                    type="button" role="tab" aria-controls="tab-7-pane"
+                                    aria-selected="false">Enquery</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="tab-8" data-bs-toggle="tab" data-bs-target="#tab-8-pane"
+                                    type="button" role="tab" aria-controls="tab-8-pane"
+                                    aria-selected="false">Booking</button>
+                            </li>
+                        </ul>
 
-                        <div class="main-item mb_50">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="tab-1-pane" role="tabpanel"
+                                aria-labelledby="tab-1" tabindex="0">
+                                <!-- Detail -->
+                                <h2 class="mt_30">Detail</h2>
+                                <p>
+                                    {!! $package->description !!}
+                                </p>
 
-                            <ul class="nav nav-tabs d-flex justify-content-center" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-1-pane" type="button" role="tab" aria-controls="tab-1-pane" aria-selected="true">Detail</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-2-pane" type="button" role="tab" aria-controls="tab-2-pane" aria-selected="false">Itinerary</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-3-pane" type="button" role="tab" aria-controls="tab-3-pane" aria-selected="false">Location</button>
-                                </li>
-                                @if ($package_photos->count() > 0 || $package_videos->count() > 0)
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="tab-4" data-bs-toggle="tab" data-bs-target="#tab-4-pane" type="button" role="tab" aria-controls="tab-4-pane" aria-selected="false">Gallery</button>
-                                </li>
-                                @endif
-                                @if ($package_faqs->count() > 0)
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="tab-5" data-bs-toggle="tab" data-bs-target="#tab-5-pane" type="button" role="tab" aria-controls="tab-5-pane" aria-selected="false">FAQ</button>
-                                </li>
-                                @endif
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="tab-6" data-bs-toggle="tab" data-bs-target="#tab-6-pane" type="button" role="tab" aria-controls="tab-6-pane" aria-selected="false">Review</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="tab-7" data-bs-toggle="tab" data-bs-target="#tab-7-pane" type="button" role="tab" aria-controls="tab-7-pane" aria-selected="false">Enquery</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="tab-8" data-bs-toggle="tab" data-bs-target="#tab-8-pane" type="button" role="tab" aria-controls="tab-8-pane" aria-selected="false">Booking</button>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="myTabContent">
-                                
-                                <div class="tab-pane fade show active" id="tab-1-pane" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
-                                    <!-- Detail -->
-                                    <h2 class="mt_30">Detail</h2>
-                                    <p>
-                                       {!! $package->description   !!}
-                                    </p>
-
-                                    <h2 class="mt_30">Includes</h2>
+                                @if ($package_amenities_includes->count() > 0)
+                                    <h2 class="mt_30">Include</h2>
                                     <div class="amenity">
                                         <div class="row">
                                             @foreach ($package_amenities_includes as $item)
-                                            <div class="col-lg-3 mb_15">
-                                                <i class="fas fa-check"></i> {{  $item->amenity->name }}
-                                            </div>
+                                                <div class="col-lg-3 mb_15">
+                                                    <i class="fas fa-check"></i> {{ $item->amenity->name }}
+                                                </div>
                                             @endforeach
                                         </div>
                                     </div>
+                                @endif
 
-                                    <h2 class="mt_30">Excludes</h2>
+                                @if ($package_amenities_excludes->count() > 0)
+                                    <h2 class="mt_30">Exclude</h2>
                                     <div class="amenity">
                                         <div class="row">
                                             @foreach ($package_amenities_excludes as $item)
-                                            <div class="col-lg-3 mb_15">
-                                                <i class="fas fa-times"></i> {{ $item->amenity->name }}
-                                            </div>
+                                                <div class="col-lg-3 mb_15">
+                                                    <i class="fas fa-times"></i> {{ $item->amenity->name }}
+                                                </div>
                                             @endforeach
                                         </div>
                                     </div>
-                                    <!-- // Detail -->
+                                @endif
+                                <!-- // Detail -->
 
-                                    
-                                </div>
 
-                                <div class="tab-pane fade" id="tab-2-pane" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
-                                    <!-- Itinerary -->
-                                    <h2 class="mt_30">itinerary</h2>
-                                    <div class="tour-plan">
-                                        
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered">
-                                                @foreach ($package_itineraries as $item)
+                            </div>
+
+                            <div class="tab-pane fade" id="tab-2-pane" role="tabpanel" aria-labelledby="tab-2"
+                                tabindex="0">
+                                <!-- Itinerary -->
+                                <h2 class="mt_30">Itinerary</h2>
+                                <div class="tour-plan">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            @foreach ($package_itineraries as $item)
                                                 <tr>
                                                     <td><b>{{ $item->name }}</b></td>
                                                     <td>
                                                         {!! $item->description !!}
                                                     </td>
                                                 </tr>
-                                                @endforeach
-                                            </table>
-                                        </div>
+                                            @endforeach
+                                        </table>
                                     </div>
-
-                                    <!-- // Itinerary -->
                                 </div>
 
-                                <div class="tab-pane fade" id="tab-3-pane" role="tabpanel" aria-labelledby="tab-3" tabindex="0">
-                                    <!-- Location -->
-                                    <h2 class="mt_30">Location Map</h2>
-                                    <div class="location-map">
-                                       {!! $package->map !!}
-                                    </div>
-                                    <!-- // Location -->
+                                <!-- // Itinerary -->
+                            </div>
+
+                            <div class="tab-pane fade" id="tab-3-pane" role="tabpanel" aria-labelledby="tab-3"
+                                tabindex="0">
+                                <!-- Location -->
+                                <h2 class="mt_30">Location</h2>
+                                <div class="location-map">
+                                    {!! $package->map !!}
                                 </div>
+                                <!-- // Location -->
+                            </div>
 
-                                <div class="tab-pane fade" id="tab-4-pane" role="tabpanel" aria-labelledby="tab-4" tabindex="0">
-                                    <!-- Gallery -->
+                            <div class="tab-pane fade" id="tab-4-pane" role="tabpanel" aria-labelledby="tab-4"
+                                tabindex="0">
+                                <!-- Gallery -->
 
-                                    @if ($package_photos->count() > 0)
+                                @if ($package_photos->count() > 0)
                                     <h2 class="mt_30">
-                                        Photos
+                                        Photo
                                     </h2>
                                     <div class="photo-all">
                                         <div class="row">
                                             @foreach ($package_photos as $item)
-                                            <div class="col-md-6 col-lg-3">
-                                                <div class="item">
-                                                    <a href="{{ asset('uploads/'.$item->photo) }}" class="magnific">
-                                                        <img src="{{ asset('uploads/'.$item->photo) }}" alt="">
-                                                    </a>
+                                                <div class="col-md-6 col-lg-3">
+                                                    <div class="item">
+                                                        <a href="{{ asset('uploads/' . $item->photo) }}" class="magnific">
+                                                            <img src="{{ asset('uploads/' . $item->photo) }}"
+                                                                alt="">
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             @endforeach
                                         </div>
                                     </div>
-                                    @endif
+                                @endif
 
-
-                                    @if ($package_videos->count() > 0)
+                                @if ($package_videos->count() > 0)
                                     <h2 class="mt_30">
-                                        Videos
+                                        Video
                                     </h2>
                                     <div class="video-all">
                                         <div class="row">
                                             @foreach ($package_videos as $item)
-                                            <div class="col-md-6 col-lg-6">
-                                                <div class="item">
-                                                    <a class="video-button" href="http://www.youtube.com/watch?v={{ $item->video }}">
-                                                        <img src="http://img.youtube.com/vi/{{ $item->video }}/0.jpg" alt="">
-                                                        <div class="icon">
-                                                            <i class="far fa-play-circle"></i>
-                                                        </div>
-                                                        <div class="bg"></div>
-                                                    </a>
+                                                <div class="col-md-6 col-lg-6">
+                                                    <div class="item">
+                                                        <a class="video-button"
+                                                            href="http://www.youtube.com/watch?v={{ $item->video }}">
+                                                            <img src="http://img.youtube.com/vi/{{ $item->video }}/0.jpg"
+                                                                alt="">
+                                                            <div class="icon">
+                                                                <i class="far fa-play-circle"></i>
+                                                            </div>
+                                                            <div class="bg"></div>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             @endforeach
                                         </div>
-                                    </div>                                       
-                                    @endif
-                                    <!-- // Gallery -->
-                                </div>
+                                    </div>
+                                @endif
+                                <!-- // Gallery -->
+                            </div>
 
-
-                                <div class="tab-pane fade" id="tab-5-pane" role="tabpanel" aria-labelledby="tab-5" tabindex="0">
-                                    <!-- FAQ -->
-                                    <h2 class="mt_30">Frequently Asked Questions</h2>
-                                    <div class="faq-package">
-                                        <div class="accordion" id="accordionExample">
-
-                                            @foreach ($package_faqs as $item)
-                                                
+                            <div class="tab-pane fade" id="tab-5-pane" role="tabpanel" aria-labelledby="tab-5"
+                                tabindex="0">
+                                <!-- FAQ -->
+                                <h2 class="mt_30">Faqs</h2>
+                                <div class="faq-package">
+                                    <div class="accordion" id="accordionExample">
+                                        @foreach ($package_faqs as $item)
                                             <div class="accordion-item mb_30">
                                                 <h2 class="accordion-header" id="heading_{{ $loop->iteration }}">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{ $loop->iteration }}" aria-expanded="false" aria-controls="collapse_{{ $loop->iteration }}">
+                                                    <button class="accordion-button collapsed" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapse_{{ $loop->iteration }}"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapse_{{ $loop->iteration }}">
                                                         {{ $item->question }}
                                                     </button>
                                                 </h2>
-                                                <div id="collapse_{{ $loop->iteration }}" class="accordion-collapse collapse" aria-labelledby="heading_{{ $loop->iteration }}" data-bs-parent="#accordionExample">
-                                                    <div class="accordion-body">{!! $item->answer !!}
+                                                <div id="collapse_{{ $loop->iteration }}"
+                                                    class="accordion-collapse collapse"
+                                                    aria-labelledby="heading_{{ $loop->iteration }}"
+                                                    data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        {!! $item->answer !!}
                                                     </div>
                                                 </div>
                                             </div>
-                                            @endforeach
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
-                                    <!-- // FAQ -->
+                                </div>
+                                <!-- // FAQ -->
+                            </div>
 
-                                <div class="tab-pane fade" id="tab-6-pane" role="tabpanel" aria-labelledby="tab-6" tabindex="0">
-                                    <!-- Review -->
-                                    <div class="review-package">
+                            <div class="tab-pane fade" id="tab-6-pane" role="tabpanel" aria-labelledby="tab-6"
+                                tabindex="0">
+                                <!-- Review -->
+                                <div class="review-package">
 
-                                        <h2>Reviews (2)</h2>
-        
+                                    <h2>Review ({{ $reviews->count() }})</h2>
+
+                                    @forelse ($reviews as $item)
                                         <div class="review-package-section">
                                             <div class="review-package-box d-flex justify-content-start">
                                                 <div class="left">
-                                                    <img src="uploads/team-2.jpg" alt="">
+                                                    @if ($item->user->photo == '')
+                                                        <img src="{{ asset('uploads/default.png') }}" alt="">
+                                                    @else
+                                                        <img src="{{ asset('uploads/'. $item->user->photo) }}">
+                                                    @endif
                                                 </div>
                                                 <div class="right">
-                                                    <div class="name">John Doe</div>
-                                                    <div class="date">September 25, 2022</div>
+                                                    <div class="name">{{ $item->user->name }}</div>
+                                                    <div class="date">{{ $item->created_at->format('Y-m-d') }}</div>
+                                                    <div class="review mb-2">
+                                                        <div class="set">
+                                                            @for ($i = 1; $i <= 5; $i++)
+                                                                @if ($i <= $item->rating)
+                                                                    <i class="fas fa-star"></i>
+                                                                @else
+                                                                    <i class="far fa-star"></i>
+                                                                @endif
+                                                            @endfor
+                                                        </div>
+                                                    </div>
                                                     <div class="text">
-                                                        Qui ea oporteat democritum, ad sed minimum offendit expetendis. Idque volumus platonem eos ut, in est verear delectus. Vel ut option adipisci consequuntur. Mei et solum malis detracto, has iuvaret invenire inciderint no. Id est dico nostrud invenire.
+                                                        {!! $item->comment !!}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-        
-                                        <div class="review-package-section">
-                                            <div class="review-package-box d-flex justify-content-start">
-                                                <div class="left">
-                                                    <img src="uploads/team-1.jpg" alt="">
-                                                </div>
-                                                <div class="right">
-                                                    <div class="name">John Doe</div>
-                                                    <div class="date">September 25, 2022</div>
-                                                    <div class="text">
-                                                        Qui ea oporteat democritum, ad sed minimum offendit expetendis. Idque volumus platonem eos ut, in est verear delectus. Vel ut option adipisci consequuntur. Mei et solum malis detracto, has iuvaret invenire inciderint no. Id est dico nostrud invenire.
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    @empty
+                                        <div class="alert alert-info">
+                                            No review yet.
                                         </div>
-        
-        
-                                        <div class="mt_40"></div>
-        
-                                        <h2>Leave Your Review</h2>
+                                    @endforelse
 
-                                        @if(Auth::guard('web')->check())
-                                            @php
-                                                $review_possible = App\Models\Booking::where('package_id',$package->id)->where('user_id',Auth::guard('web')->user()->id)->where('payment_status','Completed')->count();
-                                            @endphp
+                                    <div class="mt_40"></div>
 
-                                            @if($review_possible > 0)
+                                    <h2>Leave the review</h2>
+
+                                    @if (Auth::guard('web')->check())
+                                        @php
+                                            $review_possible = App\Models\Booking::where('package_id', $package->id)
+                                                ->where('user_id', Auth::guard('web')->user()->id)
+                                                ->where('payment_status', 'Completed')
+                                                ->count();
+                                        @endphp
+
+                                        @if ($review_possible > 0)
                                             @php
-                                                    App\Models\Review::where('package_id', $package->id)
+                                                App\Models\Review::where('package_id', $package->id)
                                                     ->where('user_id', Auth::guard('web')->user()->id)
                                                     ->count() > 0
                                                     ? ($reviewed = true)
                                                     : ($reviewed = false);
                                             @endphp
+
                                             @if ($reviewed == false)
-                                            <form action="{{ route('review_submit') }}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="package_id" value="{{ $package->id }}">
-                                            <div class="mb-3">
-                                                <div class="give-review-auto-select">
-                                                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
-                                                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
-                                                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
-                                                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
-                                                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"><i class="fas fa-star"></i></label>
-                                                </div>
-                                                <script>
-                                                    document.addEventListener('DOMContentLoaded', (event) => {
-                                                        const stars = document.querySelectorAll('.star-rating label');
-                                                        stars.forEach(star => {
-                                                            star.addEventListener('click', function() {
-                                                                stars.forEach(s => s.style.color = '#ccc');
-                                                                this.style.color = '#f5b301';
-                                                                let previousStar = this.previousElementSibling;
-                                                                while(previousStar) {
-                                                                    if (previousStar.tagName === 'LABEL') {
-                                                                        previousStar.style.color = '#f5b301';
-                                                                    }
-                                                                    previousStar = previousStar.previousElementSibling;
-                                                                }
+                                                <form action="{{ route('review_submit') }}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="package_id" value="{{ $package->id }}">
+                                                    <div class="mb-3">
+                                                        <div class="give-review-auto-select">
+                                                            <input type="radio" id="star5" name="rating"
+                                                                value="5" /><label for="star5" title="5 stars"><i
+                                                                    class="fas fa-star"></i></label>
+                                                            <input type="radio" id="star4" name="rating"
+                                                                value="4" /><label for="star4" title="4 stars"><i
+                                                                    class="fas fa-star"></i></label>
+                                                            <input type="radio" id="star3" name="rating"
+                                                                value="3" /><label for="star3" title="3 stars"><i
+                                                                    class="fas fa-star"></i></label>
+                                                            <input type="radio" id="star2" name="rating"
+                                                                value="2" /><label for="star2" title="2 stars"><i
+                                                                    class="fas fa-star"></i></label>
+                                                            <input type="radio" id="star1" name="rating"
+                                                                value="1" /><label for="star1" title="1 star"><i
+                                                                    class="fas fa-star"></i></label>
+                                                        </div>
+                                                        <script>
+                                                            document.addEventListener('DOMContentLoaded', (event) => {
+                                                                const stars = document.querySelectorAll('.star-rating label');
+                                                                stars.forEach(star => {
+                                                                    star.addEventListener('click', function() {
+                                                                        stars.forEach(s => s.style.color = '#ccc');
+                                                                        this.style.color = '#f5b301';
+                                                                        let previousStar = this.previousElementSibling;
+                                                                        while (previousStar) {
+                                                                            if (previousStar.tagName === 'LABEL') {
+                                                                                previousStar.style.color = '#f5b301';
+                                                                            }
+                                                                            previousStar = previousStar.previousElementSibling;
+                                                                        }
+                                                                    });
+                                                                });
                                                             });
-                                                        });
-                                                    });
-                                                </script>
-                                            </div>
-                                            <div class="mb-3">
-                                                <textarea class="form-control"name="comment" rows="3" placeholder="Comment"></textarea>
-                                            </div>
-                                            <div class="mb-3">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </div>
-                                            </form>
+                                                        </script>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <textarea class="form-control" rows="3" name="comment" placeholder="Comment"></textarea>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
                                             @else
-                                                <div class="alert alert-danger">
-                                                    You have already reviewed this package.
-                                                </div>
-                                            @endif
-                                            @else
-                                            <div class="alert alert-danger">
-                                                Sorry, you can't review this package because you haven't booked it yet.
-                                            </div>
+                                                <div class="alert alert-danger">You Have Already Given Review.</div>
                                             @endif
                                         @else
-                                            <a href="{{ route('login') }}" class="text-danger text-decoration-underline">Login To Review</a>
+                                            <div class="mb-3">
+                                                <p class="text-danger">Book first to review this package.</p>
+                                            </div>
                                         @endif
-                                    </div>
-                                    <!-- // Review -->
+                                    @else
+                                        <div class="mb-3">
+                                            <a href="{{ route('login') }}"
+                                                class="text-danger text-decoration-underline">
+                                                Login First to review this package!</a>
+                                        </div>
+                                    @endif
                                 </div>
+                                <!-- // Review -->
+                            </div>
 
-
-
-                                <div class="tab-pane fade" id="tab-7-pane" role="tabpanel" aria-labelledby="tab-7" tabindex="0">
-                                    <!-- Enquery -->
-                                    <h2 class="mt_30">Ask Your Question</h2>
-                                    <div class="enquery-form">
-                                        <form action="{{ route('enquery_form_submit',$package->id )}}" method="post">
-                                            @csrf
-                                            <div class="mb-3">
-                                                <input type="text" class="form-control" placeholder="Full Name" name="name">
-                                            </div>
-                                            <div class="mb-3">
-                                                <input type="email" class="form-control" placeholder="Email Address" name="email">
-                                            </div>
-                                            <div class="mb-3">
-                                                <input type="text" class="form-control" placeholder="Phone Number" name="phone">
-                                            </div>
-                                            <div class="mb-3">
-                                                <textarea class="form-control h-150" rows="3" placeholder="Message" name="message"></textarea>
-                                            </div>
-                                            <div class="mb-3">
-                                                <button type="submit" class="btn btn-primary">
-                                                    Send Message
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- // Enquery -->
+                            <div class="tab-pane fade" id="tab-7-pane" role="tabpanel" aria-labelledby="tab-7"
+                                tabindex="0">
+                                <!-- Enquery -->
+                                <h2 class="mt_30"> Ask Your Questions.</h2>
+                                <div class="enquery-form">
+                                    <form action="{{ route('enquery_form_submit', $package->id) }}" method="post">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" name="name"
+                                                placeholder="Full Name">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="email" class="form-control" name="email"
+                                                placeholder="Email">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" name="phone"
+                                                placeholder="Phone">
+                                        </div>
+                                        <div class="mb-3">
+                                            <textarea class="form-control h-150" name="message" rows="3" placeholder="Pesan"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <button type="submit" class="btn btn-primary">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
+                                <!-- // Enquery -->
+                            </div>
+                            <div class="tab-pane fade" id="tab-8-pane" role="tabpanel" aria-labelledby="tab-8"
+                                tabindex="0">
+                                <!-- Booking -->
 
+                                @if ($tours->count() > 0)
+                                    <form action="{{ route('payment') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="package_id" value="{{ $package->id }}">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                @php $i=0; @endphp
+                                                @foreach ($tours as $item)
+                                                    @if ($item->booking_end_date < date('Y-m-d'))
+                                                        @continue
+                                                    @endif
+                                                    @php
+                                                        $i++;
+                                                        $total_booked_seats = 0;
+                                                        $all_data = App\Models\Booking::where('tour_id', $item->id)
+                                                            ->where('package_id', $package->id)
+                                                            ->get();
+                                                        foreach ($all_data as $data) {
+                                                            $total_booked_seats += $data->total_person;
+                                                        }
 
-                                <div class="tab-pane fade" id="tab-8-pane" role="tabpanel" aria-labelledby="tab-8" tabindex="0">
-                                    <!-- Booking -->
-                                     <form action="{{ route('payment') }}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="package_id" value="{{ $package->id }}">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    @php $i=0; @endphp
-
-                                                    @foreach ($tours as $item)
-                                                    @if($item->booking_end_date < date('Y-m-d'))
-                                                     @continue
-                                                     @endif
-                                                     @php 
-                                                     $i++; 
-                                                     $total_booked_seats = 0;
-                                                     $all_data = App\Models\Booking::where('tour_id',$item->id)->where('package_id',$package->id)->get();
-                                                     foreach($all_data as $data){
-                                                         $total_booked_seats += $data->total_person;
-                                                     }
-
-                                                     if($item->total_seat == -1){
-                                                         $remaining_seats = 'unlimited';
-                                                     }else{
-                                                     $remaining_seats = $item->total_seat - $total_booked_seats;
-                                                     }
-                                                     @endphp
+                                                        if ($item->total_seat == '-1') {
+                                                            $remaining_seats = 'Unlimited';
+                                                        } else {
+                                                            $remaining_seats = $item->total_seat - $total_booked_seats;
+                                                        }
+                                                    @endphp
                                                     <h2 class="mt_30">
-                                                        <input type="radio" name="tour_id" value="{{ $item->id }}" @if($i == 1)checked @endif>
-                                                        Tour {{ $i }}
+                                                        <input type="radio" name="tour_id" value="{{ $item->id }}"
+                                                            @if ($i == 1) checked @endif>
+                                                        Tur {{ $i }}
                                                     </h2>
                                                     <div class="summary">
                                                         <div class="table-responsive">
                                                             <table class="table table-bordered">
                                                                 <tr>
                                                                     <td><b>Tour Start Date</b></td>
-                                                                    <td>{{ $item->tour_start_date }}</td>
+                                                                    <td>
+                                                                        {{ $item->tour_start_date }}
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><b>Tour End Date</b></td>
-                                                                    <td>{{$item->tour_end_date}}</td>
+                                                                    <td>
+                                                                        {{ $item->tour_end_date }}
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><b>Tour Booking End Date</b></td>
-                                                                    <td class="text-danger">{{$item->booking_end_date}}</td>
+                                                                    <td><b>Booking End Date</b></td>
+                                                                    <td class="text-danger">
+                                                                        {{ $item->booking_end_date }}
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><b>Total Seat</b></td>
                                                                     <td>
-                                                                        @if($item->total_seat == -1)
-                                                                        unlimited
+                                                                        @if ($item->total_seat == -1)
+                                                                            unlimited
                                                                         @else
-                                                                        {{ $item->total_seat }}</td>
+                                                                            {{ $item->total_seat }}
                                                                         @endif
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><b>Booked Seat</b></td>
-                                                                    <td>{{ $total_booked_seats }}</td>
+                                                                    <td>
+                                                                        {{ $total_booked_seats }}
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><b>Remaining Seat</b></td>
-                                                                    <td>{{ $remaining_seats }}</td>
+                                                                    <td>
+                                                                        {{ $remaining_seats }}
+                                                                    </td>
                                                                 </tr>
                                                             </table>
                                                         </div>
-                                                    </div>                                             
-                                                    @endforeach
-
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h2 class="mt_30">Payment</h2>
-                                                    <div class="summary">
-                                                    
-                                                            <div class="table-responsive">
-                                                                <table class="table table-bordered">
-                                                                    <tr>
-                                                                        <td>
-                                                                            <input type="hidden" name="ticket_price" id="ticketPrice" value="{{ $package->price }}">
-                                                                            <label for=""><b>Number of Persons</b></label>
-                                                                            <input type="number" min="1" max="100" name="total_person" class="form-control" value="1" id="numPersons" oninput="calculateTotal()">
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <label for=""><b>Total</b></label>
-                                                                            <input type="text" name="" class="form-control" id="totalAmount" value="${{ $package->price }}" disabled>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <label for="" class="mb-2 mt-2"><b>Select Payment Method</b></label>
-                                                                            {{-- <select name="payment_method" class="form-select">
-                                                                                <option value="Stripe">Stripe</option>
-                                                                                {{-- <option value="PayPal">PayPal</option>
-                                                                            </select> --}}
-                                                                            <div class="mb-3">
-                                                                                <div class="form-check">
-                                                                                    <input class="form-check-input" type="radio" name="payment_method" id="midtrans" value="Midtrans">
-                                                                                    <label class="form-check-label" for="midtrans">
-                                                                                        Non-tunai
-                                                                                    </label>
-                                                                                </div>
-                                                                                <div class="form-check">
-                                                                                    <input class="form-check-input" type="radio" name="payment_method" id="cash" value="Cash">
-                                                                                    <label class="form-check-label" for="cash">
-                                                                                        Cash
-                                                                                    </label>
-                                                                                </div>
-                                                                                {{-- <div class="form-check">
-                                                                                    <input class="form-check-input" type="radio" name="payment_method" id="paypal" value="PayPal">
-                                                                                    <label class="form-check-label" for="paypal">
-                                                                                        PayPal
-                                                                                    </label>
-                                                                                </div> --}}
-                                                                                <div class="form-check">
-                                                                                    <input class="form-check-input" type="radio" name="payment_method" id="stripe" value="Stripe">
-                                                                                    <label class="form-check-label" for="stripe">
-                                                                                        Stripe
-                                                                                    </label>
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            @if(Auth::guard('web')->check())
-                                                                            <button type="submit" class="btn btn-primary">Pay Now</button>
-                                                                            @else
-                                                                            <a href="{{ route('login') }}" class="btn btn-primary"->Login To Book</a>
-                                                                            @endif
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </div>
-                                                        
                                                     </div>
-                                                    <script>
-                                                        function calculateTotal() {
-                                                            const ticketPrice = document.getElementById('ticketPrice').value;
-                                                            const numPersons = document.getElementById('numPersons').value;
-                                                            const totalAmount = ticketPrice * numPersons;
-                                                            document.getElementById('totalAmount').value = `$${totalAmount}`;
-                                                        }
-                                                    </script>
-                                                </div>
+                                                @endforeach
                                             </div>
-                                     </form>
-                                    <!-- // Booking -->
-                                </div>
+                                            <div class="col-md-4">
+                                                <h2 class="mt_30">Payment</h2>
+                                                <div class="summary">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered">
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="hidden" name="ticket_price"
+                                                                        id="ticketPrice" value="{{ $package->price }}">
+                                                                    <label for=""><b>Number of Person</b></label>
+                                                                    <input type="number" min="1" max="100"
+                                                                        name="total_person" class="form-control"
+                                                                        value="1" id="numPersons"
+                                                                        oninput="calculateTotal()">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label for=""><b>Total</b></label>
+                                                                    <input type="text" name=""
+                                                                        class="form-control" id="totalAmount"
+                                                                        value="${{ $package->price }}" disabled>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label for=""><b>Select Payment Method</b></label>
+                                                                        {{-- <input type="radio" name="Midtrans" values="Midtrans"> --}}
+                                                                    {{-- <select name="payment_method" class="form-select">
+                                                                        <option value="Midtrans">Non-tunai</option>
+                                                                        <option value="Cash">Cash</option>
+                                                                        <option value="PayPal">PayPal</option>
+                                                                        <option value="Stripe">Stripe</option>
+                                                                    </select> --}}
+                                                                    <div class="mb-3">
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="radio" name="payment_method" id="midtrans" value="Midtrans">
+                                                                            <label class="form-check-label" for="midtrans">
+                                                                                Non-tunai
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="radio" name="payment_method" id="cash" value="Cash">
+                                                                            <label class="form-check-label" for="cash">
+                                                                                Cash
+                                                                            </label>
+                                                                        </div>
+                                                                        {{-- <div class="form-check">
+                                                                            <input class="form-check-input" type="radio" name="payment_method" id="paypal" value="PayPal">
+                                                                            <label class="form-check-label" for="paypal">
+                                                                                PayPal
+                                                                            </label>
+                                                                        </div> --}}
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="radio" name="payment_method" id="stripe" value="Stripe">
+                                                                            <label class="form-check-label" for="stripe">
+                                                                                Stripe
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
 
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    @if (Auth::guard('web')->check())
+                                                                        <button type="submit" class="btn btn-primary"">Pay Now</button>
+                                                                    @else
+                                                                        <a href="{{ route('login') }}"
+                                                                            class="btn btn-danger">Login to Book</a>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <script>
+                                                    function calculateTotal() {
+                                                        const ticketPrice = document.getElementById('ticketPrice').value;
+                                                        const numPersons = document.getElementById('numPersons').value;
+                                                        const totalAmount = ticketPrice * numPersons;
+                                                        document.getElementById('totalAmount').value = `$${totalAmount}`;
+                                                    }
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </form>
+                                @else
+                                    <div class="alert alert-info">
+                                        There are no tours available for this package.
+                                    </div>
+                                @endif
+                                <!-- // Booking -->
                             </div>
-                            
-                        </div>
-                            
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
 @endsection
