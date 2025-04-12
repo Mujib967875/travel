@@ -33,3 +33,4 @@ class AdminReviewController extends Controller
         return redirect()->back()->with('success','Review Deleted Successfully');
     }
 }
+   

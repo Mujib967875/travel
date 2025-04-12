@@ -33,6 +33,8 @@ Route::get('/post/{slug}',[FrontController::class,'post'])->name('post');
 Route::get('/category/{slug}',[FrontController::class,'category'])->name('category');
 Route::get('/destinations',[FrontController::class,'destinations'])->name('destinations');
 Route::get('/destination/{slug}',[FrontController::class,'destination'])->name('destination');
+Route::get('/packages',[FrontController::class,'packages'])->name('packages');
+
 Route::get('/package/{slug}',[FrontController::class,'package'])->name('package');
 Route::post('/enquery/submit/{id}',[FrontController::class,'enquery_form_submit'])->name('enquery_form_submit');
 Route::post('/review/submit', [FrontController::class, 'review_submit'])->name('review_submit');
@@ -71,6 +73,7 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('/dashboard',[UserController::class,'dashboard'])->name('user_dashboard');
     Route::get('/booking',[UserController::class,'booking'])->name('user_booking');
     Route::get('/invoice/{invoice_no}',[UserController::class,'invoice'])->name('user_invoice');
+    Route::get('/review',[UserController::class,'review'])->name('user_review');
     Route::get('/profile', [UserController::class,'profile'])->name('user_profile');
     Route::post('/profile', [UserController::class,'profile_submit'])->name('user_profile_submit');
 

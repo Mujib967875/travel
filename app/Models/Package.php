@@ -19,6 +19,11 @@ class Package extends Model
         return $this->hasMany(PackageItinerary::class);
     }
 
+    public function package_amenities()
+    {
+        return $this->hasMany(PackageAmenity::class);
+    }
+
     public function package_photos()
     {
         return $this->hasMany(PackagePhoto::class);
@@ -38,7 +43,7 @@ class Package extends Model
         return $this->hasMany(Tour::class);
     }
 
-    public function reviewa()
+    public function reviews()
     {
         return $this->hasMany(Review::class);
     }

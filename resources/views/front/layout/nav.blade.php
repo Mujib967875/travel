@@ -21,11 +21,11 @@
                                 <li class="nav-item {{ Route::is('about') ? 'active' : ''}}">
                                     <a href="{{ route('about') }}" class="nav-link">About</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item {{ Route::is('destinations') ? 'active' : ''}}">
                                     <a href="{{ route('destinations') }}" class="nav-link">Destinations</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="packages.html" class="nav-link">Packages</a>
+                                <li class="nav-item {{ Route::is('packages') ? 'active' : ''}}">
+                                    <a href="{{ route('packages') }}" class="nav-link">Packages</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('team_members')}}" class="nav-link">Team</a>

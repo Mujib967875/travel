@@ -21,7 +21,7 @@ use App\Models\DestinationPhoto;
 use App\Models\DestinationVideo;
 use App\Models\Package;
 use App\Models\PackageAmenity;
-// use App\Models\Amenity;
+use App\Models\Amenity; 
 use App\Mail\Websitemail;
 use App\Models\PackageFaq;
 use App\Models\PackageItinerary;
@@ -100,6 +100,46 @@ class FrontController extends Controller
         $destinations = Destination::orderBy('view_count','desc')->paginate(9);
         return view('front.destinations',compact('destinations'));
     }
+
+    public function packages(Request $request)
+    {
+        // dd($request->all());
+        $form_name = $request->name;
+        $form_min_price = $request->min_price;
+        $form_max_price = $request->max_price;
+        $form_destination_id = $request->destination_id;
+        $form_review = $request->review;
+        // dd($form_review);
+
+        $destinations = Destination::orderBy('name', 'asc')->get();
+
+        $packages = Package::with(['destination', 'package_amenities', 'package_itineraries', 'tours', 'reviews'])->orderBy('id', 'desc');
+
+        if ($request->name != '') {
+            $packages = $packages->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->min_price != '') {
+            $packages = $packages->where('price', '>=', $request->min_price);
+        }
+
+        if ($request->max_price != '') {
+            $packages = $packages->where('price', '<=', $request->max_price);
+        }
+
+        if ($request->destination_id != '') {
+            $packages = $packages->where('destination_id', $request->destination_id);
+        }
+
+        if ($request->review != 'all' && $request->review != null) {
+            $packages = $packages->whereRaw('total_score/total_rating = ?', [$request->review]);
+        }
+
+        $packages = $packages->paginate(6);
+
+        return view('front.packages', compact('destinations', 'packages', 'form_name', 'form_min_price', 'form_max_price', 'form_destination_id', 'form_review'));
+    }
+
     public function destination($slug)
     {
         $destination = Destination::where('slug',$slug)->first();

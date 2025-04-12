@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Booking;
+use App\Models\Review;
 class UserController extends Controller
 {
     public function dashboard()
@@ -28,6 +29,12 @@ class UserController extends Controller
         $admin_data = admin::where('id', 1)->first();
         $booking = Booking::with(['tour','package'])->where('invoice_no', $invoice_no)->first();
         return view('user.invoice',compact('invoice_no','booking','admin_data'));
+    }
+
+    public function review()
+    {
+        $reviews = Review::with('package')->where('user_id',Auth::guard('web')->user()->id)->get();
+        return view('user.review',compact('reviews'));
     }
 
    public function profile()
