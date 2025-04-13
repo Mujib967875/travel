@@ -34,10 +34,10 @@ Route::get('/category/{slug}',[FrontController::class,'category'])->name('catego
 Route::get('/destinations',[FrontController::class,'destinations'])->name('destinations');
 Route::get('/destination/{slug}',[FrontController::class,'destination'])->name('destination');
 Route::get('/packages',[FrontController::class,'packages'])->name('packages');
-
 Route::get('/package/{slug}',[FrontController::class,'package'])->name('package');
 Route::post('/enquery/submit/{id}',[FrontController::class,'enquery_form_submit'])->name('enquery_form_submit');
 Route::post('/review/submit', [FrontController::class, 'review_submit'])->name('review_submit');
+Route::get('/wishlist/{package_id}', [FrontController::class, 'wishlist'])->name('wishlist');
 
 
 //payment
