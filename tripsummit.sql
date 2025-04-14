@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2025 at 12:40 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Waktu pembuatan: 14 Apr 2025 pada 03.16
+-- Versi server: 10.4.22-MariaDB
+-- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,22 +24,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admins`
+-- Struktur dari tabel `admins`
 --
 
 CREATE TABLE `admins` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
-  `photo` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `token` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `admins`
+-- Dumping data untuk tabel `admins`
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `photo`, `password`, `token`, `created_at`, `updated_at`) VALUES
@@ -48,18 +48,18 @@ INSERT INTO `admins` (`id`, `name`, `email`, `photo`, `password`, `token`, `crea
 -- --------------------------------------------------------
 
 --
--- Table structure for table `amenities`
+-- Struktur dari tabel `amenities`
 --
 
 CREATE TABLE `amenities` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `amenities`
+-- Dumping data untuk tabel `amenities`
 --
 
 INSERT INTO `amenities` (`id`, `name`, `created_at`, `updated_at`) VALUES
@@ -76,19 +76,19 @@ INSERT INTO `amenities` (`id`, `name`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `blog_categories`
+-- Struktur dari tabel `blog_categories`
 --
 
 CREATE TABLE `blog_categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `blog_categories`
+-- Dumping data untuk tabel `blog_categories`
 --
 
 INSERT INTO `blog_categories` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
@@ -99,7 +99,7 @@ INSERT INTO `blog_categories` (`id`, `name`, `slug`, `created_at`, `updated_at`)
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bookings`
+-- Struktur dari tabel `bookings`
 --
 
 CREATE TABLE `bookings` (
@@ -108,16 +108,16 @@ CREATE TABLE `bookings` (
   `package_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `total_person` int(11) NOT NULL,
-  `paid_amount` varchar(255) DEFAULT NULL,
-  `payment_method` varchar(255) DEFAULT NULL,
-  `payment_status` varchar(255) DEFAULT NULL,
-  `invoice_no` varchar(255) DEFAULT NULL,
+  `paid_amount` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_method` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `invoice_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `bookings`
+-- Dumping data untuk tabel `bookings`
 --
 
 INSERT INTO `bookings` (`id`, `tour_id`, `package_id`, `user_id`, `total_person`, `paid_amount`, `payment_method`, `payment_status`, `invoice_no`, `created_at`, `updated_at`) VALUES
@@ -133,50 +133,50 @@ INSERT INTO `bookings` (`id`, `tour_id`, `package_id`, `user_id`, `total_person`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cache`
+-- Struktur dari tabel `cache`
 --
 
 CREATE TABLE `cache` (
-  `key` varchar(255) NOT NULL,
-  `value` mediumtext NOT NULL,
+  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cache_locks`
+-- Struktur dari tabel `cache_locks`
 --
 
 CREATE TABLE `cache_locks` (
-  `key` varchar(255) NOT NULL,
-  `owner` varchar(255) NOT NULL,
+  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `counter_items`
+-- Struktur dari tabel `counter_items`
 --
 
 CREATE TABLE `counter_items` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `item1_number` varchar(255) DEFAULT NULL,
-  `item1_text` varchar(255) DEFAULT NULL,
-  `item2_number` varchar(255) DEFAULT NULL,
-  `item2_text` varchar(255) DEFAULT NULL,
-  `item3_number` varchar(255) DEFAULT NULL,
-  `item3_text` varchar(255) DEFAULT NULL,
-  `item4_number` varchar(255) DEFAULT NULL,
-  `item4_text` varchar(255) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
+  `item1_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `item1_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `item2_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `item2_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `item3_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `item3_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `item4_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `item4_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `counter_items`
+-- Dumping data untuk tabel `counter_items`
 --
 
 INSERT INTO `counter_items` (`id`, `item1_number`, `item1_text`, `item2_number`, `item2_text`, `item3_number`, `item3_text`, `item4_number`, `item4_text`, `status`, `created_at`, `updated_at`) VALUES
@@ -185,55 +185,55 @@ INSERT INTO `counter_items` (`id`, `item1_number`, `item1_text`, `item2_number`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `destinations`
+-- Struktur dari tabel `destinations`
 --
 
 CREATE TABLE `destinations` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `country` varchar(255) DEFAULT NULL,
-  `language` varchar(255) DEFAULT NULL,
-  `currency` varchar(255) DEFAULT NULL,
-  `area` varchar(255) DEFAULT NULL,
-  `timezone` varchar(255) DEFAULT NULL,
-  `visa_requirement` text DEFAULT NULL,
-  `activity` text DEFAULT NULL,
-  `best_time` text DEFAULT NULL,
-  `health_safety` text DEFAULT NULL,
-  `map` text DEFAULT NULL,
-  `featured_photo` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `language` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `currency` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `area` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `timezone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `visa_requirement` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `activity` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `best_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `health_safety` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `map` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `featured_photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `view_count` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `destinations`
+-- Dumping data untuk tabel `destinations`
 --
 
 INSERT INTO `destinations` (`id`, `name`, `slug`, `description`, `country`, `language`, `currency`, `area`, `timezone`, `visa_requirement`, `activity`, `best_time`, `health_safety`, `map`, `featured_photo`, `view_count`, `created_at`, `updated_at`) VALUES
-(1, 'Sydney', 'sydney', '<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Australia, the land Down Under, is a vast and diverse country known for its stunning natural landscapes, unique wildlife, and vibrant cities. From the sun-kissed beaches of the Gold Coast to the rugged outback of the Northern Territory, Australia offers an array of experiences that cater to every type of traveler. Whether you\'re looking to relax on pristine shores, explore ancient rainforests, or venture into the heart of the desert, Australia has something for everyone.</p>\r\n<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">In addition to its natural beauty, Australia is home to several bustling cities that boast a rich cultural heritage and modern attractions. Sydney, with its iconic Opera House and Harbour Bridge, offers a dynamic urban experience with world-class dining, shopping, and entertainment. Melbourne, known for its artistic vibe and diverse population, is a hub for street art, coffee culture, and live music. Other cities like Brisbane, Perth, and Adelaide each offer their own unique charm and attractions, making urban exploration in Australia equally rewarding.</p>\r\n<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Australia\'s wildlife is another major draw, with unique species such as kangaroos, koalas, and the platypus. The Great Barrier Reef, a UNESCO World Heritage site, is a must-visit for snorkeling and diving enthusiasts, showcasing a vibrant underwater ecosystem. Additionally, the country\'s commitment to preserving its natural and cultural heritage is evident in its numerous national parks and heritage sites. Whether you\'re an adventure seeker, a nature lover, or a cultural enthusiast, Australia\'s diverse offerings promise an unforgettable travel experience.</p>', 'Australia', 'English', 'AUD', '120038 sqft', 'GMT-6', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29736668.18356832!2d111.81148767494898!3d-24.521314978627814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2b2bfd076787c5df%3A0x538267a1955b1352!2sAustralia!5e0!3m2!1sen!2sbd!4v1716870853572!5m2!1sen!2sbd\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 'destination_featured_1741942564.jpg', 31, '2025-03-14 01:56:04', '2025-04-13 03:40:24'),
+(1, 'Sydney', 'sydney', '<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Australia, the land Down Under, is a vast and diverse country known for its stunning natural landscapes, unique wildlife, and vibrant cities. From the sun-kissed beaches of the Gold Coast to the rugged outback of the Northern Territory, Australia offers an array of experiences that cater to every type of traveler. Whether you\'re looking to relax on pristine shores, explore ancient rainforests, or venture into the heart of the desert, Australia has something for everyone.</p>\r\n<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">In addition to its natural beauty, Australia is home to several bustling cities that boast a rich cultural heritage and modern attractions. Sydney, with its iconic Opera House and Harbour Bridge, offers a dynamic urban experience with world-class dining, shopping, and entertainment. Melbourne, known for its artistic vibe and diverse population, is a hub for street art, coffee culture, and live music. Other cities like Brisbane, Perth, and Adelaide each offer their own unique charm and attractions, making urban exploration in Australia equally rewarding.</p>\r\n<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1rem; color: #212529; font-family: Roboto, sans-serif; font-size: 16px; background-color: #ffffff;\">Australia\'s wildlife is another major draw, with unique species such as kangaroos, koalas, and the platypus. The Great Barrier Reef, a UNESCO World Heritage site, is a must-visit for snorkeling and diving enthusiasts, showcasing a vibrant underwater ecosystem. Additionally, the country\'s commitment to preserving its natural and cultural heritage is evident in its numerous national parks and heritage sites. Whether you\'re an adventure seeker, a nature lover, or a cultural enthusiast, Australia\'s diverse offerings promise an unforgettable travel experience.</p>', 'Australia', 'English', 'AUD', '120038 sqft', 'GMT-6', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29736668.18356832!2d111.81148767494898!3d-24.521314978627814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2b2bfd076787c5df%3A0x538267a1955b1352!2sAustralia!5e0!3m2!1sen!2sbd!4v1716870853572!5m2!1sen!2sbd\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 'destination_featured_1741942564.jpg', 33, '2025-03-14 01:56:04', '2025-04-13 03:54:31'),
 (5, 'Paris', 'paris', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', 'France', 'France, English', 'Euro', '1536372 sq miles', 'GMT-8', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83998.96769582611!2d2.2646330900042075!3d48.85882554171061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2sParis%2C%20Prancis!5e0!3m2!1sid!2sid!4v1742190907287!5m2!1sid!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 'destination_featured_1742184457.jpg', 21, '2025-03-16 21:07:37', '2025-04-13 02:29:56'),
 (6, 'Phuket', 'phuket', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', 'Thailand', 'thailand', 'Baht', '1532 sq miles', 'GMT+7', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d505924.05086369475!2d98.04094006683732!3d7.839289289997534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x305031e2c462524f%3A0xe9ca9a85063dba21!2sPhuket%2C%20Thailand!5e0!3m2!1sid!2sid!4v1742185652460!5m2!1sid!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 'destination_featured_1742185675.jpg', 6, '2025-03-16 21:27:55', '2025-04-13 02:46:12');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `destination_photos`
+-- Struktur dari tabel `destination_photos`
 --
 
 CREATE TABLE `destination_photos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `destination_id` int(11) NOT NULL,
-  `photo` varchar(255) NOT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `destination_photos`
+-- Dumping data untuk tabel `destination_photos`
 --
 
 INSERT INTO `destination_photos` (`id`, `destination_id`, `photo`, `created_at`, `updated_at`) VALUES
@@ -249,19 +249,19 @@ INSERT INTO `destination_photos` (`id`, `destination_id`, `photo`, `created_at`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `destination_videos`
+-- Struktur dari tabel `destination_videos`
 --
 
 CREATE TABLE `destination_videos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `destination_id` int(11) NOT NULL,
-  `video` varchar(255) NOT NULL,
+  `video` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `destination_videos`
+-- Dumping data untuk tabel `destination_videos`
 --
 
 INSERT INTO `destination_videos` (`id`, `destination_id`, `video`, `created_at`, `updated_at`) VALUES
@@ -272,35 +272,35 @@ INSERT INTO `destination_videos` (`id`, `destination_id`, `video`, `created_at`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `failed_jobs`
+-- Struktur dari tabel `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) NOT NULL,
-  `connection` text NOT NULL,
-  `queue` text NOT NULL,
-  `payload` longtext NOT NULL,
-  `exception` longtext NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `faqs`
+-- Struktur dari tabel `faqs`
 --
 
 CREATE TABLE `faqs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `question` varchar(255) NOT NULL,
-  `answer` text NOT NULL,
+  `question` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `answer` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `faqs`
+-- Dumping data untuk tabel `faqs`
 --
 
 INSERT INTO `faqs` (`id`, `question`, `answer`, `created_at`, `updated_at`) VALUES
@@ -312,20 +312,20 @@ INSERT INTO `faqs` (`id`, `question`, `answer`, `created_at`, `updated_at`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `features`
+-- Struktur dari tabel `features`
 --
 
 CREATE TABLE `features` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `icon` varchar(255) DEFAULT NULL,
-  `heading` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `heading` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `features`
+-- Dumping data untuk tabel `features`
 --
 
 INSERT INTO `features` (`id`, `icon`, `heading`, `description`, `created_at`, `updated_at`) VALUES
@@ -336,13 +336,13 @@ INSERT INTO `features` (`id`, `icon`, `heading`, `description`, `created_at`, `u
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jobs`
+-- Struktur dari tabel `jobs`
 --
 
 CREATE TABLE `jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `queue` varchar(255) NOT NULL,
-  `payload` longtext NOT NULL,
+  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `attempts` tinyint(3) UNSIGNED NOT NULL,
   `reserved_at` int(10) UNSIGNED DEFAULT NULL,
   `available_at` int(10) UNSIGNED NOT NULL,
@@ -352,17 +352,17 @@ CREATE TABLE `jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job_batches`
+-- Struktur dari tabel `job_batches`
 --
 
 CREATE TABLE `job_batches` (
-  `id` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total_jobs` int(11) NOT NULL,
   `pending_jobs` int(11) NOT NULL,
   `failed_jobs` int(11) NOT NULL,
-  `failed_job_ids` longtext NOT NULL,
-  `options` mediumtext DEFAULT NULL,
+  `failed_job_ids` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `options` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cancelled_at` int(11) DEFAULT NULL,
   `created_at` int(11) NOT NULL,
   `finished_at` int(11) DEFAULT NULL
@@ -371,17 +371,63 @@ CREATE TABLE `job_batches` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Struktur dari tabel `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `messages`
+--
+
+INSERT INTO `messages` (`id`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 22, '2025-04-13 12:24:32', '2025-04-13 12:24:32');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `message_comments`
+--
+
+CREATE TABLE `message_comments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `message_id` int(11) NOT NULL,
+  `sender_id` int(11) NOT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comment` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `message_comments`
+--
+
+INSERT INTO `message_comments` (`id`, `message_id`, `sender_id`, `type`, `comment`, `created_at`, `updated_at`) VALUES
+(1, 1, 22, 'User', 'hi', '2025-04-13 12:24:49', '2025-04-13 12:24:49'),
+(2, 1, 22, 'User', 'hi', '2025-04-13 12:29:42', '2025-04-13 12:29:42'),
+(3, 1, 22, 'User', 'hi', '2025-04-13 12:38:11', '2025-04-13 12:38:11'),
+(4, 1, 22, 'User', 'halo', '2025-04-13 12:52:53', '2025-04-13 12:52:53');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `migrations`
 --
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Dumping data untuk tabel `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -416,33 +462,35 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (29, '2025_03_25_070710_create_tours_table', 26),
 (30, '2025_03_26_082632_create_bookings_table', 27),
 (31, '2025_04_10_094421_create_reviews_table', 28),
-(32, '2025_04_13_100010_create_wishlist_table', 29);
+(32, '2025_04_13_100010_create_wishlist_table', 29),
+(33, '2025_04_13_151258_create_messages_table', 30),
+(34, '2025_04_13_151559_create_message_comments_table', 30);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `packages`
+-- Struktur dari tabel `packages`
 --
 
 CREATE TABLE `packages` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `destination_id` int(11) NOT NULL,
-  `featured_photo` varchar(255) DEFAULT NULL,
-  `banner` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `map` text DEFAULT NULL,
+  `featured_photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `map` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price` float DEFAULT NULL,
   `total_rating` int(11) NOT NULL,
   `total_score` int(11) NOT NULL,
-  `old_price` varchar(255) DEFAULT NULL,
+  `old_price` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `packages`
+-- Dumping data untuk tabel `packages`
 --
 
 INSERT INTO `packages` (`id`, `destination_id`, `featured_photo`, `banner`, `name`, `slug`, `description`, `map`, `price`, `total_rating`, `total_score`, `old_price`, `created_at`, `updated_at`) VALUES
@@ -452,20 +500,20 @@ INSERT INTO `packages` (`id`, `destination_id`, `featured_photo`, `banner`, `nam
 -- --------------------------------------------------------
 
 --
--- Table structure for table `package_amenities`
+-- Struktur dari tabel `package_amenities`
 --
 
 CREATE TABLE `package_amenities` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `package_id` int(11) NOT NULL,
   `amenity_id` int(11) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `package_amenities`
+-- Dumping data untuk tabel `package_amenities`
 --
 
 INSERT INTO `package_amenities` (`id`, `package_id`, `amenity_id`, `type`, `created_at`, `updated_at`) VALUES
@@ -479,20 +527,20 @@ INSERT INTO `package_amenities` (`id`, `package_id`, `amenity_id`, `type`, `crea
 -- --------------------------------------------------------
 
 --
--- Table structure for table `package_faqs`
+-- Struktur dari tabel `package_faqs`
 --
 
 CREATE TABLE `package_faqs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `package_id` int(11) NOT NULL,
-  `question` varchar(255) DEFAULT NULL,
-  `answer` text DEFAULT NULL,
+  `question` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `answer` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `package_faqs`
+-- Dumping data untuk tabel `package_faqs`
 --
 
 INSERT INTO `package_faqs` (`id`, `package_id`, `question`, `answer`, `created_at`, `updated_at`) VALUES
@@ -505,20 +553,20 @@ INSERT INTO `package_faqs` (`id`, `package_id`, `question`, `answer`, `created_a
 -- --------------------------------------------------------
 
 --
--- Table structure for table `package_itineraries`
+-- Struktur dari tabel `package_itineraries`
 --
 
 CREATE TABLE `package_itineraries` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `package_id` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `package_itineraries`
+-- Dumping data untuk tabel `package_itineraries`
 --
 
 INSERT INTO `package_itineraries` (`id`, `package_id`, `name`, `description`, `created_at`, `updated_at`) VALUES
@@ -529,19 +577,19 @@ INSERT INTO `package_itineraries` (`id`, `package_id`, `name`, `description`, `c
 -- --------------------------------------------------------
 
 --
--- Table structure for table `package_photos`
+-- Struktur dari tabel `package_photos`
 --
 
 CREATE TABLE `package_photos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `package_id` int(11) NOT NULL,
-  `photo` varchar(255) DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `package_photos`
+-- Dumping data untuk tabel `package_photos`
 --
 
 INSERT INTO `package_photos` (`id`, `package_id`, `photo`, `created_at`, `updated_at`) VALUES
@@ -557,19 +605,19 @@ INSERT INTO `package_photos` (`id`, `package_id`, `photo`, `created_at`, `update
 -- --------------------------------------------------------
 
 --
--- Table structure for table `package_videos`
+-- Struktur dari tabel `package_videos`
 --
 
 CREATE TABLE `package_videos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `package_id` int(11) NOT NULL,
-  `video` varchar(255) DEFAULT NULL,
+  `video` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `package_videos`
+-- Dumping data untuk tabel `package_videos`
 --
 
 INSERT INTO `package_videos` (`id`, `package_id`, `video`, `created_at`, `updated_at`) VALUES
@@ -580,35 +628,35 @@ INSERT INTO `package_videos` (`id`, `package_id`, `video`, `created_at`, `update
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_reset_tokens`
+-- Struktur dari tabel `password_reset_tokens`
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Struktur dari tabel `posts`
 --
 
 CREATE TABLE `posts` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `blog_category_id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `short_description` text NOT NULL,
-  `description` text NOT NULL,
-  `photo` varchar(255) NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `short_description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `posts`
+-- Dumping data untuk tabel `posts`
 --
 
 INSERT INTO `posts` (`id`, `blog_category_id`, `title`, `slug`, `short_description`, `description`, `photo`, `created_at`, `updated_at`) VALUES
@@ -619,7 +667,7 @@ INSERT INTO `posts` (`id`, `blog_category_id`, `title`, `slug`, `short_descripti
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reviews`
+-- Struktur dari tabel `reviews`
 --
 
 CREATE TABLE `reviews` (
@@ -627,13 +675,13 @@ CREATE TABLE `reviews` (
   `user_id` int(11) NOT NULL,
   `package_id` int(11) NOT NULL,
   `rating` int(11) NOT NULL,
-  `comment` text DEFAULT NULL,
+  `comment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `reviews`
+-- Dumping data untuk tabel `reviews`
 --
 
 INSERT INTO `reviews` (`id`, `user_id`, `package_id`, `rating`, `comment`, `created_at`, `updated_at`) VALUES
@@ -642,44 +690,48 @@ INSERT INTO `reviews` (`id`, `user_id`, `package_id`, `rating`, `comment`, `crea
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sessions`
+-- Struktur dari tabel `sessions`
 --
 
 CREATE TABLE `sessions` (
-  `id` varchar(255) NOT NULL,
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) DEFAULT NULL,
-  `user_agent` text DEFAULT NULL,
-  `payload` longtext NOT NULL,
+  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_activity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `sessions`
+-- Dumping data untuk tabel `sessions`
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('huQVFgFR1JwJvMJCIvAmhkNoScxQo3YWl8GjlASA', 22, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiYjl6bTQ0ak5GYW1FWkJid3hUc0d0V2JZb2M2b0pid2x4b3pWYzFGbiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kZXN0aW5hdGlvbi9zeWRuZXkiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMjt9', 1744540824);
+('aoWCI6VQyG0LYXMw3sfsJMgDiEBup0XZaqsRjEEP', 22, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZ0JPakhHT2JuTFdxQVBwYU9HWUtOQUFkR0Vxb3BkVERiVEhjNnZyeSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91c2VyL21lc3NhZ2UiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMjt9', 1744560665),
+('huQVFgFR1JwJvMJCIvAmhkNoScxQo3YWl8GjlASA', 22, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiYjl6bTQ0ak5GYW1FWkJid3hUc0d0V2JZb2M2b0pid2x4b3pWYzFGbiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kZXN0aW5hdGlvbi9zeWRuZXkiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMjt9', 1744540824),
+('sWOpQIdGQbnn1Tdm6V8CoTJZ3GaLc3hWiUEg2Wxn', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoic2NnaTdKWXloNnc4bHRZZkExdW1RVjFCZzhwalVWT0FQQXcyZXZ4WCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJuZXciO2E6MDp7fXM6Mzoib2xkIjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9tZXNzYWdlIjt9czo1MjoibG9naW5fYWRtaW5fNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1744592966),
+('v5npSvEllCjGB5JC9S40uykl8R0hraMVU6fw2TAM', 22, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiMVFhRW1SRDFQTTk4OVI1UXRtNHZvMUc2am1na0RKcHNiY0NmNXRDciI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kZXN0aW5hdGlvbi9zeWRuZXkiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMjt9', 1744541671),
+('Ybtg78lAZMcEzrHDdVgEzOTkZaKxKFPHr5GmzP7L', 22, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiQ2w2Q2Mza2U4TDF6U1ZNa215MzhTMGt2QmhMejQ1UkpHdlRrM1pneiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJuZXciO2E6MDp7fXM6Mzoib2xkIjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXNoYm9hcmQiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMjtzOjUyOiJsb2dpbl9hZG1pbl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1744574697);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sliders`
+-- Struktur dari tabel `sliders`
 --
 
 CREATE TABLE `sliders` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `heading` varchar(255) DEFAULT NULL,
-  `text` text DEFAULT NULL,
-  `button_text` varchar(255) DEFAULT NULL,
-  `button_link` varchar(255) DEFAULT NULL,
-  `photo` varchar(255) DEFAULT NULL,
+  `heading` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `text` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `button_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `button_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `sliders`
+-- Dumping data untuk tabel `sliders`
 --
 
 INSERT INTO `sliders` (`id`, `heading`, `text`, `button_text`, `button_link`, `photo`, `created_at`, `updated_at`) VALUES
@@ -689,23 +741,23 @@ INSERT INTO `sliders` (`id`, `heading`, `text`, `button_text`, `button_link`, `p
 -- --------------------------------------------------------
 
 --
--- Table structure for table `team_member`
+-- Struktur dari tabel `team_member`
 --
 
 CREATE TABLE `team_member` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `designation` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `phone` varchar(255) DEFAULT NULL,
-  `biography` text DEFAULT NULL,
-  `photo` varchar(255) DEFAULT NULL,
-  `facebook` varchar(255) DEFAULT NULL,
-  `twitter` varchar(255) DEFAULT NULL,
-  `linkedin` varchar(255) DEFAULT NULL,
-  `instagram` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `designation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `biography` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `facebook` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `twitter` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `linkedin` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `instagram` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -713,29 +765,29 @@ CREATE TABLE `team_member` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `team_members`
+-- Struktur dari tabel `team_members`
 --
 
 CREATE TABLE `team_members` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `designation` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `phone` varchar(255) DEFAULT NULL,
-  `biography` text DEFAULT NULL,
-  `photo` varchar(255) DEFAULT NULL,
-  `facebook` varchar(255) DEFAULT NULL,
-  `twitter` varchar(255) DEFAULT NULL,
-  `linkedin` varchar(255) DEFAULT NULL,
-  `instagram` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `designation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `biography` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `facebook` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `twitter` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `linkedin` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `instagram` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `team_members`
+-- Dumping data untuk tabel `team_members`
 --
 
 INSERT INTO `team_members` (`id`, `name`, `slug`, `designation`, `address`, `email`, `phone`, `biography`, `photo`, `facebook`, `twitter`, `linkedin`, `instagram`, `created_at`, `updated_at`) VALUES
@@ -747,21 +799,21 @@ INSERT INTO `team_members` (`id`, `name`, `slug`, `designation`, `address`, `ema
 -- --------------------------------------------------------
 
 --
--- Table structure for table `testimonials`
+-- Struktur dari tabel `testimonials`
 --
 
 CREATE TABLE `testimonials` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `designation` varchar(255) DEFAULT NULL,
-  `comment` text DEFAULT NULL,
-  `photo` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `designation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `comment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `testimonials`
+-- Dumping data untuk tabel `testimonials`
 --
 
 INSERT INTO `testimonials` (`id`, `name`, `designation`, `comment`, `photo`, `created_at`, `updated_at`) VALUES
@@ -772,22 +824,22 @@ INSERT INTO `testimonials` (`id`, `name`, `designation`, `comment`, `photo`, `cr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tours`
+-- Struktur dari tabel `tours`
 --
 
 CREATE TABLE `tours` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `package_id` int(11) NOT NULL,
-  `tour_start_date` varchar(255) DEFAULT NULL,
-  `tour_end_date` varchar(255) DEFAULT NULL,
-  `booking_end_date` varchar(255) DEFAULT NULL,
-  `total_seat` varchar(255) DEFAULT NULL,
+  `tour_start_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tour_end_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `booking_end_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `total_seat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tours`
+-- Dumping data untuk tabel `tours`
 --
 
 INSERT INTO `tours` (`id`, `package_id`, `tour_start_date`, `tour_end_date`, `booking_end_date`, `total_seat`, `created_at`, `updated_at`) VALUES
@@ -798,29 +850,29 @@ INSERT INTO `tours` (`id`, `package_id`, `tour_start_date`, `tour_end_date`, `bo
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `photo` varchar(255) DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `phone` varchar(255) DEFAULT NULL,
-  `country` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `state` varchar(255) DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
-  `zip` varchar(255) DEFAULT NULL,
-  `token` varchar(255) DEFAULT NULL,
-  `status` varchar(255) NOT NULL DEFAULT '0' COMMENT '0=pending, 1=active, 2=suspended',
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `zip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '0=pending, 1=active, 2=suspended',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `photo`, `password`, `phone`, `country`, `address`, `state`, `city`, `zip`, `token`, `status`, `created_at`, `updated_at`) VALUES
@@ -830,24 +882,24 @@ INSERT INTO `users` (`id`, `name`, `email`, `photo`, `password`, `phone`, `count
 -- --------------------------------------------------------
 
 --
--- Table structure for table `welcome_items`
+-- Struktur dari tabel `welcome_items`
 --
 
 CREATE TABLE `welcome_items` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `heading` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `button_text` varchar(255) DEFAULT NULL,
-  `button_link` varchar(255) DEFAULT NULL,
-  `photo` varchar(255) DEFAULT NULL,
-  `video` varchar(255) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
+  `heading` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `button_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `button_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `video` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `welcome_items`
+-- Dumping data untuk tabel `welcome_items`
 --
 
 INSERT INTO `welcome_items` (`id`, `heading`, `description`, `button_text`, `button_link`, `photo`, `video`, `status`, `created_at`, `updated_at`) VALUES
@@ -856,7 +908,7 @@ INSERT INTO `welcome_items` (`id`, `heading`, `description`, `button_text`, `but
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wishlists`
+-- Struktur dari tabel `wishlists`
 --
 
 CREATE TABLE `wishlists` (
@@ -868,172 +920,183 @@ CREATE TABLE `wishlists` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wishlists`
+-- Dumping data untuk tabel `wishlists`
 --
 
 INSERT INTO `wishlists` (`id`, `user_id`, `package_id`, `created_at`, `updated_at`) VALUES
-(1, 22, 2, '2025-04-13 03:38:12', '2025-04-13 03:38:12'),
-(2, 22, 8, '2025-04-13 03:40:18', '2025-04-13 03:40:18');
+(3, 22, 2, '2025-04-13 08:02:54', '2025-04-13 08:02:54');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admins`
+-- Indeks untuk tabel `admins`
 --
 ALTER TABLE `admins`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `admins_email_unique` (`email`);
 
 --
--- Indexes for table `amenities`
+-- Indeks untuk tabel `amenities`
 --
 ALTER TABLE `amenities`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `blog_categories`
+-- Indeks untuk tabel `blog_categories`
 --
 ALTER TABLE `blog_categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `bookings`
+-- Indeks untuk tabel `bookings`
 --
 ALTER TABLE `bookings`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cache`
+-- Indeks untuk tabel `cache`
 --
 ALTER TABLE `cache`
   ADD PRIMARY KEY (`key`);
 
 --
--- Indexes for table `cache_locks`
+-- Indeks untuk tabel `cache_locks`
 --
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
 
 --
--- Indexes for table `counter_items`
+-- Indeks untuk tabel `counter_items`
 --
 ALTER TABLE `counter_items`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `destinations`
+-- Indeks untuk tabel `destinations`
 --
 ALTER TABLE `destinations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `destination_photos`
+-- Indeks untuk tabel `destination_photos`
 --
 ALTER TABLE `destination_photos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `destination_videos`
+-- Indeks untuk tabel `destination_videos`
 --
 ALTER TABLE `destination_videos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `failed_jobs`
+-- Indeks untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indexes for table `faqs`
+-- Indeks untuk tabel `faqs`
 --
 ALTER TABLE `faqs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `features`
+-- Indeks untuk tabel `features`
 --
 ALTER TABLE `features`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `jobs`
+-- Indeks untuk tabel `jobs`
 --
 ALTER TABLE `jobs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `jobs_queue_index` (`queue`);
 
 --
--- Indexes for table `job_batches`
+-- Indeks untuk tabel `job_batches`
 --
 ALTER TABLE `job_batches`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `migrations`
+-- Indeks untuk tabel `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `message_comments`
+--
+ALTER TABLE `message_comments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `packages`
+-- Indeks untuk tabel `packages`
 --
 ALTER TABLE `packages`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `package_amenities`
+-- Indeks untuk tabel `package_amenities`
 --
 ALTER TABLE `package_amenities`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `package_faqs`
+-- Indeks untuk tabel `package_faqs`
 --
 ALTER TABLE `package_faqs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `package_itineraries`
+-- Indeks untuk tabel `package_itineraries`
 --
 ALTER TABLE `package_itineraries`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `package_photos`
+-- Indeks untuk tabel `package_photos`
 --
 ALTER TABLE `package_photos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `package_videos`
+-- Indeks untuk tabel `package_videos`
 --
 ALTER TABLE `package_videos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `password_reset_tokens`
+-- Indeks untuk tabel `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indexes for table `posts`
+-- Indeks untuk tabel `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `reviews`
+-- Indeks untuk tabel `reviews`
 --
 ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `sessions`
+-- Indeks untuk tabel `sessions`
 --
 ALTER TABLE `sessions`
   ADD PRIMARY KEY (`id`),
@@ -1041,231 +1104,243 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
--- Indexes for table `sliders`
+-- Indeks untuk tabel `sliders`
 --
 ALTER TABLE `sliders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `team_member`
+-- Indeks untuk tabel `team_member`
 --
 ALTER TABLE `team_member`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `team_members`
+-- Indeks untuk tabel `team_members`
 --
 ALTER TABLE `team_members`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `testimonials`
+-- Indeks untuk tabel `testimonials`
 --
 ALTER TABLE `testimonials`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tours`
+-- Indeks untuk tabel `tours`
 --
 ALTER TABLE `tours`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- Indexes for table `welcome_items`
+-- Indeks untuk tabel `welcome_items`
 --
 ALTER TABLE `welcome_items`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `wishlists`
+-- Indeks untuk tabel `wishlists`
 --
 ALTER TABLE `wishlists`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `admins`
+-- AUTO_INCREMENT untuk tabel `admins`
 --
 ALTER TABLE `admins`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `amenities`
+-- AUTO_INCREMENT untuk tabel `amenities`
 --
 ALTER TABLE `amenities`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `blog_categories`
+-- AUTO_INCREMENT untuk tabel `blog_categories`
 --
 ALTER TABLE `blog_categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `bookings`
+-- AUTO_INCREMENT untuk tabel `bookings`
 --
 ALTER TABLE `bookings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `counter_items`
+-- AUTO_INCREMENT untuk tabel `counter_items`
 --
 ALTER TABLE `counter_items`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `destinations`
+-- AUTO_INCREMENT untuk tabel `destinations`
 --
 ALTER TABLE `destinations`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `destination_photos`
+-- AUTO_INCREMENT untuk tabel `destination_photos`
 --
 ALTER TABLE `destination_photos`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `destination_videos`
+-- AUTO_INCREMENT untuk tabel `destination_videos`
 --
 ALTER TABLE `destination_videos`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `failed_jobs`
+-- AUTO_INCREMENT untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `faqs`
+-- AUTO_INCREMENT untuk tabel `faqs`
 --
 ALTER TABLE `faqs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `features`
+-- AUTO_INCREMENT untuk tabel `features`
 --
 ALTER TABLE `features`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `jobs`
+-- AUTO_INCREMENT untuk tabel `jobs`
 --
 ALTER TABLE `jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT untuk tabel `messages`
 --
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+ALTER TABLE `messages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `packages`
+-- AUTO_INCREMENT untuk tabel `message_comments`
+--
+ALTER TABLE `message_comments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT untuk tabel `packages`
 --
 ALTER TABLE `packages`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `package_amenities`
+-- AUTO_INCREMENT untuk tabel `package_amenities`
 --
 ALTER TABLE `package_amenities`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `package_faqs`
+-- AUTO_INCREMENT untuk tabel `package_faqs`
 --
 ALTER TABLE `package_faqs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `package_itineraries`
+-- AUTO_INCREMENT untuk tabel `package_itineraries`
 --
 ALTER TABLE `package_itineraries`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `package_photos`
+-- AUTO_INCREMENT untuk tabel `package_photos`
 --
 ALTER TABLE `package_photos`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `package_videos`
+-- AUTO_INCREMENT untuk tabel `package_videos`
 --
 ALTER TABLE `package_videos`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `posts`
+-- AUTO_INCREMENT untuk tabel `posts`
 --
 ALTER TABLE `posts`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `reviews`
+-- AUTO_INCREMENT untuk tabel `reviews`
 --
 ALTER TABLE `reviews`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `sliders`
+-- AUTO_INCREMENT untuk tabel `sliders`
 --
 ALTER TABLE `sliders`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `team_member`
+-- AUTO_INCREMENT untuk tabel `team_member`
 --
 ALTER TABLE `team_member`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `team_members`
+-- AUTO_INCREMENT untuk tabel `team_members`
 --
 ALTER TABLE `team_members`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `testimonials`
+-- AUTO_INCREMENT untuk tabel `testimonials`
 --
 ALTER TABLE `testimonials`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `tours`
+-- AUTO_INCREMENT untuk tabel `tours`
 --
 ALTER TABLE `tours`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT for table `welcome_items`
+-- AUTO_INCREMENT untuk tabel `welcome_items`
 --
 ALTER TABLE `welcome_items`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `wishlists`
+-- AUTO_INCREMENT untuk tabel `wishlists`
 --
 ALTER TABLE `wishlists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\AdminDestinationController;
 use App\Http\Controllers\Admin\AdminPackageController;
 use App\Http\Controllers\Admin\AdminAmenityController;
 use App\Http\Controllers\Admin\AdminTourController;
+use App\Http\Controllers\Admin\AdminUserController;
 
 use App\Http\Controllers\Front\FrontController;
 
@@ -76,6 +77,11 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('/review',[UserController::class,'review'])->name('user_review');
     Route::get('/profile', [UserController::class,'profile'])->name('user_profile');
     Route::post('/profile', [UserController::class,'profile_submit'])->name('user_profile_submit');
+    Route::get('/wishlist', [UserController::class, 'wishlist'])->name('user_wishlist');
+    Route::get('/wishlist-delete/{id}', [UserController::class, 'wishlist_delete'])->name('user_wishlist_delete');
+    Route::get('/message', [UserController::class, 'message'])->name('user_message');
+    Route::get('/message-start', [UserController::class, 'message_start'])->name('user_message_start');
+    Route::post('/message-submit', [UserController::class, 'message_submit'])->name('user_message_submit');
 
 });
 
@@ -228,6 +234,11 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     // Reviews Section
     Route::get('/reviews/index', [AdminReviewController::class, 'index'])->name('admin_review_index');
     Route::get('/reviews/delete/{id}', [AdminReviewController::class, 'delete'])->name('admin_review_delete');
+
+    //User Section
+    Route::get('/message', [AdminUserController::class, 'message'])->name('admin_message');
+    Route::get('/message-detail/{id}', [AdminUserController::class, 'message_detail'])->name('admin_message_detail');
+    Route::post('/message-submit/{id}', [AdminUserController::class, 'message_submit'])->name('admin_message_submit');
 }); 
 
 Route::prefix('admin')->group(function () {
