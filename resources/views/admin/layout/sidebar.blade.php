@@ -54,11 +54,29 @@
 
                     <li class="{{ Route::is('admin_review_index') ? 'active' : '' }}"><a class="nav-link"
                         href="{{ route('admin_review_index') }}"><i class="far fa-grin-beam"></i>
-                        <span>Review</span></a></li>
+                        <span>Review</span></a>
+                    </li>
                    
                     <li class="{{ Request::is('admin/amenity/*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin_amenity_index')}}"><i class="fas fa-hand-point-right"></i> <span> Amenity</span></a></li>
 
                     {{-- <li class="{{ Request::is('admin/profile') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin_dashboard')}}"><a class="nav-link" href="{{route('admin_profile')}}"><i class="fas fa-hand-point-right"></i> <span>Profile</span></a></li> --}}
+
+                    
+                    <li
+                    class="nav-item dropdown {{ Route::is('admin_subscribers') || Route::is('admin_subscriber_send_email') ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-users">
+                        </i><span>Subscriber Section</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="{{ Route::is('admin_subscribers') ? 'active' : '' }}"><a class="nav-link"
+                                href="{{ route('admin_subscribers') }}"><i class="fas fa-angle-right"></i><span> All Subscribers</span></a></li>
+                        <li class="{{ Route::is('admin_subscriber_send_email') ? 'active' : '' }}"><a class="nav-link"
+                                href="{{ route('admin_subscriber_send_email') }}"><i class="fas fa-angle-right"></i><span>Send Email</span></a></li>
+                    </ul>
+                    </li>
+
+                    <li class="{{ Route::is('admin_home_page_item_index') ? 'active' : '' }}"><a class="nav-link"
+                        href="{{ route('admin_home_page_item_index') }}"><i class="fas fa-laptop-house"></i>
+                        <span>Home Page Item</span></a></li>
 
                     <li class="{{ Request::is('admin/profile') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin_profile')}}"><i class="fas fa-hand-point-right"></i> <span>Profile</span></a></li>
 

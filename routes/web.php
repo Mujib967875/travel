@@ -18,6 +18,9 @@ use App\Http\Controllers\Admin\AdminPackageController;
 use App\Http\Controllers\Admin\AdminAmenityController;
 use App\Http\Controllers\Admin\AdminTourController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminSubscriberController;
+use App\Http\Controllers\Admin\AdminHomeItemController;
+
 
 use App\Http\Controllers\Front\FrontController;
 
@@ -39,6 +42,8 @@ Route::get('/package/{slug}',[FrontController::class,'package'])->name('package'
 Route::post('/enquery/submit/{id}',[FrontController::class,'enquery_form_submit'])->name('enquery_form_submit');
 Route::post('/review/submit', [FrontController::class, 'review_submit'])->name('review_submit');
 Route::get('/wishlist/{package_id}', [FrontController::class, 'wishlist'])->name('wishlist');
+Route::post('/subscriber-submit', [FrontController::class, 'subscriber_submit'])->name('subscriber_submit');
+Route::get('/subscriber-verify/{email}/{token}', [FrontController::class, 'subscriber_verify'])->name('subscriber_verify');
 
 
 //payment
@@ -239,6 +244,16 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/message', [AdminUserController::class, 'message'])->name('admin_message');
     Route::get('/message-detail/{id}', [AdminUserController::class, 'message_detail'])->name('admin_message_detail');
     Route::post('/message-submit/{id}', [AdminUserController::class, 'message_submit'])->name('admin_message_submit');
+    
+    // Subscribers Section
+    Route::get('/subscribers', [AdminSubscriberController::class, 'subscribers'])->name('admin_subscribers');
+    Route::get('/subscriber-send-email', [AdminSubscriberController::class, 'send_email'])->name('admin_subscriber_send_email');
+    Route::post('/subscriber-send-email-submit', [AdminSubscriberController::class, 'send_email_submit'])->name('admin_subscriber_send_email_submit');
+    Route::get('/subscriber/delete/{id}', [AdminSubscriberController::class, 'subscriber_delete'])->name('admin_subscriber_delete');
+
+    // Home Items Section
+    Route::get('/home-page-items/index', [AdminHomeItemController::class, 'index'])->name('admin_home_page_item_index');
+    Route::post('/home-item/update', [AdminHomeItemController::class, 'update'])->name('admin_home_page_item_update');
 }); 
 
 Route::prefix('admin')->group(function () {

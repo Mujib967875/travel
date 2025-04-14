@@ -48,7 +48,7 @@ class AdminUserController extends Controller
 
         Mail::to($user_email)->send(new Websitemail($subject, $message));
 
-        return redirect()->back()->with('success','Message sent successfully');
+        return redirect()->back()->with('success','Comment sent successfully');
     }
 
 }

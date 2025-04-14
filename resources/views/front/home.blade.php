@@ -1,14 +1,11 @@
-{{-- @dd($testimonials) --}}
 @extends('front.layout.master')
 
 @section('main_content')
 
-        <div class="slider">
-            <div class="slide-carousel owl-carousel">
-
-                @foreach ($sliders as $slider)
-                <div class="item" style="background-image:url({{ asset('uploads/'.$slider->photo) }});">
-                    <div class="bg"></div>
+    <div class="slider">
+        <div class="slide-carousel owl-carousel">
+            @foreach ($sliders as $slider)
+                <div class="item" style="background-image: url({{ asset('uploads/' . $slider->photo) }})">
                     <div class="text">
                         <div class="container">
                             <div class="row">
@@ -17,12 +14,13 @@
                                         <div class="text-content">
                                             <h2>{{ $slider->heading }}</h2>
                                             <p>
-                                               {!! $slider->text !!}
+                                                {!! nl2br($slider->text) !!}
                                             </p>
-                                            @if ($slider->button_text!='')
-                                            <div class="button-style-1 mt_20">
-                                                <a href="{{ $slider->button_url }}" target="-_blank">{{ $slider->button_text }}</a>
-                                            </div>
+                                            @if ($slider->button_text != '')
+                                                <div class="button-style-1 mt_20">
+                                                    <a href="{{ $slider->button_link }}"
+                                                        target="_blank">{{ $slider->button_text }}</a>
+                                                </div>
                                             @endif
                                         </div>
                                     </div>
@@ -31,33 +29,38 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
-            </div>
+            @endforeach
         </div>
+    </div>
 
-        @if($welcome_item->status == 'Show')
+    @if ($welcome_item->status == 'Show')
         <div class="special pt_70 pb_70">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="full-section">
-                            <div class="row"> 
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="left-side">
                                         <div class="inner">
-                                            <h3>{{$welcome_item->heading}}</h3>
-                                            {!! nl2br($welcome_item->description) !!}
-                                            @if($welcome_item->button_text != '')
+                                            <h3>{{ $welcome_item->heading }}</h3>
+                                            <p>
+                                                {!! nl2br($welcome_item->description) !!}
+                                            </p>
+                                            @if ($welcome_item->button_text != '')
                                                 <div class="button-style-1 mt_20">
-                                                    <a href="{{$welcome_item->link}}">{{$welcome_item->button_text}}</a>
+                                                    <a href="{{ $welcome_item->button_link }}"
+                                                        target="_blank">{{ $welcome_item->button_text }}</a>
                                                 </div>
                                             @endif
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="right-side" style="background-image: url({{ asset('uploads/'.$welcome_item->photo)}});">
-                                        <a class="video-button" href="https://www.youtube.com/watch?v={{ $welcome_item->video }}"><span></span></a>
+                                    <div class="right-side"
+                                        style="background-image:url({{ asset('uploads/' . $welcome_item->photo) }});">
+                                        <a class="video-button"
+                                            href="https://www.youtube.com/watch?v={{ $welcome_item->video }}"><span></span></a>
                                     </div>
                                 </div>
                             </div>
@@ -66,114 +69,93 @@
                 </div>
             </div>
         </div>
-        @endif
+    @endif
 
-
-        <div class="destination pt_70 pb_70">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="heading">
-                            <h2>Popular Destinations</h2>
-                            <p>
-                                Explore our most popular travel destinations around the world
-                            </p>
-                        </div>
+    @if ($home_item->destination_status == 'Show')
+    <div class="destination pt_70 pb_70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="heading">
+                        <h2>{{ $home_item->destination_heading }}</h2>
+                        <p>
+                            {{ $home_item->destination_subheading }}
+                        </p>
                     </div>
                 </div>
-                <div class="row">
-                    @foreach ($destinations as $destination)
+            </div>
+            <div class="row">
+                @foreach ($destinations as $destination)
                     <div class="col-lg-3 col-md-6">
                         <div class="item pb_25">
                             <div class="photo">
-                                <a href="{{ route('destination',$destination->slug) }}"><img src="{{ asset('uploads/'.$destination->featured_photo) }}" alt=""></a>
+                                <a href="{{ route('destination', $destination->slug) }}"><img
+                                        src="{{ asset('uploads/' . $destination->featured_photo) }}" alt=""></a>
                             </div>
                             <div class="text">
                                 <h2>
-                                    <a href="{{ route('destination',$destination->slug) }}">{{ $destination->name }}</a>
+                                    <a
+                                        href="{{ route('destination', $destination->slug) }}">{{ $destination->country }}</a>
                                 </h2>
                             </div>
                         </div>
-                    </div>                 
-                    @endforeach               
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="see-more">
-                            <div class="button-style-1 mt_20">
-                                <a href="{{ route('destinations') }}">View All Destinations</a>
-                            </div>
+                    </div>
+                @endforeach
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="see-more">
+                        <div class="button-style-1 mt_20">
+                            <a href="{{ route('destinations') }}">View all destinations</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    @endif
 
-
-       
-        <div class="why-choose pt_70">
-            <div class="container">
-                <div class="row">
-                     @foreach ($features as $feature)
+    @if ($home_item->featured_status == 'Show')
+    <div class="why-choose pt_70">
+        <div class="container">
+            <div class="row">
+                @foreach ($features as $feature)
                     <div class="col-md-4">
                         <div class="inner pb_70">
                             <div class="icon">
-                                <i class="{{ $feature->icon}}"></i>
+                                <i class="{{ $feature->icon }}"></i>
                             </div>
                             <div class="text">
-                                <h2> {{ $feature->heading}}</h2>
+                                <h2>{{ $feature->heading }}</h2>
                                 <p>
-                                   {!! $feature->description !!}
+                                    {!! nl2br($feature->description) !!}
                                 </p>
                             </div>
                         </div>
                     </div>
-                    @endforeach
-                </div>
+                @endforeach
             </div>
         </div>
+    </div>
+    @endif
 
-         @if ($counter->status == 'Show')
-        <div class="counter-section pt_70 pb_70">
-            <div class="container">
-                <div class="row counter-items">
-                    <div class="col-md-3 counter-item">
-                        <div class="counter">{{ $counter->item1_number }}</div>
-                        <div class="text">{{ $counter->item1_text }}</div>
-                    </div>
-                    
-                    <div class="col-md-3 counter-item">
-                        <div class="counter">{{ $counter->item2_number }}</div>
-                        <div class="text">{{ $counter->item2_text }}</div>
-                    </div>
-                    <div class="col-md-3 counter-item">
-                        <div class="counter">{{ $counter->item3_number }}</div>
-                        <div class="text">{{ $counter->item3_text }}</div>
-                    </div>
-                    <div class="col-md-3 counter-item">
-                        <div class="counter">{{ $counter->item4_number }}</div>
-                        <div class="text">{{ $counter->item4_text }}</div>
+    @if ($home_item->package_status == 'Show')
+    <div class="package pt_70 pb_70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="heading">
+                        <h2>{{ $home_item->package_heading }}</h2>
+                        <p>
+                            {{ $home_item->package_subheading }}
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
-        @endif
-
-        <div class="package pt_70 pb_70">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="heading">
-                            <h2>Latest Packages</h2>
-                            <p>
-                                Explore our latest travel packages around the world
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    @foreach ($packages as $item)
-
+            <div class="row">
+                @foreach ($packages as $item)
                     <div class="col-lg-4 col-md-6">
                         <div class="item pb_25">
                             <div class="photo">
@@ -186,35 +168,35 @@
                             <div class="text">
                                 <div class="price">
                                     Rp{{ $item->price }} @if ($item->old_price != '')
-                                        <del>Rp{{ $item->old_price }}</del>
+                                        <del>Rp. {{ $item->old_price }}</del>
                                     @endif
                                 </div>
                                 <h2>
                                     <a href="{{ route('package', $item->slug) }}">{{ $item->name }}</a>
                                 </h2>
-                                @if($item->total_score || $item->total_rating)
-                                <div class="review">
-                                    @php
-                                        $rating = $item->total_score / $item->total_rating;
-                                    @endphp
-                                    @for ($i = 1; $i <= 5; $i++)
-                                        @if ($i <= $rating)
-                                            <i class="fas fa-star"></i>
-                                        @elseif($i - 0.5 <= $rating)
-                                            <i class="fas fa-star-half-alt"></i>
-                                        @else
-                                            <i class="far fa-star"></i>
-                                        @endif
-                                    @endfor
-                                    ({{ $item->reviews->count() }} Reviews)
-                                </div>
+                                @if ($item->total_score || $item->total_rating)
+                                    <div class="review">
+                                        @php
+                                            $rating = $item->total_score / $item->total_rating;
+                                        @endphp
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($i <= $rating)
+                                                <i class="fas fa-star"></i>
+                                            @elseif($i - 0.5 <= $rating)
+                                                <i class="fas fa-star-half-alt"></i>
+                                            @else
+                                                <i class="far fa-star"></i>
+                                            @endif
+                                        @endfor
+                                        ({{ $item->reviews->count() }} Reviews)
+                                    </div>
                                 @else
-                                <div class="review">
-                                    @for($i=1; $i<=5; $i++)
-                                        <i class="far fa-star"></i>
-                                    @endfor
-                                    ({{ $item->reviews->count() }} Review)
-                                </div>
+                                    <div class="review">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <i class="far fa-star"></i>
+                                        @endfor
+                                        ({{ $item->reviews->count() }} Reviews)
+                                    </div>
                                 @endif
                                 <div class="element">
                                     <div class="element-left">
@@ -222,7 +204,7 @@
                                     </div>
                                     <div class="element-right">
                                         <i class="fas fa-th-large"></i> {{ $item->package_amenities->count() }}
-                                        Facilities
+                                        Amenities
                                     </div>
                                 </div>
                                 <div class="element">
@@ -235,100 +217,106 @@
                                 </div>
                             </div>
                         </div>
-                    </div>             
-                    @endforeach
-                    <div class="row">
-                    <div class="col-md-12">
-                        <div class="see-more">
-                            <div class="button-style-1 mt_20">
-                                <a href="{{ route('packages') }}">View All Packages</a>
-                            </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="see-more">
+                        <div class="button-style-1 mt_20">
+                            <a href="{{ route('packages') }}">View All Packages</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    @endif
 
-
-
-
-        <div class="testimonial pt_70 pb_70" style="background-image: url({{ asset('uploads/testimonial-bg.jpg')}})">
-            <div class="bg"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2 class="main-header">Client Testimonials</h2>
-                        <h3 class="sub-header">
-                            See what our clients have to say about their experience with us
-                        </h3>
-                    </div>
+    @if ($home_item->testimonial_status == 'Show')
+    <div class="testimonial pt_70 pb_70" style="background-image: url({{ asset('uploads/testimonial-bg.jpg') }})">
+        <div class="bg"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="main-header">{{ $home_item->testimonial_heading }}</h2>
+                    <h3 class="sub-header">
+                        {{ $home_item->testimonial_subheading }}
+                    </h3>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="testimonial-carousel owl-carousel">
-                            @foreach ($testimonials as $testimonial)
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="testimonial-carousel owl-carousel">
+                        @foreach ($testimonials as $testimonial)
                             <div class="item">
                                 <div class="photo">
-                                    <img src="{{ asset('uploads/'.$testimonial->photo ?? 'default.jpg') }}" alt="" />
+                                    <img src="{{ asset('uploads/' . $testimonial->photo) }}" alt="" />
                                 </div>
                                 <div class="text">
                                     <h4>{{ $testimonial->name }}</h4>
-                                    <p> {{ $testimonial->designation }} </p>
+                                    <p>{{ $testimonial->designation }}</p>
                                 </div>
                                 <div class="quote">
                                     <i class="fas fa-quote-left"></i>
                                 </div>
                                 <div class="description">
                                     <p>
-                                       {!! $testimonial->comment !!}
+                                        {!! $testimonial->comment !!}
                                     </p>
                                 </div>
                             </div>
-                            @endforeach
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    @endif
 
-
-
-        <div class="blog pt_70">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="heading">
-                            <h2>Latest News</h2>
-                            <p>
-                                Check out the latest news and updates from our blog post
-                            </p>
-                        </div>
+    @if ($home_item->blog_status == 'Show')
+    <div class="blog pt_70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="heading">
+                        <h2>Testi</h2>
+                        <p>
+                            {{ $home_item->blog_subheading }}
+                        </p>
                     </div>
                 </div>
-                <div class="row">
-                    @foreach ($posts as $post)
+            </div>
+            <div class="row">
+
+                @foreach ($posts as $post)
                     <div class="col-lg-4 col-md-6">
                         <div class="item pb_70">
                             <div class="photo">
-                                <img src="{{ asset('uplads/'.$post->photo) }}" alt="" />
+                                <img src="{{ asset('uploads/' . $post->photo) }}" />
                             </div>
                             <div class="text">
                                 <h2>
-                                    <a href="{{ route('post',$post->slug) }}">{{$post->title}}</a>
+                                    <a href="{{ route('post', $post->slug) }}">{{ $post->title }}</a>
                                 </h2>
                                 <div class="short-des">
                                     <p>
-                                        {!! $post->short_description !!}
+                                        {{ $post->short_description }}
                                     </p>
                                 </div>
                                 <div class="button-style-2 mt_20">
-                                    <a href="{{ route('post',$post->slug) }}">Read More</a>
+                                    <a href="{{ route('post', $post->slug) }}">Read More</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @endforeach
-                </div>
+                @endforeach
             </div>
         </div>
+    </div>
+    @endif
+
+    </div>
+    </div>
+    </div>
 @endsection

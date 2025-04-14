@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\Booking;
 use App\Models\Review;
 use App\Mail\Websitemail;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -109,7 +110,7 @@ class UserController extends Controller
 
         Mail::to($admin_data->email)->send(new Websitemail($subject, $message));
 
-        return redirect()->back()->with('success', 'Message sent');
+        return redirect()->back()->with('success', 'Message sent Successfull');
     }
 
     public function profile()

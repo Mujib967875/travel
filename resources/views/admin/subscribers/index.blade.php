@@ -6,7 +6,11 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-header justify-content-between">
-                    <h1>Obrolan</h1>
+                    <h1>Subscribers</h1>
+                    <div class="ml-auto">
+                        <a href="{{ route('admin_subscriber_send_email') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Send Email</a>
+                        {{-- <a href="{{ route('admin_subscriber_trash') }}" class="btn btn-danger"><i class="fas fa-trash"></i> Sampah ( {{ $trashCount }} )</a> --}}
+                    </div>
                 </div>
                 <div class="section-body">
                     <div class="row">
@@ -18,35 +22,17 @@
                                             <thead>
                                                 <tr>
                                                     <th>SL</th>
-                                                    <th>User Name </th>
-                                                    <th>User Photo </th>
-                                                    <th>User Email </th>
-                                                    <th>User Phone </th>
+                                                    <th>Email</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($messages as $item)
+                                                @foreach ($subscribers as $item)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>
-                                                        @if ($item->user->photo)
-                                                        <img src="{{ asset('uploads/'.$item->user->photo) }}" class="w_100">
-                                                        @else
-                                                        <img src="{{ asset('uploads/default.png') }}" class="w_100">
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        {{ $item->user->name }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $item->user->email }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $item->user->phone }}
-                                                    </td>
+                                                    <td>{{ $item->email }}</td>
                                                     <td class="pt_10 pb_10">
-                                                        <a href="{{ route('admin_message_detail', $item->id) }}" class="btn btn-primary"> Messages</a>
+                                                        <a href="{{ route('admin_subscriber_delete', $item->id) }}" class="btn btn-danger" onClick="return confirm('Pengikut akan dipindahkan ke sampah. Apakah Anda yakin?');"><i class="fas fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                                 @endforeach

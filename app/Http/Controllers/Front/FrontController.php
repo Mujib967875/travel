@@ -24,12 +24,14 @@ use App\Models\PackageAmenity;
 use App\Models\Amenity;
 use App\Mail\Websitemail;
 use App\Models\PackageFaq;
+use App\Models\HomeItem;
 use App\Models\PackageItinerary;
 use App\Models\PackagePhoto;
 use App\Models\PackageVideo;
 use App\Models\Tour;
 use App\Models\Booking;
 use App\Models\Wishlist;
+use App\Models\Subscriber;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
@@ -48,9 +50,9 @@ class FrontController extends Controller
         $welcome_item = WelcomeItem::where('id', 1)->first();
         $counter = CounterItem::where('id', 1)->first();
         $packages = Package::with('destination', 'package_amenities', 'package_itineraries', 'tours', 'reviews')->orderBy('id', 'desc')->get()->take(3);
-        // $home_item = HomeItem::where('id', 1)->first();
+        $home_item = HomeItem::find( 1);
 
-        return view('front.home', compact('sliders', 'welcome_item', 'features', 'testimonials', 'faqs', 'posts', 'destinations', 'packages', 'counter'));
+        return view('front.home', compact('sliders', 'welcome_item', 'features', 'testimonials', 'faqs', 'posts', 'destinations', 'packages', 'counter','home_item'));
     }
     public function about()
     {
@@ -58,6 +60,43 @@ class FrontController extends Controller
         $counter = CounterItem::where('id', 1)->first();
         $features = Feature::get();
         return view('front.about', compact('welcome_item', 'features', 'counter'));
+    }
+
+    public function subscriber_submit(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|unique:subscribers,email',
+        ]);
+
+        $token = hash('sha256', time());
+
+        $obj = new Subscriber();
+        $obj->email = $request->email;
+        $obj->token = $token;
+        $obj->status = 'Pending';
+        $obj->save();
+
+        $verification_link = route('subscriber_verify', ['email' => $request->email, 'token' => $token]);
+
+        $subject = 'Subscriber Verification';
+        $message = 'Please click the following link to verify your email address:<br><a href="' . $verification_link . '">Verify Email</a>';
+
+        Mail::to($request->email)->send(new Websitemail($subject, $message));
+
+        return redirect()->back()->with('success', 'Thank you for subscribing. Please check your email for confirm verification.');
+    }
+
+    public function subscriber_verify($email, $token)
+    {
+        $subscriber = Subscriber::where('email', $email)->where('token', $token)->first();
+        if (!$subscriber) {
+            return redirect()->route('home');
+        }
+        $subscriber->token = '';
+        $subscriber->status = 'Active';
+        $subscriber->update();
+
+        return redirect()->back()->with('success', 'Your Subcribtion is successfull.');
     }
 
     public function team_members()
