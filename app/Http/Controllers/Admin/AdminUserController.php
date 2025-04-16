@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Mail;
 
 class AdminUserController extends Controller
 {
+    public function users()
+    {
+        $users = User::get();
+        return view('admin.user.users',compact('users'));
+    }
      public function message()
     {
         $messages = Message::with('user')->get();

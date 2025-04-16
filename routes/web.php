@@ -245,6 +245,7 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/reviews/delete/{id}', [AdminReviewController::class, 'delete'])->name('admin_review_delete');
 
     //User Section
+    Route::get('/users', [AdminUserController::class, 'users'])->name('admin_users');
     Route::get('/message', [AdminUserController::class, 'message'])->name('admin_message');
     Route::get('/message-detail/{id}', [AdminUserController::class, 'message_detail'])->name('admin_message_detail');
     Route::post('/message-submit/{id}', [AdminUserController::class, 'message_submit'])->name('admin_message_submit');
