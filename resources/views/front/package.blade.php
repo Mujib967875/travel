@@ -41,8 +41,8 @@
 
 
                     <div class="price">
-                        ${{ $package->price }} @if ($package->price != '')
-                            <del>${{ $package->old_price }}</del>
+                        Rp{{ $package->price }} @if ($package->price != '')
+                            <del>Rp{{ $package->old_price }}</del>
                         @endif
                     </div>
                     <div class="person">
@@ -533,7 +533,7 @@
                                                                     <label for=""><b>Total</b></label>
                                                                     <input type="text" name=""
                                                                         class="form-control" id="totalAmount"
-                                                                        value="${{ $package->price }}" disabled>
+                                                                        value="Rp{{ $package->price }}" disabled>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -547,12 +547,12 @@
                                                                         <option value="Stripe">Stripe</option>
                                                                     </select> --}}
                                                                     <div class="mb-3">
-                                                                        <div class="form-check">
+                                                                        {{-- <div class="form-check">
                                                                             <input class="form-check-input" type="radio" name="payment_method" id="midtrans" value="Midtrans">
                                                                             <label class="form-check-label" for="midtrans">
                                                                                 Non-tunai
                                                                             </label>
-                                                                        </div>
+                                                                        </div> --}}
                                                                         <div class="form-check">
                                                                             <input class="form-check-input" type="radio" name="payment_method" id="cash" value="Cash">
                                                                             <label class="form-check-label" for="cash">

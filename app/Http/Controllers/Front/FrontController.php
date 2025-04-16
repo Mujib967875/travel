@@ -25,10 +25,12 @@ use App\Models\Amenity;
 use App\Mail\Websitemail;
 use App\Models\PackageFaq;
 use App\Models\HomeItem;
+use App\Models\AboutItem;
 use App\Models\PackageItinerary;
 use App\Models\PackagePhoto;
 use App\Models\PackageVideo;
 use App\Models\Tour;
+use App\Models\ContactItem;
 use App\Models\Booking;
 use App\Models\Wishlist;
 use App\Models\Subscriber;
@@ -51,7 +53,7 @@ class FrontController extends Controller
         $counter = CounterItem::where('id', 1)->first();
         $packages = Package::with('destination', 'package_amenities', 'package_itineraries', 'tours', 'reviews')->orderBy('id', 'desc')->get()->take(3);
         $home_item = HomeItem::find( 1);
-
+        
         return view('front.home', compact('sliders', 'welcome_item', 'features', 'testimonials', 'faqs', 'posts', 'destinations', 'packages', 'counter','home_item'));
     }
     public function about()
@@ -59,7 +61,33 @@ class FrontController extends Controller
         $welcome_item = WelcomeItem::where('id', 1)->first();
         $counter = CounterItem::where('id', 1)->first();
         $features = Feature::get();
-        return view('front.about', compact('welcome_item', 'features', 'counter'));
+        $about_item = AboutItem::find( 1);
+    return view('front.about', compact('welcome_item', 'features', 'counter','about_item'));
+    }
+
+    public function contact(){
+        $contact_item = ContactItem::where('id', 1)->first();
+        return view('front.contact',compact('contact_item'));
+    }
+
+    public function contact_submit(Request $request)
+    {
+        $request->validate([
+            'name' =>'required',
+            'email' =>'required|email',
+            'comment' => 'required'
+        ]);
+
+        $admin = Admin::where('id', 1)->first();
+
+        $subject = "Contact Form";
+        $message = "<b>Name : <b><br>".$request->name."<br><br>";
+        $message .= "<b>Email : <b><br>".$request->email."<br><br>";
+        $message .= "<b>Message : <b><br>".nl2br($request->comment)."<br><br>";
+
+        Mail::to($admin->email)->send(new Websitemail($subject,$message));
+
+        return redirect()->back()->with('success', 'Your message is submitted successfully. We will contact you soon.');
     }
 
     public function subscriber_submit(Request $request)
@@ -312,7 +340,7 @@ class FrontController extends Controller
                                 'product_data' => [
                                     'name' => $package->name,
                                 ],
-                                'unit_amount' => $total_price * 100 * 16810,
+                                'unit_amount' => $total_price * 100,
                             ],
                             'quantity' => $request->total_person,
                         ],

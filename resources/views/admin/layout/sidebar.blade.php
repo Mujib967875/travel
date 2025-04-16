@@ -40,17 +40,17 @@
 
                     <li class="{{ Request::is('admin/tour/*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin_tour_index')}}"><i class="fas fa-hand-point-right"></i> <span> Tour</span></a></li>
 
-                    <li class="nav-item dropdown {{ Route::is('admin_message') || Route::is('admin_users') ? 'active' : '' }}">
+                    {{-- <li class="nav-item dropdown {{ Route::is('admin_message') || Route::is('admin_users') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-user">
                     </i><span> User Section</span></a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu"> --}}
                     {{-- <li class="{{ Route::is('admin_users') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin_users') }}"><i class="fas fa-angle-right"></i><span> Users</span></a></li> --}}
                     <li class="{{ Route::is('admin_message') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('admin_message') }}"><i
                                 class="fas fa-angle-right"></i><span>Message</span></a></li>
-                </ul>
-            </li>
+                {{-- </ul>
+            </li> --}}
 
                     <li class="{{ Route::is('admin_review_index') ? 'active' : '' }}"><a class="nav-link"
                         href="{{ route('admin_review_index') }}"><i class="far fa-grin-beam"></i>
@@ -77,16 +77,16 @@
                     <li class="{{ Route::is('admin_home_page_item_index') ? 'active' : '' }}"><a class="nav-link"
                         href="{{ route('admin_home_page_item_index') }}"><i class="fas fa-laptop-house"></i>
                         <span>Home Page Item</span></a></li>
+                   
+                        <li class="{{ Route::is('admin_about_page_item_index') ? 'active' : '' }}"><a class="nav-link"
+                        href="{{ route('admin_about_page_item_index') }}"><i class="fas fa-laptop-house"></i>
+                        <span>About Page Item</span></a></li>
+
+                        <li class="{{ Route::is('admin_contact_item_index') ? 'active' : '' }}"><a class="nav-link"
+                        href="{{ route('admin_contact_item_index') }}"><i class="fas fa-laptop-house"></i>
+                        <span>Contact Item</span></a></li>
 
                     <li class="{{ Request::is('admin/profile') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin_profile')}}"><i class="fas fa-hand-point-right"></i> <span>Profile</span></a></li>
-
-                    <li class=""><a class="nav-link" href="setting.html"><i class="fas fa-hand-point-right"></i> <span>Setting</span></a></li>
-
-                    <li class=""><a class="nav-link" href="form.html"><i class="fas fa-hand-point-right"></i> <span>Form</span></a></li>
-
-                    <li class=""><a class="nav-link" href="table.html"><i class="fas fa-hand-point-right"></i> <span>Table</span></a></li>
-
-                    <li class=""><a class="nav-link" href="invoice.html"><i class="fas fa-hand-point-right"></i> <span>Invoice</span></a></li>
 
                 </ul>
             </aside>

@@ -114,9 +114,9 @@
                                     <div class="mb-3">
                                         <label class="form-label">Testimonial Status</label>
                                         <select name="testimonial_status" class="form-select">
-                                            <option value="Show" @if ($home_items->testimonial_status == 'Show') selected @endif>Tampilan
+                                            <option value="Show" @if ($home_items->testimonial_status == 'Show') selected @endif>Show
                                             </option>
-                                            <option value="Hide" @if ($home_items->testimonial_status == 'Hide') selected @endif>Sembunyikan
+                                            <option value="Hide" @if ($home_items->testimonial_status == 'Hide') selected @endif>Hide
                                             </option>
                                         </select>
                                     </div>

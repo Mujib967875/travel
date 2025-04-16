@@ -234,7 +234,7 @@
     @endif
 
     @if ($home_item->testimonial_status == 'Show')
-    <div class="testimonial pt_70 pb_70" style="background-image: url({{ asset('uploads/testimonial-bg.jpg') }})">
+    <div class="testimonial pt_70 pb_70" style="background-image: url({{ asset('uploads/'.$home_item->testimonial_background) }})">
         <div class="bg"></div>
         <div class="container">
             <div class="row">
@@ -280,7 +280,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading">
-                        <h2>Testi</h2>
+                        <h2>{{ $home_item->blog_heading }}</h2>
                         <p>
                             {{ $home_item->blog_subheading }}
                         </p>
