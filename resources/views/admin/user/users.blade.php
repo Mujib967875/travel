@@ -8,9 +8,8 @@
                 <div class="section-header justify-content-between">
                     <h1>Users</h1>
                     <div class="ml-auto">
-                        <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Pengguna</a>
+                        <a href="{{ route('admin_user_create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add New</a>
                     </div>
-                    {{-- {{ route('admin_user_create') }} --}}
                 </div>
                 <div class="section-body">
                     <div class="row">
@@ -65,11 +64,9 @@
                                                         <span class="badge badge-danger">Pending</span>
                                                         @endif
                                                     </td>
-                                                    {{-- {{ route('admin_user_edit', $item->id) }} --}}
-                                                    {{-- {{ route('admin_user_delete', $item->id) }} --}}
                                                     <td class="pt_10 pb_10">
-                                                        <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                                        <a href="#" class="btn btn-danger" onClick="return confirm('Pengguna ini akan dipindahkan ke sampah. Apakah Anda yakin?');"><i class="fas fa-trash"></i></a>
+                                                        <a href="{{ route('admin_user_edit', $item->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                                        <a href="{{ route('admin_user_delete', $item->id) }}" class="btn btn-danger" onClick="return confirm('Are You Sure?');"><i class="fas fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                                 @endforeach
