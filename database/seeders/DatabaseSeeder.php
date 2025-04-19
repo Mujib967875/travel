@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call([AdminSeeder::class, WelcomeItemSeeder::class, CounterItemSeeder::class, HomeItemSeeder::class, AboutItemSeeder::class]);
-        $this->call([ContactItemSeeder::class]);
+        // $this->call([AdminSeeder::class, WelcomeItemSeeder::class, CounterItemSeeder::class, HomeItemSeeder::class, AboutItemSeeder::class, ContactItemSeeder::class, TermPrivacyItemSeeder::class]);
+        $this->call([TermPrivacyItemSeeder::class]);
         // User::factory(10)->create();
 
         // User::factory()->create([

@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2025 at 07:25 AM
--- Server version: 10.4.22-MariaDB
+-- Generation Time: Apr 19, 2025 at 02:38 PM
+-- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `about_items` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `featured_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `featured_status` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -49,11 +49,11 @@ INSERT INTO `about_items` (`id`, `featured_status`, `created_at`, `updated_at`) 
 
 CREATE TABLE `admins` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -73,7 +73,7 @@ INSERT INTO `admins` (`id`, `name`, `email`, `photo`, `password`, `token`, `crea
 
 CREATE TABLE `amenities` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -101,8 +101,8 @@ INSERT INTO `amenities` (`id`, `name`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `blog_categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -128,10 +128,10 @@ CREATE TABLE `bookings` (
   `package_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `total_person` int(11) NOT NULL,
-  `paid_amount` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_method` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `invoice_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `paid_amount` varchar(255) DEFAULT NULL,
+  `payment_method` varchar(255) DEFAULT NULL,
+  `payment_status` varchar(255) DEFAULT NULL,
+  `invoice_no` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -160,8 +160,8 @@ INSERT INTO `bookings` (`id`, `tour_id`, `package_id`, `user_id`, `total_person`
 --
 
 CREATE TABLE `cache` (
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `key` varchar(255) NOT NULL,
+  `value` mediumtext NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -172,8 +172,8 @@ CREATE TABLE `cache` (
 --
 
 CREATE TABLE `cache_locks` (
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `key` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -185,7 +185,7 @@ CREATE TABLE `cache_locks` (
 
 CREATE TABLE `contact_items` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `map_code` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `map_code` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -205,15 +205,15 @@ INSERT INTO `contact_items` (`id`, `map_code`, `created_at`, `updated_at`) VALUE
 
 CREATE TABLE `counter_items` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `item1_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `item1_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `item2_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `item2_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `item3_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `item3_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `item4_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `item4_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `item1_number` varchar(255) DEFAULT NULL,
+  `item1_text` varchar(255) DEFAULT NULL,
+  `item2_number` varchar(255) DEFAULT NULL,
+  `item2_text` varchar(255) DEFAULT NULL,
+  `item3_number` varchar(255) DEFAULT NULL,
+  `item3_text` varchar(255) DEFAULT NULL,
+  `item4_number` varchar(255) DEFAULT NULL,
+  `item4_text` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -233,20 +233,20 @@ INSERT INTO `counter_items` (`id`, `item1_number`, `item1_text`, `item2_number`,
 
 CREATE TABLE `destinations` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `language` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `currency` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `area` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `timezone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `visa_requirement` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `activity` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `best_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `health_safety` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `map` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `featured_photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `language` varchar(255) DEFAULT NULL,
+  `currency` varchar(255) DEFAULT NULL,
+  `area` varchar(255) DEFAULT NULL,
+  `timezone` varchar(255) DEFAULT NULL,
+  `visa_requirement` text DEFAULT NULL,
+  `activity` text DEFAULT NULL,
+  `best_time` text DEFAULT NULL,
+  `health_safety` text DEFAULT NULL,
+  `map` text DEFAULT NULL,
+  `featured_photo` varchar(255) DEFAULT NULL,
   `view_count` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -270,7 +270,7 @@ INSERT INTO `destinations` (`id`, `name`, `slug`, `description`, `country`, `lan
 CREATE TABLE `destination_photos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `destination_id` int(11) NOT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -298,7 +298,7 @@ INSERT INTO `destination_photos` (`id`, `destination_id`, `photo`, `created_at`,
 CREATE TABLE `destination_videos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `destination_id` int(11) NOT NULL,
-  `video` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `video` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -320,11 +320,11 @@ INSERT INTO `destination_videos` (`id`, `destination_id`, `video`, `created_at`,
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -336,8 +336,8 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `faqs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `question` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `answer` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `answer` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -360,9 +360,9 @@ INSERT INTO `faqs` (`id`, `question`, `answer`, `created_at`, `updated_at`) VALU
 
 CREATE TABLE `features` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `heading` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `heading` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -384,20 +384,20 @@ INSERT INTO `features` (`id`, `icon`, `heading`, `description`, `created_at`, `u
 
 CREATE TABLE `home_items` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `destination_heading` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `destination_subheading` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `destination_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `featured_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `package_heading` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `package_subheading` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `package_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `testimonial_heading` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `testimonial_subheading` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `testimonial_background` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `testimonial_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `blog_heading` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `blog_subheading` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `blog_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `destination_heading` text DEFAULT NULL,
+  `destination_subheading` text DEFAULT NULL,
+  `destination_status` text DEFAULT NULL,
+  `featured_status` text DEFAULT NULL,
+  `package_heading` text DEFAULT NULL,
+  `package_subheading` text DEFAULT NULL,
+  `package_status` text DEFAULT NULL,
+  `testimonial_heading` text DEFAULT NULL,
+  `testimonial_subheading` text DEFAULT NULL,
+  `testimonial_background` text DEFAULT NULL,
+  `testimonial_status` text DEFAULT NULL,
+  `blog_heading` text DEFAULT NULL,
+  `blog_subheading` text DEFAULT NULL,
+  `blog_status` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -417,8 +417,8 @@ INSERT INTO `home_items` (`id`, `destination_heading`, `destination_subheading`,
 
 CREATE TABLE `jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
   `attempts` tinyint(3) UNSIGNED NOT NULL,
   `reserved_at` int(10) UNSIGNED DEFAULT NULL,
   `available_at` int(10) UNSIGNED NOT NULL,
@@ -432,13 +432,13 @@ CREATE TABLE `jobs` (
 --
 
 CREATE TABLE `job_batches` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `total_jobs` int(11) NOT NULL,
   `pending_jobs` int(11) NOT NULL,
   `failed_jobs` int(11) NOT NULL,
-  `failed_job_ids` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `options` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `failed_job_ids` longtext NOT NULL,
+  `options` mediumtext DEFAULT NULL,
   `cancelled_at` int(11) DEFAULT NULL,
   `created_at` int(11) NOT NULL,
   `finished_at` int(11) DEFAULT NULL
@@ -475,8 +475,8 @@ CREATE TABLE `message_comments` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `message_id` int(11) NOT NULL,
   `sender_id` int(11) NOT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `comment` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `comment` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -504,7 +504,7 @@ INSERT INTO `message_comments` (`id`, `message_id`, `sender_id`, `type`, `commen
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -550,7 +550,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (35, '2025_04_14_034506_create_subscribers_table', 31),
 (36, '2025_04_14_072435_create_home_items_table', 32),
 (37, '2025_04_14_131559_create_about_items_table', 33),
-(38, '2025_04_14_151850_create_contact_items_table', 34);
+(38, '2025_04_14_151850_create_contact_items_table', 34),
+(39, '2025_04_19_032720_create_term_privacy_items_table', 35);
 
 -- --------------------------------------------------------
 
@@ -561,16 +562,16 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE `packages` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `destination_id` int(11) NOT NULL,
-  `featured_photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `banner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `map` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `featured_photo` varchar(255) DEFAULT NULL,
+  `banner` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `map` text DEFAULT NULL,
   `price` float DEFAULT NULL,
   `total_rating` int(11) NOT NULL,
   `total_score` int(11) NOT NULL,
-  `old_price` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `old_price` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -593,7 +594,7 @@ CREATE TABLE `package_amenities` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `package_id` int(11) NOT NULL,
   `amenity_id` int(11) DEFAULT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -619,8 +620,8 @@ INSERT INTO `package_amenities` (`id`, `package_id`, `amenity_id`, `type`, `crea
 CREATE TABLE `package_faqs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `package_id` int(11) NOT NULL,
-  `question` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `answer` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `question` varchar(255) DEFAULT NULL,
+  `answer` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -645,8 +646,8 @@ INSERT INTO `package_faqs` (`id`, `package_id`, `question`, `answer`, `created_a
 CREATE TABLE `package_itineraries` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `package_id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -669,7 +670,7 @@ INSERT INTO `package_itineraries` (`id`, `package_id`, `name`, `description`, `c
 CREATE TABLE `package_photos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `package_id` int(11) NOT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -697,7 +698,7 @@ INSERT INTO `package_photos` (`id`, `package_id`, `photo`, `created_at`, `update
 CREATE TABLE `package_videos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `package_id` int(11) NOT NULL,
-  `video` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `video` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -718,8 +719,8 @@ INSERT INTO `package_videos` (`id`, `package_id`, `video`, `created_at`, `update
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -732,11 +733,11 @@ CREATE TABLE `password_reset_tokens` (
 CREATE TABLE `posts` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `blog_category_id` int(11) NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `short_description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `short_description` text NOT NULL,
+  `description` text NOT NULL,
+  `photo` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -761,7 +762,7 @@ CREATE TABLE `reviews` (
   `user_id` int(11) NOT NULL,
   `package_id` int(11) NOT NULL,
   `rating` int(11) NOT NULL,
-  `comment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `comment` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -780,11 +781,11 @@ INSERT INTO `reviews` (`id`, `user_id`, `package_id`, `rating`, `comment`, `crea
 --
 
 CREATE TABLE `sessions` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `payload` longtext NOT NULL,
   `last_activity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -793,7 +794,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('Nx19VWtay4swVJVSCYIz6nBiqVFlxa15LieP9XxM', 25, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0', 'YToxMDp7czo2OiJfdG9rZW4iO3M6NDA6Ilp2MVd6MlQxcFNYaXM0RGgxQzBIdHJxN0w5WkE1dXRJU1ZiQkJVejAiO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjM3OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcGFja2FnZS9hYWEtYWFhIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MjoibG9naW5fYWRtaW5fNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTI6InRvdGFsX3BlcnNvbiI7czoxOiIxIjtzOjc6InRvdXJfaWQiO3M6MToiMyI7czoxMDoicGFja2FnZV9pZCI7czoxOiIyIjtzOjc6InVzZXJfaWQiO2k6MjU7czoxMToicGFpZF9hbW91bnQiO2k6MzAwMDA7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjU7fQ==', 1744691387);
+('sdeEMyxS2mIGu1Ww3wgYeDdyBTmEbXGgUikB3AoN', 24, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiQ2pscjg0dlNqODlaamhHTUFnV3d2SFhmcFo0TWhpZXRtSHRKTVFlZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi91c2VycyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyNDt9', 1744882045),
+('yR8Sy3siZkTjMCV1O84iXpfB3lG6USxbxBji3kHS', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoibVJFTThybTBYNE9hTnJISDJadkthUmVNanRON0F0UjlncEMxSUcyOSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi90ZXJtLXByaXZhY3ktaXRlbXMvaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUyOiJsb2dpbl9hZG1pbl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1745043801);
 
 -- --------------------------------------------------------
 
@@ -803,11 +805,11 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 
 CREATE TABLE `sliders` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `heading` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `text` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `button_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `button_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `heading` varchar(255) DEFAULT NULL,
+  `text` text DEFAULT NULL,
+  `button_text` varchar(255) DEFAULT NULL,
+  `button_link` varchar(255) DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -828,9 +830,9 @@ INSERT INTO `sliders` (`id`, `heading`, `text`, `button_text`, `button_link`, `p
 
 CREATE TABLE `subscribers` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -851,18 +853,18 @@ INSERT INTO `subscribers` (`id`, `email`, `token`, `status`, `created_at`, `upda
 
 CREATE TABLE `team_member` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `designation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `biography` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `facebook` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `twitter` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `linkedin` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `instagram` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `designation` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `biography` text DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `facebook` varchar(255) DEFAULT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `linkedin` varchar(255) DEFAULT NULL,
+  `instagram` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -875,18 +877,18 @@ CREATE TABLE `team_member` (
 
 CREATE TABLE `team_members` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `designation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `biography` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `facebook` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `twitter` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `linkedin` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `instagram` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `designation` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `biography` text DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `facebook` varchar(255) DEFAULT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `linkedin` varchar(255) DEFAULT NULL,
+  `instagram` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -904,15 +906,36 @@ INSERT INTO `team_members` (`id`, `name`, `slug`, `designation`, `address`, `ema
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `term_privacy_items`
+--
+
+CREATE TABLE `term_privacy_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `terms` text DEFAULT NULL,
+  `privacy` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `term_privacy_items`
+--
+
+INSERT INTO `term_privacy_items` (`id`, `terms`, `privacy`, `created_at`, `updated_at`) VALUES
+(1, '<h1>Heading Item</h1>\r\n<p style=\"font-family: \'Times New Roman\';\">Lorem ipsum dolor sit amet, ex est debet iuvaret scripserit, no graeco facilisis vix. Eam cu odio quidam antiopam, duo liber movet in. Ex has diceret nostrum legendos, ex choro apeirian nam, ridens verterem interpretaris ne eam. Ne harum deleniti pri. No civibus invenire mel, id vix doming erroribus omittantur. Et summo ridens mea, mei copiosae percipitur no. Paulo mandamus prodesset an duo, everti oblique epicurei te duo. Mei ad senserit evertitur. Sed dictas dissentiet id, est iudico salutandi eloquentiam no. Sea ei sonet ornatus interpretaris, quas rebum omnium cu quo. Nam oblique singulis at.</p>\r\n<p style=\"font-family: \'Times New Roman\';\">Omnes virtute ceteros est at, sale equidem eos ne. Ei eam populo iisque maluisset, id docendi dissentias mel, an impetus antiopam deterruisset nam. Dicat argumentum nec te, eu debitis tincidunt neglegentur vix. An nec sensibus appellantur. Mei postea periculis no, nihil copiosae rationibus eu per. Vis timeam admodum ne. Mea ea vide suavitate. An invenire iracundia vim.</p>\r\n<h2>Heading Item</h2>\r\n<p style=\"font-family: \'Times New Roman\';\">Lorem ipsum dolor sit amet, ex est debet iuvaret scripserit, no graeco facilisis vix. Eam cu odio quidam antiopam, duo liber movet in. Ex has diceret nostrum legendos, ex choro apeirian nam, ridens verterem interpretaris ne eam. Ne harum deleniti pri. No civibus invenire mel, id vix doming erroribus omittantur. Et summo ridens mea, mei copiosae percipitur no. Paulo mandamus prodesset an duo, everti oblique epicurei te duo. Mei ad senserit evertitur. Sed dictas dissentiet id, est iudico salutandi eloquentiam no. Sea ei sonet ornatus interpretaris, quas rebum omnium cu quo. Nam oblique singulis at.</p>\r\n<p style=\"font-family: \'Times New Roman\';\">Omnes virtute ceteros est at, sale equidem eos ne. Ei eam populo iisque maluisset, id docendi dissentias mel, an impetus antiopam deterruisset nam. Dicat argumentum nec te, eu debitis tincidunt neglegentur vix. An nec sensibus appellantur. Mei postea periculis no, nihil copiosae rationibus eu per. Vis timeam admodum ne. Mea ea vide suavitate. An invenire iracundia vim.</p>\r\n<h3>Heading Item</h3>\r\n<p style=\"font-family: \'Times New Roman\';\">Lorem ipsum dolor sit amet, ex est debet iuvaret scripserit, no graeco facilisis vix. Eam cu odio quidam antiopam, duo liber movet in. Ex has diceret nostrum legendos, ex choro apeirian nam, ridens verterem interpretaris ne eam. Ne harum deleniti pri. No civibus invenire mel, id vix doming erroribus omittantur. Et summo ridens mea, mei copiosae percipitur no. Paulo mandamus prodesset an duo, everti oblique epicurei te duo. Mei ad senserit evertitur. Sed dictas dissentiet id, est iudico salutandi eloquentiam no. Sea ei sonet ornatus interpretaris, quas rebum omnium cu quo. Nam oblique singulis at.</p>\r\n<p style=\"font-family: \'Times New Roman\';\">Omnes virtute ceteros est at, sale equidem eos ne. Ei eam populo iisque maluisset, id docendi dissentias mel, an impetus antiopam deterruisset nam. Dicat argumentum nec te, eu debitis tincidunt neglegentur vix. An nec sensibus appellantur. Mei postea periculis no, nihil copiosae rationibus eu per. Vis timeam admodum ne. Mea ea vide suavitate. An invenire iracundia vim.</p>', '<h1>Heading Item</h1>\r\n<p style=\"font-family: \'Times New Roman\';\">Lorem ipsum dolor sit amet, ex est debet iuvaret scripserit, no graeco facilisis vix. Eam cu odio quidam antiopam, duo liber movet in. Ex has diceret nostrum legendos, ex choro apeirian nam, ridens verterem interpretaris ne eam. Ne harum deleniti pri. No civibus invenire mel, id vix doming erroribus omittantur. Et summo ridens mea, mei copiosae percipitur no. Paulo mandamus prodesset an duo, everti oblique epicurei te duo. Mei ad senserit evertitur. Sed dictas dissentiet id, est iudico salutandi eloquentiam no. Sea ei sonet ornatus interpretaris, quas rebum omnium cu quo. Nam oblique singulis at.</p>\r\n<p style=\"font-family: \'Times New Roman\';\">Omnes virtute ceteros est at, sale equidem eos ne. Ei eam populo iisque maluisset, id docendi dissentias mel, an impetus antiopam deterruisset nam. Dicat argumentum nec te, eu debitis tincidunt neglegentur vix. An nec sensibus appellantur. Mei postea periculis no, nihil copiosae rationibus eu per. Vis timeam admodum ne. Mea ea vide suavitate. An invenire iracundia vim.</p>\r\n<h2>Heading Item</h2>\r\n<p style=\"font-family: \'Times New Roman\';\">Lorem ipsum dolor sit amet, ex est debet iuvaret scripserit, no graeco facilisis vix. Eam cu odio quidam antiopam, duo liber movet in. Ex has diceret nostrum legendos, ex choro apeirian nam, ridens verterem interpretaris ne eam. Ne harum deleniti pri. No civibus invenire mel, id vix doming erroribus omittantur. Et summo ridens mea, mei copiosae percipitur no. Paulo mandamus prodesset an duo, everti oblique epicurei te duo. Mei ad senserit evertitur. Sed dictas dissentiet id, est iudico salutandi eloquentiam no. Sea ei sonet ornatus interpretaris, quas rebum omnium cu quo. Nam oblique singulis at.</p>\r\n<p style=\"font-family: \'Times New Roman\';\">Omnes virtute ceteros est at, sale equidem eos ne. Ei eam populo iisque maluisset, id docendi dissentias mel, an impetus antiopam deterruisset nam. Dicat argumentum nec te, eu debitis tincidunt neglegentur vix. An nec sensibus appellantur. Mei postea periculis no, nihil copiosae rationibus eu per. Vis timeam admodum ne. Mea ea vide suavitate. An invenire iracundia vim.</p>\r\n<h3>Heading Item</h3>\r\n<p style=\"font-family: \'Times New Roman\';\">Lorem ipsum dolor sit amet, ex est debet iuvaret scripserit, no graeco facilisis vix. Eam cu odio quidam antiopam, duo liber movet in. Ex has diceret nostrum legendos, ex choro apeirian nam, ridens verterem interpretaris ne eam. Ne harum deleniti pri. No civibus invenire mel, id vix doming erroribus omittantur. Et summo ridens mea, mei copiosae percipitur no. Paulo mandamus prodesset an duo, everti oblique epicurei te duo. Mei ad senserit evertitur. Sed dictas dissentiet id, est iudico salutandi eloquentiam no. Sea ei sonet ornatus interpretaris, quas rebum omnium cu quo. Nam oblique singulis at.</p>\r\n<p style=\"font-family: \'Times New Roman\';\">Omnes virtute ceteros est at, sale equidem eos ne. Ei eam populo iisque maluisset, id docendi dissentias mel, an impetus antiopam deterruisset nam. Dicat argumentum nec te, eu debitis tincidunt neglegentur vix. An nec sensibus appellantur. Mei postea periculis no, nihil copiosae rationibus eu per. Vis timeam admodum ne. Mea ea vide suavitate. An invenire iracundia vim.</p>', '2025-04-18 20:49:12', '2025-04-18 23:23:21');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `testimonials`
 --
 
 CREATE TABLE `testimonials` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `designation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `comment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `designation` varchar(255) DEFAULT NULL,
+  `comment` text DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -935,10 +958,10 @@ INSERT INTO `testimonials` (`id`, `name`, `designation`, `comment`, `photo`, `cr
 CREATE TABLE `tours` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `package_id` int(11) NOT NULL,
-  `tour_start_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tour_end_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `booking_end_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `total_seat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tour_start_date` varchar(255) DEFAULT NULL,
+  `tour_end_date` varchar(255) DEFAULT NULL,
+  `booking_end_date` varchar(255) DEFAULT NULL,
+  `total_seat` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -960,18 +983,18 @@ INSERT INTO `tours` (`id`, `package_id`, `tour_start_date`, `tour_end_date`, `bo
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `zip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '0=pending, 1=active, 2=suspended',
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `zip` varchar(255) DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT '0' COMMENT '0=pending, 1=active, 2=suspended',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -981,7 +1004,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `photo`, `password`, `phone`, `country`, `address`, `state`, `city`, `zip`, `token`, `status`, `created_at`, `updated_at`) VALUES
-(22, 'lasttest', 'lasttest@gmail.com', '1741444611.jpg', '$2y$12$Spt3M6/ZEDpyU9LZvW3J9ui0Blmz//zOdAE3wCWEKvT7.eG4V..bK', '083128319917', 'Indonesia', '04,ABC Street', 'NYC', 'NYC', '91281', '', '1', '2025-03-07 03:52:10', '2025-03-08 07:40:06'),
+(22, 'jeon wonwoo', 'wonu@gmail.com', '1741444611.jpg', '$2y$12$Whvkrk7IAhRUTtt/AxUhSe9iVRg6RAUCZ8dSJhX5K1gQCZPPC6NKu', '083128319917', 'korea selatan', '04,ABC Street', 'NYC', 'NYC', '91281', '', '1', '2025-03-07 03:52:10', '2025-04-17 02:27:25'),
 (24, 'Smit', 'smit@gmail.com', NULL, '$2y$12$7ZVYCu/sTxXSiVdp1yBk5OmN5wjuK4FsGRX47p1501K23sTxXuY5a', NULL, NULL, NULL, NULL, NULL, NULL, '', '1', '2025-04-10 02:32:16', '2025-04-10 02:32:27'),
 (25, 'Mujib', 'mujib@gmail.com', NULL, '$2y$12$FPqeNZJKXIzaHyge4gPnwOLmdtN2Ch7tfVvfVDgpY/ujQRSwtKIZq', NULL, NULL, NULL, NULL, NULL, NULL, '06190f069dfb3cf2b9b646da49bfa5eba26a313ed6eec22b50dcb8f46530b0f9', '1', '2025-04-14 19:22:09', '2025-04-14 19:22:09');
 
@@ -993,13 +1016,13 @@ INSERT INTO `users` (`id`, `name`, `email`, `photo`, `password`, `phone`, `count
 
 CREATE TABLE `welcome_items` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `heading` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `button_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `button_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `video` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `heading` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `button_text` varchar(255) DEFAULT NULL,
+  `button_link` varchar(255) DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `video` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1030,7 +1053,8 @@ CREATE TABLE `wishlists` (
 --
 
 INSERT INTO `wishlists` (`id`, `user_id`, `package_id`, `created_at`, `updated_at`) VALUES
-(3, 22, 2, '2025-04-13 08:02:54', '2025-04-13 08:02:54');
+(3, 22, 2, '2025-04-13 08:02:54', '2025-04-13 08:02:54'),
+(5, 24, 2, '2025-04-17 02:11:59', '2025-04-17 02:11:59');
 
 --
 -- Indexes for dumped tables
@@ -1252,6 +1276,12 @@ ALTER TABLE `team_members`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `term_privacy_items`
+--
+ALTER TABLE `term_privacy_items`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `testimonials`
 --
 ALTER TABLE `testimonials`
@@ -1392,7 +1422,7 @@ ALTER TABLE `message_comments`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `packages`
@@ -1467,6 +1497,12 @@ ALTER TABLE `team_members`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `term_privacy_items`
+--
+ALTER TABLE `term_privacy_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `testimonials`
 --
 ALTER TABLE `testimonials`
@@ -1482,7 +1518,7 @@ ALTER TABLE `tours`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `welcome_items`
@@ -1494,7 +1530,7 @@ ALTER TABLE `welcome_items`
 -- AUTO_INCREMENT for table `wishlists`
 --
 ALTER TABLE `wishlists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

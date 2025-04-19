@@ -6,7 +6,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header justify-content-between">
-                <h1>Ubah Ketentuan Penggunaan & Kebijakan Privasi</h1>
+                <h1>Edit Term and Privacy Item</h1>
             </div>
             <div class="section-body">
                 <div class="row">
@@ -17,18 +17,18 @@
                                     method="post">
                                     @csrf
                                     <div class="mb-3">
-                                        <label class="form-label">Ketentuan Penggunaan *</label>
+                                        <label class="form-label">Term of Use *</label>
                                         <textarea name="terms" class="form-control editor" cols="30" rows="10">{{ $term_privacy_item->terms }}</textarea>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label">Kebijakan Privasi *</label>
+                                        <label class="form-label">Privacy Policy *</label>
                                         <textarea name="privacy" class="form-control editor" cols="30" rows="10">{{ $term_privacy_item->privacy }}</textarea>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label"></label>
-                                        <button type="submit" class="btn btn-primary">Perbarui</button>
+                                        <button type="submit" class="btn btn-primary">Update</button>
                                     </div>
                                 </form>
                             </div>

@@ -86,6 +86,10 @@
                         href="{{ route('admin_contact_item_index') }}"><i class="fas fa-laptop-house"></i>
                         <span>Contact Item</span></a></li>
 
+                        <li class="{{ Route::is('admin_term_privacy_item_index') ? 'active' : '' }}"><a class="nav-link"
+                            href="{{ route('admin_term_privacy_item_index') }}"><i class="fas fa-user-secret"></i>
+                            <span>Term & Privacy Page Item</span></a></li>
+
                     <li class="{{ Request::is('admin/profile') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin_profile')}}"><i class="fas fa-hand-point-right"></i> <span>Profile</span></a></li>
 
                 </ul>

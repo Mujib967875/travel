@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\AdminHomeItemController;
 use App\Http\Controllers\Admin\AdminAboutItemController;
 use App\Http\Controllers\Admin\AdminContactController;
+use App\Http\Controllers\Admin\AdminTermPrivacyItemController;
 
 
 use App\Http\Controllers\Front\FrontController;
@@ -48,6 +49,8 @@ Route::post('/review/submit', [FrontController::class, 'review_submit'])->name('
 Route::get('/wishlist/{package_id}', [FrontController::class, 'wishlist'])->name('wishlist');
 Route::post('/subscriber-submit', [FrontController::class, 'subscriber_submit'])->name('subscriber_submit');
 Route::get('/subscriber-verify/{email}/{token}', [FrontController::class, 'subscriber_verify'])->name('subscriber_verify');
+Route::get('/term-of-use', [FrontController::class, 'terms'])->name('terms');
+Route::get('/privacy-policy', [FrontController::class, 'privacy'])->name('privacy');
 
 
 //payment
@@ -269,11 +272,15 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     
     // About Items Section
     Route::get('/about-page-items/index', [AdminAboutItemController::class, 'index'])->name('admin_about_page_item_index');
-    Route::post('/about-item/update', [AdminAboutItemController::class, 'update'])->name('admin_about_page_item_update');
+    Route::post('/about-item/update', [AdminAboutItemController::class, 'update'])->name('admin_about_item_update');
 
     // Contact Items Section
     Route::get('/contact-page-items/index', [AdminContactController::class, 'index'])->name('admin_contact_item_index');
     Route::post('/contact-item/update', [AdminContactController::class, 'update'])->name('admin_contact_item_update');
+
+    // Term Privacy Items Section
+    Route::get('/term-privacy-items/index', [AdminTermPrivacyItemController::class, 'index'])->name('admin_term_privacy_item_index');
+    Route::post('/term-privacy-item/update', [AdminTermPrivacyItemController::class, 'update'])->name('admin_term_privacy_item_update');
 }); 
 
 Route::prefix('admin')->group(function () {
